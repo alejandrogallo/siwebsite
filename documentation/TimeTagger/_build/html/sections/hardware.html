@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hardware &mdash; Time Tagger 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Time Tagger 1.0 documentation" href="../index.html"/>
+        <link rel="next" title="Software Overview" href="software.html"/>
+        <link rel="prev" title="Getting Started" href="gettingStarted.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Time Tagger</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#windows-users">Windows users</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#windows-users">Windows users</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Hardware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-channels">Input channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-connection">Data connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#status-leds">Status LEDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-signal">Test signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-channels">Virtual channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synthetic-input-delay">Synthetic input delay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synthetic-dead-time">Synthetic dead time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#event-filter">Event filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bin-equilibration">Bin equilibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overflows">Overflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-purpose-io-available-upon-request">General purpose IO (available upon request)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#web-application-and-json-rpc-interface">Web application and JSON-RPC interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#precompiled-libraries-and-high-level-language-bindings">Precompiled libraries and high level language bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#c-api">C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#organization">Organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#the-timetagger-class">The TimeTagger class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#measurement-classes">Measurement Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#defining-custom-measurements-by-subclassing-iterator">Defining custom measurements by subclassing Iterator</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Time Tagger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Hardware</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="hardware">
+<h1>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="input-channels">
+<h2>Input channels<a class="headerlink" href="#input-channels" title="Permalink to this headline">¶</a></h2>
+<p>The <em>TimeTagger 20</em> has 8 SMA connectorized input channels numbered 0 to 7 throughout this document. The electrical
+characteristics are tabulated below. Both rising and falling edges are detected on the input channels.
+On the software level, rising edges correspond to channel numbers 0 to 7 and falling edges correspond to
+respective channel numbers 8 to 15. Thereby, you can treat rising and falling edges in a fully equivalent fashion.</p>
+<div class="section" id="electrical-characteristics">
+<h3>Electrical characteristics<a class="headerlink" href="#electrical-characteristics" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Termination</td>
+<td>50  Ω</td>
+</tr>
+<tr class="row-odd"><td>Input voltage range</td>
+<td>0 to 5 V</td>
+</tr>
+<tr class="row-even"><td>Trigger level range</td>
+<td>0 to 3.3 V</td>
+</tr>
+<tr class="row-odd"><td>Minimum signal level</td>
+<td>~50 mV</td>
+</tr>
+<tr class="row-even"><td>Minimum pulse width</td>
+<td>~1 ns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="data-connection">
+<h2>Data connection<a class="headerlink" href="#data-connection" title="Permalink to this headline">¶</a></h2>
+<p>A USB connection is used for data and power supply. Please ensure that the USB port is capable of providing the full
+specified current (500 mA). A USB 2.0 data connection is required for reasonable performance. Operating the device via
+a USB hub is strongly discouraged. The <em>TimeTagger 20</em> can stream about 5 M tags per second.</p>
+</div>
+<div class="section" id="status-leds">
+<h2>Status LEDs<a class="headerlink" href="#status-leds" title="Permalink to this headline">¶</a></h2>
+<p>The <em>TimeTagger 20</em> has two LEDs showing status information. A green LED turns on when the USB power is connected.
+An RGB LED shows the information tabulated below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>green</td>
+<td>firmware loaded</td>
+</tr>
+<tr class="row-even"><td>blinking green-orange</td>
+<td>time tags are streaming</td>
+</tr>
+<tr class="row-odd"><td>red flash (0.1 s)</td>
+<td>an overflow occurred</td>
+</tr>
+<tr class="row-even"><td>continuous red</td>
+<td>repeated overflows</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="test-signal">
+<h2>Test signal<a class="headerlink" href="#test-signal" title="Permalink to this headline">¶</a></h2>
+<p>The <em>TimeTagger 20</em> has a built in test signal generator that
+generates a square wave with a frequency in the range 0.9 to 1.0 MHz.
+You can apply the test signal to any input channel instead of the
+external input. This is useful for testing, calibrating and setting up,</p>
+</div>
+<div class="section" id="virtual-channels">
+<h2>Virtual channels<a class="headerlink" href="#virtual-channels" title="Permalink to this headline">¶</a></h2>
+<p>The architecture allows you to create virtual channels, e.g.,
+you can create a new channel that represents the sum of two channels (logical OR),
+or coincidence clicks of two channels (logical AND).</p>
+</div>
+<div class="section" id="synthetic-input-delay">
+<h2>Synthetic input delay<a class="headerlink" href="#synthetic-input-delay" title="Permalink to this headline">¶</a></h2>
+<p>You can introduce for each channel an input delay. This is useful
+e.g. to compensate for propagation delay in cables of unequal length,
+if the relative timing between two channels is important. The input delay
+can be set individually for rising and for falling edges.</p>
+</div>
+<div class="section" id="synthetic-dead-time">
+<h2>Synthetic dead time<a class="headerlink" href="#synthetic-dead-time" title="Permalink to this headline">¶</a></h2>
+<p>You can introduce for each channel a synthetic dead time. This is useful
+when you want to suppress consecutive clicks that are closely separated,
+e.g., to suppress after-pulsing of avalanche photo diodes or to suppress too
+high data rates. The dead time can be set individually for rising and for falling edges.</p>
+</div>
+<div class="section" id="event-filter">
+<h2>Event filter<a class="headerlink" href="#event-filter" title="Permalink to this headline">¶</a></h2>
+<p>In a typical fluorescence lifetime application, a target is stimulated with laser pulses with
+a fast repetition rate, typically in the range 10 - 100 MHz. Electrical synchronization pulses
+are generated that are simultaneous with the excitation laser pulses and are sent to
+the <em>TimeTagger 20</em> on one channel, while single photon clicks emitted from the target are sent to another channel.
+Because the data rate of the synchronization pulses is so high, streaming and processing all generated
+time tags by the computer is not possible - and not necessary, since only those synchronization
+pulses are of interest that are followed by a photon event. It is therefore desirable
+to discard all synchronization time tags in the data stream except those that are followed by a photon.
+Since the synchronization pulses are periodic with a very well defined period, it is equivalent
+to keep only those synchronization time tags that are {em preceded} by a photon.</p>
+<p>This feature is implemented by an event filter that is currently hardcoded between
+channel 0 and channel 7. It is assumed that photon clicks are entering channel 0 and laser sync clicks
+are entering channel 7. When the filter is active, time tags on channel 7 are only passed
+if a time tag has been registered on channel 0 before. Subsequent tags are discarded until the next
+tag on channel 0 is detected.</p>
+<p>This filter is all you need to perform fluorescence lifetime measurements and fluorescence lifetime imaging.
+If you are interested in event filters with more complex logic, please contact us for custom designs.</p>
+</div>
+<div class="section" id="bin-equilibration">
+<h2>Bin equilibration<a class="headerlink" href="#bin-equilibration" title="Permalink to this headline">¶</a></h2>
+<p>Discretization of electrical signals is never perfect. In time-to-digital conversion, this is manifest
+as small differences (few ps) of the bin sizes inside the converter that even varies from chip to chip.
+This imperfection is inheret to any time-to-digital conversion hardware.
+It is usually not apperent to the user. However, when correlations between two channels are measured on short
+time scales you might see this as a weak periodic ripple ontop of your signal.
+If you wish to turn off this ripple, you can enable an equilibration of the bin sizes
+at the cost of a decrease of the time resolution by <img class="math" src="../_images/math/f8117cd5193e9c43e4cac4a86cc0298690ef3f79.png" alt="\sqrt{2}"/>. This feature is disabled by default.</p>
+</div>
+<div class="section" id="overflows">
+<h2>Overflows<a class="headerlink" href="#overflows" title="Permalink to this headline">¶</a></h2>
+<p>Data rates are never infinite. The <em>TimeTagger 20</em> is capable of streaming about 5 M tags per second,
+At higher rates, data loss occurs and parts of the time tags are lost. The hardware allows you
+to check whether an overflow condition has occured. If no overflow occurrs,
+you can be sure that every time tag is received.</p>
+</div>
+<div class="section" id="general-purpose-io-available-upon-request">
+<h2>General purpose IO (available upon request)<a class="headerlink" href="#general-purpose-io-available-upon-request" title="Permalink to this headline">¶</a></h2>
+<p>The device is ready to be equipped with up to four SMA connectorized general purpose IO ports and an external clock input or output.
+These can be used to implement custom features such as special fast input or output triggers, enable / disable gates,
+software controllable input and output lines, etc.. Please contact us for custom designs.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="software.html" class="btn btn-neutral float-right" title="Software Overview"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gettingStarted.html" class="btn btn-neutral" title="Getting Started"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Swabian Instruments.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

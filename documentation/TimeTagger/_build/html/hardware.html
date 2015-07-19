@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hardware &mdash; Time Tagger 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Time Tagger 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Software generalities" href="software.html"/>
+        <link rel="prev" title="Getting Started" href="gettingStarted.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Time Tagger
+        
+
+        
+          
+          <img src="_static/logo_transparent.png" class="logo" />
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#windows-users">Windows users</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#windows-users">Windows users</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Hardware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-connection">Data connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-channels">Input channels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#electrical-characteristics">Electrical characteristics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#laser-synchronization-filter">Laser synchronization filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-purpose-io-available-upon-request">General purpose IO (available upon request)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software generalities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#web-application-and-json-rpc-interface">Web application and JSON-RPC interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#precompiled-libraries-and-high-level-language-bindings">Precompiled libraries and high level language bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#c-api">C++ API</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Time Tagger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Hardware</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="hardware">
+<h1>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-connection">
+<h2>Data connection<a class="headerlink" href="#data-connection" title="Permalink to this headline">¶</a></h2>
+<p>A USB connection is used for data and power supply. Please ensure that the USB port is capable of providing the full
+specified current (500 mA). A USB 2.0 data connection is required for reasonable performance. Operating the device via
+a USB hub is strongly discouraged.</p>
+</div>
+<div class="section" id="input-channels">
+<h2>Input channels<a class="headerlink" href="#input-channels" title="Permalink to this headline">¶</a></h2>
+<p>The TimeTagger has 8 SMA connectorized input channels numbered 0 to 7 throughout this document. The electrical
+characteristics are tabulated below. Both rising and falling edges are detected on the input channels.
+On the software level, rising edges correspond to channel numbers 0 to 7 and falling edges correspond to
+respective channel numbers 8 to 15. Thereby, you can treat rising and falling edges in a fully equivalent fashion.</p>
+<div class="section" id="electrical-characteristics">
+<h3>Electrical characteristics<a class="headerlink" href="#electrical-characteristics" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Termination</td>
+<td>50  Ω</td>
+</tr>
+<tr class="row-odd"><td>Input voltage range</td>
+<td>0 to 5 V</td>
+</tr>
+<tr class="row-even"><td>Trigger level range</td>
+<td>0 to 3.3 V</td>
+</tr>
+<tr class="row-odd"><td>Minimum signal level</td>
+<td>~30 mV</td>
+</tr>
+<tr class="row-even"><td>Minimum pulse width</td>
+<td>~1 ns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="laser-synchronization-filter">
+<h2>Laser synchronization filter<a class="headerlink" href="#laser-synchronization-filter" title="Permalink to this headline">¶</a></h2>
+<p>In a typical fluorescence lifetime application, a target is stimulated with laser pulses with
+a fast repetition rate, typically in the 10 to 100 MHz range. Electrical synchronization pulses
+are generated that are simultaneous with the excitation laser pulses and are sent to
+the TimeTagger along with the single photon signals detected from the target. Because the
+data rate of the synchronization pulses is so high, streaming and processing all generated
+time tags by the computer is not feasible - and not necessary, since only those synchronization
+pulses are of interest that are followed by a photon event. It is therefore desirable
+to discard all synchronization time tags in the data stream except those that are followed by a photon.
+Since the synchronization pulses are periodic with a very well defined period, it is equivalent
+to keep only those synchronization time tags that follow a photon.</p>
+<p>This feature is implemented by the onboard event filter that is currently hardcoded between
+channel 0 and channel 7. It is assumed that photon clicks are entering channel 0 and laser sync clicks
+are entering channel 7. When the filter is active, time tags on channel 7 are only passed
+if a time tag has been registered on channel 0 before. Subsequent tags are discarded until the next
+tag on channel 0 is detected.</p>
+</div>
+<div class="section" id="general-purpose-io-available-upon-request">
+<h2>General purpose IO (available upon request)<a class="headerlink" href="#general-purpose-io-available-upon-request" title="Permalink to this headline">¶</a></h2>
+<p>The device is ready to be equipped with up to four SMA connectorized general purpose IO ports. These can be used
+to implement custom features such as special fast input or output triggers, enable / disable gates,
+software controllable input and output lines, etc.. Please contact us for custom designs.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="software.html" class="btn btn-neutral float-right" title="Software generalities" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gettingStarted.html" class="btn btn-neutral" title="Getting Started" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Swabian Instruments.
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+
+
+
+
+
+
+
+.. image:: figures/architecture.png
+
+% figure illustrating the SCPI / web daemon
+
+TimeTagger is a versatile fully USB powered 8-channel time-to-digital converter
+with $<$60 ps resolution. It converts rising and falling edges on
+the input channels into time tags that are continuously streamed
+to a computer via USB. A software backend receives the tags and
+analyzes the data stream. Measurement threads hook onto
+the time tag stream in a parallel fashion
+and analyze the data on-the-fly. The figure above illustrates the architecture.
+A set of common measurements is readily provided by the backend, including
+counters, time traces, auto-correlation, cross-correlation and fluorescence lifetime
+imaging (FLIM). The backend interfaces with various programming
+languages, including c++, Python, Java, Matlab and Labview. In addition, the
+user can implement custom measurements via a c++ API.
+
+
+
+
+
+
+
+
+
+
+
+
+***********
+Quick Start
+***********
+
+
+... for the impatient!
+
+\subsection{Start the web application}
+
+
+#. connect the TimeTagger to a USB port
+#. wait until 'new USB device is ready to use' is displayed in the notification area
+#. run the web server from the start menu Programs $>$ TimeTagger $>$ web server
+#. start a web browser and enter 'localhost:8080' in the navigation bar
+
+A website should be displayed as shown below.
+
+
+.. image:: figures/web_application.png
+  :align: center
+
+\subsection{Starting a measurement: a count rate}
+
+
+#. click 'DEVICE' on the bottom
+#. click 'NEW COUNTRATE' on the left
+#. click 'SAVE' in the lower half
+#. click 'VIEW' in the upper half
+
+A bar plot should be displayed that shows the count rates on all channels. By default the trigger levels are set to
+0.5 V on all channels. If you have a signal connected to your TimeTagger that exceeds this level, you
+should already see the count rate of your signal. Make sure that your signals do not exceed the total data rate of
+about 4 M tags / second. If your data rate is too high the value 'overflows' in the 'DEVICE' tab will be larger than
+zero. If you have not applied a signal yet, this is a good moment to do so. We will proceed adjusting the trigger
+levels.
+
+
+.. image:: figures/countrate.png
+  :align: center
+
+\subsection{Adjusting the trigger levels}
+
+
+#. click 'SETUP TRIGGERLEVEL' on the left
+#. use the sliders to adjust the triggerlevels to your needs
+ %\item you can also enable and disable the laser synchronization filter here,
+ %e.g., if you are planning to do a fluorescence lifetime measurement. This
+ %feature is a bit subtle. When the filter is active, a time tag on channel 7 is
+ %accepted only when there has been a tag on channel 0 beforehand.
+#. click 'CLOSE' when you are done
+
+
+\subsection{Adding another measurement: a cross-correlation}
+
+
+#. click 'DEVICE' on the bottom
+#. click 'NEW CORRELATION' on the left
+#. specify the channels for your correlation measurement. The thread measures the time differences between a
+click on the 'start channel' and all subsequent clicks on the 'click channel' and accumulates them in a histogram
+#. leave the 'sequence channel' set to 'None'
+#. enter the bin width (in ps) and the number of bins to define the histogram resolution and range
+#. click 'SAVE' and 'VIEW'
+
+A line plot should be displayed that shows the cross-correlation function between the two channels you have chosen. The
+plot could look similar to the one shown below, that shows an example of a cross correlation between channel 0 and 7
+with the default settings and with square waves applied to channels 0 and 7, with frequencies of 100 kHz and 2 MHz,
+respectively, resulting in typical delta like peaks.
+
+
+.. image:: figures/crosscorrelation.png
+  :align: center
+
+
+
+
+\subsection{Save your data}
+
+
+#. click 'STOP MODULE' on the left
+#. click 'SAVE DATASET' on the left
+#. enter a name and additional information according to your needs and click 'SAVE'
+
+The data is saved in .json format, that can be easily interpreted by many 3rd party software
+tools (see http://www.json.org/).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*************
+Python module
+*************
+
+
+The python bindings are one-to-one equivalents of the C++ API. C++ <> vector
+arguments translate to python $[]$ lists. 
+
+
+
+
+
+
+
+
+
+
+
+
+****************
+Web application
+****************
+
+
+\section{Web Daemon / SCPI Interface}
+
+A web daemon is provides that enables easy access to the TimeTagger hardware and
+provides acquisition and life plotting of common measurements such as counters,
+autocorrelation and fluorescence lifetime imaging (FLIM) via a web browser
+and an SCPI interface. The web interface is designed to provide an oscilloscope-like
+experience and navigation. Refer to the API section for a detailed explanation
+of the provided measurements. The daemon is a stand-alone software piece and ready to use.
+
+% figure illustrating daemon
+% screen shot
+
+\end{document}
+
+
+

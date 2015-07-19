@@ -1,0 +1,37 @@
+.. _quickstart:
+***************
+Getting Started
+***************
+
+Windows users
+=============
+
+#. Make sure the *TimeTagger 20* software and a Python distribution are installed and the *TimeTagger 20* connected to your computer (see previous section).
+#. Open a command shell and ``cd`` to the ``..\examples\python\quickstart`` folder under your *TimeTagger 20* installation directory
+#. Start an **ipython** shell with plotting support by entering ``ipython --pylab``
+#. Run the **quickstart.py** script by entering ``run quickstart``
+
+The script demonstrates a selection of the features provided by the *TimeTagger 20* programming interface
+and runs some example measurements using the built in test signal generator and plots the result.
+
+You are encouraged to open and read the ``quickstart.py`` file in an editor to see what it is doing.
+
+Among others, the script will...
+
+#. Create an instance called 'tagger' that represents the device.
+#. Start the builtin test signal (~0.8 MHz square wave) and apply it to channels 0 a nd 1
+#. Create a time trace of the click rate on the first two channels, let it run for a while and plot the result.
+#. Create coarse and fine cross correlation measurements. The coarse measurement shows characteristic peaks at integer multiples of the inverse frequency of the test signal. The fine measurement demonstrates the < 60 ps time resolution.
+#. Show you how to create virtual channels, use synchronization, event filter and control the input trigger level.
+
+Where to go from here
+---------------------
+
+To learn more about the *TimeTagger 20* you are encouraged to consult the following resources.
+
+#. If you have not done so already, have a look at the Python script you just run.
+#. More details about the software interface are covered by the C++ API documentation in the subsequent section
+#. You are also encouraged to study the C++ source code provided in the *TimeTagger 20* install directory (released under the GPL)
+#. Code examples in ``..\examples\python\traits`` show you how to quickly implement an interactive graphical interface in python
+
+.. note:: The python GUI examples, additionally require the following python packages installed on your system: *traits, traitsui, chaco, pyface enable*.

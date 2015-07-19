@@ -1,0 +1,637 @@
+
+**********************************
+Application Programmer's Interface
+**********************************
+
+
+
+
+Overview
+========
+
+
+The API provides methods to control the hardware and to create
+measurements that are hooked onto the time tag stream. It is written in C++ but
+wrapper classes are provided in higher level languages including python and
+Java, that can directly be used in your application, in a way that is equivalent
+to the C++ classes. The API includes a set of typical measurements that will
+cover most needs. Implementation of custom measurement threads is based on
+subclassing from a C++ base class and thus is only available in the C++ API.
+
+
+API documentation
+-----------------
+
+
+The API documentation in this manual gives a general overview how to use the TimeTagger.
+More detailed information can be found in the API reference (generated with
+Doxygen).
+% ToDo path do reference
+
+
+Samples
+-------
+
+
+Often the fastest way to learn how to use an API is by means of examples. Please see the 'samples'
+subfolder of your TimeTagger installation for examples.
+
+
+Units
+-----
+
+
+Time is measured in ps since device startup and represented by 64 bit integers. Note that this
+implies that the time variable will overflow once after about 0.83 years. This
+will most likely not be relevant to you unless you plan to run your software
+continuously over one year and are taking data at the instance when the overflow is happening.
+
+
+Rising and falling edges
+------------------------
+
+
+You can use the TimeTagger to detect both rising and falling edges. Throughout
+the software API, the rising edges are represented by channels 0 to 7 and
+the falling edges are represented by channel numbers 8 to 15.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Organization
+============
+
+
+The API contains a *small* number of **classes** which you instantiate in your code.
+These **classes** are summarized below.
+
+
+TimeTagger
+  Represents the hardware and provides methods to control the trigger levels and data filter.
+Iterator 
+  Base class for implementing custom measurements.
+Countrate 
+  Average click rate on one or more channels.
+Counter 
+  Counts clicks on one or more channels with a fixed binwidth and
+  circular buffer output.
+CountBetweenMarkers 
+  Counts click on one channel where the bins are
+  determined by triggers on one or two other channels. Uses static buffer
+  output. Use this to implement a gated counter, a counter synchronized to
+  an external sampling clock, etc.
+TimeDifferences 
+  Accumulates the time differences between clicks on two
+  channels in one or more histograms. The sweeping through
+  histograms is optionally controlled by one or two additional triggers.
+Histogram 
+  A simple histogram of time differences. This can be used e.g.
+  to measure lifetime.
+Correlation 
+  auto- and cross-correlation.
+FLIM 
+  Fluorescence lifetime imaging.
+StartStop 
+  Accumulates a histogram of time difference between
+  pairs of clicks on two channels. Only the first stop click after a start click is
+  considered. Subsequent stop clicks are discarded. The Histogram length is
+  unlimited.
+
+
+.. note:: The TimeTagger class is provided in a dynamically linked library that is located in the
+  'windows/system' folder.  Measurement threads are provided as C++ source code in the
+  'api' subfolder of your TimeTagger installation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The TimeTagger class
+====================
+
+
+This class provides access to the hardware and exposes methods to control hardware settings.
+Behind the scenes it opens the USB connection, initializes the device
+and receives the time tag stream. Every measurement requires an
+instance of the TimeTagger class to which it will be associated. In a typical application
+you will perform the following steps:
+
+#. create an instance of TimeTagger
+#. use methods on the instance of TimeTagger to adjust the trigger levels
+#. create an instance of a measurement passing the instance of TimeTagger to the constructor
+
+You can use multiple TimeTaggers on one computer simultaneously. In this case, you usually want to
+associate your instance of the TimeTagger class to a physical TimeTagger. To
+implement this in a bullet proof way, TimeTagger instances must be created
+by a factory function called 'createTimeTagger'. The factory function accepts
+the serial number of a physical TimeTagger as a string argument (every
+TimeTagger has a unique hardware serial number). The serial number is the only argument that can
+be passed. If an mpty string or no argument is passed, the first detected
+TimeTagger will be used. To find out the hardware serial number, you can connect
+a single timetagger, open it and use the 'getSerial' function described below.
+
+The TimeTagger class contains a small number of methods to control the hardware settings that are summarized below.
+
+
+
+Methods
+-------
+
+
+
+setTriggerLevel()
+  set the trigger level of an input channel
+getTriggerLevel()
+  return the trigger level of an input channel
+setLineDelay()
+  set the input delay of a channel
+getLineDelay()
+  return the input delay of a channel
+setFilter()
+  enable or disable the laser synchronization filter (currently hardcoded between channel 0 and 7)
+getFilter()
+  return the state of the laser synchronization filter
+setNormalization()
+  activate or deactivate gaussian normalization of the
+  detection jitter
+getNormalization()
+  return whether input normalization is turned on
+setNormalization()
+  return whether input normalization is turned on
+getDeadTime()
+  return the dead time of a channel
+setDeadTime()
+  set the dead time of a channel
+enableCalibration()
+  apply internal test signal to a channel
+disableCalibration()
+  deactivate internal test signal on a channel
+getSerial()
+  return the hardware serial number
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Analysis threads
+================
+
+
+The TimeTagger derives its versatility from the flexible analysis threads that can be hooked
+onto the time tag stream. Any number of analysis threads can be instantiated and run in parallel in a
+multithreaded fashion. Analysis threads are derived from an 'Iterator' base class described
+further down that can be used to implement new custom analysis threads. A set of
+typical measurements has been implemented as part of the library and is also
+provided as C++ source code. These analysis threads are briefly described here.
+
+All predefined analysis threads provide a small number of methods to start and stop the excecution
+and to access the accumulated data. The methods are summarized below.
+
+
+
+Methods
+-------
+
+
+
+getData() 
+  Returns the data accumulated by the thread up to now. The returned data can be a scalar or a multi
+  dimensional array, depending on the measurement.
+clear() 
+  enable or disable the laser synchronization filter (currently hardcoded between channel 0 and 7)
+start() 
+  set the trigger level of an input channel
+stop() 
+  return the trigger level of an input channel
+
+
+.. attention:: All predefined Analysis threads start accumulating data immediately after their creation.
+
+In a typical application you will perform the following steps:
+
+#. create an instance of an anlysis thread, e.g.~a countrate on channel 0
+#. wait for some time
+#. retrieve the data accumulated by the thread up to now by calling the 'getData' method.
+
+The specific measurement threads are described below.
+
+
+Countrate
+---------
+
+
+Measures the average countrate on one or more channels. Specifically, it
+counts incoming clicks and determines the time between the first click since
+instantiation and the latest click. The ratio of the number of clicks and the
+time corresponds to the average countrate since the first click.
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+channels 
+  <vector int> channels used for counting clicks
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData()
+  returns the average countrate in counts per second.
+clear()
+  resets the accumulated clicks to zero and uses the next incoming click as the first click.
+
+
+
+Counter
+-------
+
+
+Streaming counter with specific binwidth and vector output. This class
+is suitable to generate a time trace of the countrate. Specifically
+the thread repeatedly counts clicks on a single channel over a time interval of
+length 'binwidth' and stores the results in an array of size 'bins'.
+The array is treated as a circular buffer. A new value is shifted in
+after a time given by 'binwidth'.
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+channels 
+  <vector int> channels used for counting clicks
+binwidth 
+  <longlong> binwidth in ps
+n values 
+  <int> number of values
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData() 
+  returns an array of size 'bins' containing the current values of the circular buffer
+  (counts in each bin).
+clear()
+  resets the array to zero and restarts the measurement.
+
+
+
+CountBetweenMarkers
+-------------------
+
+
+Count between hardware triggers with vector output. You can use this thread to record a line-scan (or
+two-dimensional image). Specifically, the thread counts clicks on the 'click channel'. When a click
+is detected on the marker channel it stores the current counter value as next entry in the output vector,
+resets the counter to zero and starts accumulating counts again. The thread stops when all
+entries in the output vector are filled.
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+click channel
+  channel that increases the count
+begin channel
+  channel that triggers beginning of counting and stepping to the next value
+end channel
+  channel that triggers end of counting
+n values
+  the number of values
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData() 
+  returns an array of size 'bins' containing the acquired counter values.
+clear() 
+  resets the array to zero and restarts the measurement.
+ready() 
+  returns 'true' when the entire array is filled.
+
+
+
+TimeDifferences
+---------------
+
+
+Accumulates the time differences between clicks on two channels in one or more histograms.
+Useful to perform auto- and cross-correlation measurements and more general
+time-difference measurements between two channels.
+Specifically, the thread waits for a click on the 'start channel', then measures the
+time difference between the start click and all subsequent clicks on the 'click channel'
+and stores them in a histogram. The histogram has a number of 'bins'
+bins of binwidth 'binwidth'. Clicks that fall outside the histogram range are discarded.
+Data accumulation is performed independently for all start clicks. This type of measurement is frequently refered to as
+'single start, multiple stop' measurement and corresponds to a full auto- or cross-correlation measurement.
+
+The data obtained from subsequent start clicks can be accumulated into the same histogram (one-dimensional measurement)
+or into different histograms (two-dimensional measurement). In this way you can perform more general two-dimensional
+time-difference measurements. The parameter 'histograms' specifies the number of histograms. After each click
+on the start channel, the histogram index is incremented by one (and reset to zero after a number of 'histograms'
+start clicks have been received. You can also provide a synchronization trigger that resets the histogram index by
+specifying a channel number as argument 'sync channel'.
+
+Typically, you will run the measurement indefinitely until stopped by the user. However, it is also possible to
+specify the number of start clicks. In this case the measurement stops itself when the number of start clicks
+has reached the specified value. In case of a two-dimensional measurement, it will measure until every histogram
+has a seen the specified number of start clicks.
+
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+
+
+click channel 
+  channel that increments the count in a bin
+start channel 
+  channel that sets start times relative to which clicks on the click channel are measured
+next channel 
+  channel that increments the histogram index
+sync channel 
+  channel that resets the histogram index to zero
+binwidth 
+  binwidth in ps
+n bins 
+  number of bins in each histogram
+n histograms 
+  number of histograms
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData()
+  returns a two-dimensional array of size 'bins' times 'histograms' containing the histograms.
+clear()
+  resets the array to zero.
+setMaxCounts()
+  set the maximum number of start clicks accepted
+getCounts()
+  returns the number of start clicks
+ready()
+  returns 'true' when the required number of start clicks set by 'setMaxCounts' has been reached
+
+
+
+Correlation
+-----------
+
+
+Accumulates time differences between clicks on two channels into
+a histogram, where all ticks are considered both as start and stop
+clicks and both positive and negative time differences are considered.
+The histogram is determined by the number of bins and the binwidth, which
+are used both for the positive and the negative histogram range (i.e.,
+length of the histogram is 2$*$n bins$+$1).
+
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+channel 1
+  first click channel
+channel 2
+  second click channel
+binwidth
+  binwidth in ps
+n bins
+  the number of bins in the resulting histogram is 2$*$n bins$+$1
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData() 
+  returns a two-dimensional array of size 'bins' times 'histograms' containing the histograms.
+clear() 
+  resets the array to zero.
+setMaxCounts() 
+  set the maximum number of start clicks accepted
+getCounts() 
+  returns the number of start clicks
+ready() 
+  returns 'true' when the required number of start clicks set by 'setMaxCounts' has been reached
+
+
+
+
+FLIM
+----
+
+
+Fluorescence lifetime imaging. Specifically, the thread performs a single-start-multiple-stop measurement
+and accumulates the time differences into a histogram with specified binwidth and number of bins. The condition
+for moving to the next pixel can either be a pixel trigger on a third channel or a predefined accumulation
+time per pixel. After accumulating a number of 'pixels' histograms, the measurement stops. This measurement
+is also useful to record cross-correlation on multiple pixels.
+
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+click channel 
+  channel that increments the count in a bin
+start channel 
+  channel that sets start times relative to which clicks on the click channel are measured
+next channel 
+  channel that increments the histogram index
+binwidth 
+  binwidth in ps
+n bins 
+  number of bins in each histogram
+n histograms 
+  number of histograms
+
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData() 
+  returns a two-dimensional array of size 'pixels' times 'bins' containing the histograms.
+clear() 
+  resets the array to zero.
+ready() 
+  returns 'true' when the measurement is ready
+
+
+
+Dump
+----
+
+
+Dump the time tag stream to a file in a binary format.
+
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+filename 
+  name of the file to dump to
+
+
+
+
+
+Methods
+^^^^^^^
+
+
+stop()
+  stop the thread
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Defining custom analysis threads by subclassing Iterator
+=========================================================
+
+
+The information will be provided shortly.
+
+

@@ -1,0 +1,136 @@
+
+********
+Hardware
+********
+
+
+Input channels
+==============
+
+The *TimeTagger 20* has 8 SMA connectorized input channels numbered 0 to 7 throughout this document. The electrical
+characteristics are tabulated below. Both rising and falling edges are detected on the input channels.
+On the software level, rising edges correspond to channel numbers 0 to 7 and falling edges correspond to
+respective channel numbers 8 to 15. Thereby, you can treat rising and falling edges in a fully equivalent fashion.
+
+Electrical characteristics
+---------------------------
+
++-----------------------+---------------+
+| Property              | Value         |
++=======================+===============+
+| Termination           |    50  Ω      |
++-----------------------+---------------+
+| Input voltage range   |      0 to 5 V |
++-----------------------+---------------+
+| Trigger level range   |    0 to 3.3 V |
++-----------------------+---------------+
+| Minimum signal level  |      ~50 mV   |
++-----------------------+---------------+
+|  Minimum pulse width  |  ~1 ns        |
++-----------------------+---------------+
+
+
+
+Data connection
+===============
+
+A USB connection is used for data and power supply. Please ensure that the USB port is capable of providing the full
+specified current (500 mA). A USB 2.0 data connection is required for reasonable performance. Operating the device via
+a USB hub is strongly discouraged. The *TimeTagger 20* can stream about 5 M tags per second.
+
+
+Status LEDs
+===========
+
+The *TimeTagger 20* has two LEDs showing status information. A green LED turns on when the USB power is connected.
+An RGB LED shows the information tabulated below.
+
++-----------------------+-------------------------+
+| green                 | firmware loaded         |
++-----------------------+-------------------------+
+| blinking green-orange | time tags are streaming |
++-----------------------+-------------------------+
+| red flash (0.1 s)     | an overflow occurred    |
++-----------------------+-------------------------+
+| continuous red        | repeated overflows      |
++-----------------------+-------------------------+
+
+Test signal
+===========
+
+The *TimeTagger 20* has a built in test signal generator that
+generates a square wave with a frequency in the range 0.9 to 1.0 MHz.
+You can apply the test signal to any input channel instead of the
+external input. This is useful for testing, calibrating and setting up, 
+
+Virtual channels
+================
+
+The architecture allows you to create virtual channels, e.g.,
+you can create a new channel that represents the sum of two channels (logical OR),
+or coincidence clicks of two channels (logical AND).
+
+Synthetic input delay
+=====================
+
+You can introduce for each channel an input delay. This is useful
+e.g. to compensate for propagation delay in cables of unequal length,
+if the relative timing between two channels is important. The input delay
+can be set individually for rising and for falling edges.
+
+Synthetic dead time
+===================
+
+You can introduce for each channel a synthetic dead time. This is useful
+when you want to suppress consecutive clicks that are closely separated,
+e.g., to suppress after-pulsing of avalanche photo diodes or to suppress too
+high data rates. The dead time can be set individually for rising and for falling edges.
+
+Event filter
+============
+
+In a typical fluorescence lifetime application, a target is stimulated with laser pulses with
+a fast repetition rate, typically in the range 10 - 100 MHz. Electrical synchronization pulses
+are generated that are simultaneous with the excitation laser pulses and are sent to
+the *TimeTagger 20* on one channel, while single photon clicks emitted from the target are sent to another channel.
+Because the data rate of the synchronization pulses is so high, streaming and processing all generated
+time tags by the computer is not possible - and not necessary, since only those synchronization
+pulses are of interest that are followed by a photon event. It is therefore desirable
+to discard all synchronization time tags in the data stream except those that are followed by a photon.
+Since the synchronization pulses are periodic with a very well defined period, it is equivalent
+to keep only those synchronization time tags that are {\em preceded} by a photon.
+
+This feature is implemented by an event filter that is currently hardcoded between
+channel 0 and channel 7. It is assumed that photon clicks are entering channel 0 and laser sync clicks
+are entering channel 7. When the filter is active, time tags on channel 7 are only passed
+if a time tag has been registered on channel 0 before. Subsequent tags are discarded until the next
+tag on channel 0 is detected.
+
+This filter is all you need to perform fluorescence lifetime measurements and fluorescence lifetime imaging.
+If you are interested in event filters with more complex logic, please contact us for custom designs.
+
+Bin equilibration
+=================
+
+Discretization of electrical signals is never perfect. In time-to-digital conversion, this is manifest
+as small differences (few ps) of the bin sizes inside the converter that even varies from chip to chip.
+This imperfection is inheret to any time-to-digital conversion hardware.
+It is usually not apperent to the user. However, when correlations between two channels are measured on short
+time scales you might see this as a weak periodic ripple ontop of your signal. 
+If you wish to turn off this ripple, you can enable an equilibration of the bin sizes
+at the cost of a decrease of the time resolution by :math:`\sqrt{2}`. This feature is disabled by default.
+
+Overflows
+=========
+
+Data rates are never infinite. The *TimeTagger 20* is capable of streaming about 5 M tags per second,
+At higher rates, data loss occurs and parts of the time tags are lost. The hardware allows you
+to check whether an overflow condition has occured. If no overflow occurrs,
+you can be sure that every time tag is received.
+
+General purpose IO (available upon request)
+===========================================
+
+The device is ready to be equipped with up to four SMA connectorized general purpose IO ports and an external clock input or output.
+These can be used to implement custom features such as special fast input or output triggers, enable / disable gates,
+software controllable input and output lines, etc.. Please contact us for custom designs.

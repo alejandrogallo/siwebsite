@@ -1,0 +1,518 @@
+.. _api:
+
+**********************************
+Application Programmer's Interface
+**********************************
+
+
+Overview
+========
+
+The API provides methods to control the hardware and to create
+measurements that are hooked onto the time tag stream. It is written in C++ but
+wrapper classes for higher level languages, specifically python 
+can be provided, such that the C++ API can directly be used in your application,
+in a way that is equivalent to the C++ classes.
+The API includes a set of typical measurements that will most likely
+cover your needs. Implementation of custom measurements is based on
+subclassing from a C++ base class and thus is only available in the C++ API.
+
+
+API documentation
+-----------------
+
+The API documentation in this manual gives a general overview how to use the *TimeTagger 20*.
+More detailed information can be found in the API reference (generated with
+Doxygen).
+.. ToDo reference to doxygen stuff
+
+
+Examples
+--------
+
+Often the fastest way to learn how to use an API is by means of examples. Please see the ``\exsamples``
+subfolder of your *TimeTagger 20* installation for examples.
+
+
+Units
+-----
+
+
+Time is measured in ps since device startup and represented by 64 bit integers. Note that this
+implies that the time variable will rollover once after about 0.83 years. This
+will most likely not be relevant to you unless you plan to run your software
+continuously over one year and are taking data at the instance when the rollover is happening.
+
+
+Channel Numbers
+---------------
+
+You can use the *TimeTagger 20* to detect both rising and falling edges. Throughout
+the software API, the rising edges are represented by channels 0 to 7 and
+the falling edges are represented by channel numbers 8 to 15. Virtual channels will obtain numbers
+from 16 onwards.
+
+
+Organization
+============
+
+
+The API contains a *small* number of **classes** which you instantiate in your code.
+These **classes** are summarized below.
+
+
+Hardware
+--------
+TimeTagger
+  Represents the hardware and provides methods to control the trigger levels, input delay, dead time, event filter and test signals.
+
+Virtual Channels
+----------------
+Combiner
+  Combines two channels into one
+Coincidences
+  Detects coincidence clicks on two or more channels within a given window
+
+Measurements
+------------
+Iterator
+  Base class for implementing custom measurements.
+Countrate 
+  Average tag rate on one or more channels.
+Counter 
+  Counts clicks on one or more channels with a fixed binwidth and
+  circular buffer output.
+CountBetweenMarkers 
+  Counts tags on one channel where the bins are
+  determined by triggers on one or two other channels. Uses static buffer
+  output. Use this to implement a gated counter, a counter synchronized to
+  an external sampling clock, etc.
+TimeDifferences 
+  Accumulates the time differences between tags on two
+  channels in one or more histograms. The sweeping through
+  histograms is optionally controlled by one or two additional triggers.
+Histogram
+  A simple histogram of time differences. This can be used e.g.
+  to measure lifetime.
+Correlation 
+  auto- and cross-correlation.
+FLIM 
+  Fluorescence lifetime imaging.
+StartStop 
+  Accumulates a histogram of time difference between
+  pairs of tagss on two channels. Only the first stop tag after a start tag is
+  considered. Subsequent stop tags are discarded. The Histogram length is
+  unlimited.
+  
+
+The TimeTagger class
+====================
+
+
+This class provides access to the hardware and exposes methods to control hardware settings.
+Behind the scenes it opens the USB connection, initializes the device
+and receives the time tag stream. Every measurement requires an
+instance of the TimeTagger class to which it will be associated. In a typical application
+you will perform the following steps:
+
+#. create an instance of TimeTagger
+#. use methods on the instance of TimeTagger to adjust the trigger levels
+#. create an instance of a measurement passing the instance of TimeTagger to the constructor
+
+You can use multiple TimeTaggers on one computer simultaneously. In this case, you usually want to
+associate your instance of the TimeTagger class to a physical TimeTagger. To
+implement this in a bullet proof way, TimeTagger instances must be created
+with a factory function called 'createTimeTagger'. The factory function accepts
+the serial number of a physical TimeTagger as a string argument (every
+TimeTagger has a unique hardware serial number). The serial number is the only argument that can
+be passed. If an mpty string or no argument is passed, the first detected
+TimeTagger will be used. To find out the hardware serial number, you can connect
+a single timetagger, open it and use the 'getSerial' function described below.
+
+The TimeTagger class contains a small number of methods to control the hardware settings that are summarized below.
+
+
+Methods
+-------
+
+
+setTriggerLevel()
+  set the trigger level of an input channel
+getTriggerLevel()
+  return the trigger level of an input channel
+setInputDelay()
+  set the input delay of a channel
+getInputDelay()
+  return the input delay of a channel
+setFilter()
+  enable or disable the laser synchronization filter (currently hardcoded between channel 0 and 7)
+getFilter()
+  return the state of the laser synchronization filter
+setNormalization()
+  activate or deactivate gaussian normalization of the
+  detection jitter
+getNormalization()
+  return whether input normalization is turned on
+setDeadTime()
+  set the dead time of a channel
+getDeadTime()
+  return the dead time of a channel
+setTestSignal
+  apply internal test signal to a channel
+getTestSignal
+  check whether the internal test signal is applied to a channel
+getSerial()
+  return the hardware serial number
+getOverflows()
+  return the number of overflows that occurred since startup
+
+
+Measurement Classes
+===================
+
+The library includes a number of common measurements that will be described in this section.
+All measurements are derived from a base class called 'Iterator' that is described further down.
+As the name suggests, it uses the `iterator` programming concept.
+You can use this base class to write custom measurments in C++, as described in :ref:`subclassing`.
+
+
+All measurements provide a small number of methods to start and stop the excecution
+and to access the accumulated data. The methods are summarized below.
+
+
+Methods common to all Measurements
+----------------------------------
+
+getData() 
+  Returns the data accumulated up to now. The returned data can be a scalar, vector or array,
+  depending on the measurement.
+clear() 
+  reset the accumulated data to an array filled with zeros
+start()
+  start data acquisition
+stop() 
+  stop data acquisition
+
+
+.. attention:: All measurements start accumulating data immediately after their creation.
+
+In a typical application you will perform the following steps:
+
+#. create an instance of a measurement, e.g.~a countrate on channel 0
+#. wait for some time
+#. retrieve the data accumulated by the measurement up to now by calling the 'getData' method.
+
+The specific measurements are described below.
+
+
+Countrate
+---------
+
+
+Measures the average countrate on one or more channels. Specifically, it
+counts tags on the specified channels and determines the time between the first tag since
+instantiation and the latest tag. The ratio of the number of tags and the
+time corresponds to the average countrate since the first tag.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+channels
+  <vector int> channels used for counting tags
+
+Methods
+^^^^^^^
+
+getData()
+  returns the average countrate in counts per second.
+clear()
+  resets the accumulated counts to zero and uses the next incoming tag as the first tag.
+
+
+Counter
+-------
+
+Time trace of the countrate on one or more channels. Specifically
+this measurement repeatedly counts tags on one or more channels within a
+time interval 'binwidth' and stores the results in a two dimensional array of size
+'number of channels' times 'n_values'. The array is treated as a circular buffer that is,
+all values in the array are shifted by on position when a new value is generated. The
+last entry in the array is always the most recent value.
+
+
+Arguments
+^^^^^^^^^
+
+
+tagger
+  <reference> reference to a time tagger
+channels 
+  <vector int> channels used for counting tags
+binwidth 
+  <longlong> binwidth in ps
+n_values
+  <int> number of values
+
+
+
+
+Methods
+^^^^^^^
+
+
+getData() 
+  returns an array of size 'number of channels' times 'n_values' containing the current values of the circular buffer
+  (counts in each bin).
+getIndex() 
+  returns a vector of size 'n_values' containing the time bins in ps.
+clear()
+  resets the array to zero and restarts the measurement.
+
+
+
+CountBetweenMarkers
+-------------------
+
+Countrate on a single channel. The bin edges between which counts are accumulated
+are determined by one or more hardware triggers. Specifically, the measurement records data into a vector of length 'n_values' (initially filled with zeros).
+It waits for tags on the 'begin_channel'. When a tag is detected on the 'begin_channel' it starts counting tags
+on the 'click_channel'. When the next tag is detected on the 'begin_channel' it stores the current counter value as next entry in the data vector,
+resets the counter to zero and starts accumulating counts again. If an 'end_channel' is specified, the measurement stores the current counter value and resets the counter
+when a tag is detected on the 'end_channel' rather than the 'begin_channel'. You can use this e.g., to accumulate counts within a gate by using
+rising edges on one channel as the 'begin_channel' and falling edges on the same channel as the 'end_channel'. The measurement stops when all
+entries in the data vector are filled.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+begin_channel
+  <int> channel that triggers beginning of counting and stepping to the next value
+end_channel
+  <int> channel that triggers end of counting
+n_values
+  <int> number of values
+
+
+
+Methods
+^^^^^^^
+
+
+getData() 
+  returns an array of size 'n_values' containing the acquired counter values.
+getIndex() 
+  returns a vector of size 'n_values' containing the time bins in ps.
+clear()
+  resets the array to zero and restarts the measurement.
+ready() 
+  returns 'true' when the entire array is filled.
+
+
+TimeDifferences
+---------------
+
+A multidimensional histogram measurement optionally with up to three additional channels that control how to
+step through the indices of the histogram array. This is a very powerful and generic measurment.
+You can use it to record cross-correlation, lifetime measurements, fluorescence lifetime imaging
+and many more measurements based on pulsed excitation.
+Specifically, the measurement waits for a tag on the 'start_channel', then measures the
+time difference between the start tag and all subsequent tags on the 'click_channel'
+and stores them in a histogram. If no 'start_channel' is specified, the 'click_channel' is used as 'start_channel'
+corresponding to an auto-correlation measurement.
+The histogram has a number of 'n_bins' bins of binwidth 'binwidth'. Clicks that fall outside the histogram range are discarded.
+Data accumulation is performed independently for all start tags. This type of measurement is frequently refered to as
+'single start, multiple stop' measurement and corresponds to a full auto- or cross-correlation measurement.
+
+The data obtained from subsequent start tags can be accumulated into the same histogram (one-dimensional measurement)
+or into different histograms (two-dimensional measurement). In this way you can perform more general two-dimensional
+time-difference measurements. The parameter 'n_histograms' specifies the number of histograms. After each tag
+on the 'next_channel', the histogram index is incremented by one (and reset to zero after reaching the last valid index.
+You can also provide a synchronization trigger that resets the histogram index by
+specifying a 'sync_channel'.
+
+Typically, you will run the measurement indefinitely until stopped by the user. However, it is also possible to
+specify the maximum number of rollovers of the histogram index. In this case the measurement stops when the number of
+rollovers has reached the specified value. This means that both for a one-dimensional and for a
+two-dimensional measurement, it will measure until every histogram has a seen the specified number of start tags.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+click channel 
+  <int> channel that increments the count in a bin
+start channel 
+  <int> channel that sets start times relative to which s on the click channel are measured
+next channel 
+  <int> channel that increments the histogram index
+sync channel 
+  <int> channel that resets the histogram index to zero
+binwidth 
+  <longlong> binwidth in ps
+n_bins 
+  <int> number of bins in each histogram
+n_histograms 
+  <int> number of histograms
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData()
+  returns a two-dimensional array of size 'n_bins' times 'n_histograms' containing the histograms.
+getIndex() 
+  returns a vector of size 'n_bins' containing the time bins in ps.
+clear()
+  resets the array to zero.
+setMaxCounts()
+  set the maximum number of start clicks accepted
+getCounts()
+  returns the number of start clicks
+ready()
+  returns 'true' when the required number of start clicks set by 'setMaxCounts' has been reached
+
+
+
+Correlation
+-----------
+
+
+Accumulates time differences between clicks on two channels into
+a histogram, where all ticks are considered both as start and stop
+clicks and both positive and negative time differences are considered.
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+tagger
+  <reference> reference to a time tagger
+channel 1
+  <int> first channel
+channel 2
+  <int> second channel
+binwidth
+  <longlong> binwidth in ps
+n_bins
+  <int> the number of bins in the resulting histogram
+
+
+
+
+Methods
+^^^^^^^
+
+getData() 
+  returns a one-dimensional array of size 2*n_bins+1 containing the histograms.
+getIndex() 
+  returns a vector of size 'n_bins' containing the time bins in ps.
+clear()
+  resets the array to zero.
+setMaxCounts() 
+  set the maximum number of start tags accepted
+getCounts() 
+  returns the number of start tags
+ready() 
+  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
+
+
+FLIM
+----
+
+Fluorescence lifetime imaging. Specifically, the measurement performs a single-start-multiple-stop measurement
+and accumulates the time differences into a histogram with specified binwidth and number of bins. The condition
+for moving to the next pixel can either be a pixel trigger on a third channel or a predefined accumulation
+time per pixel. After accumulating a number of 'pixels' histograms, the measurement stops. This measurement
+is also useful to record cross-correlation on multiple pixels.
+
+
+Arguments
+^^^^^^^^^
+
+
+tagger
+  <reference> reference to a time tagger
+click_channel 
+  <int> channel that increments the count in a bin
+start_channel 
+  <int> channel that sets start times relative to which clicks on the click channel are measured
+next_channel 
+  <int> channel that increments the histogram index
+binwidth 
+  <longlong> binwidth in ps
+n_bins 
+  <int> number of bins in each histogram
+n_pixels 
+  <int> number of pixels
+
+
+
+
+
+Methods
+^^^^^^^
+
+
+
+getData() 
+  returns a two-dimensional array of size 'pixels' times 'bins' containing the histograms.
+getIndex() 
+  returns a vector of size 'n_pixels' containing the pixel times in ps.
+clear()
+  resets the array to zero.
+ready() 
+  returns 'true' when the measurement is ready
+
+
+
+Dump
+----
+
+
+Dump the time tag stream to a file in a binary format.
+
+
+
+
+Arguments
+^^^^^^^^^
+
+
+
+<str> filename 
+  name of the file to dump to
+
+
+
+
+Methods
+^^^^^^^
+
+
+stop()
+  stop the measurement
+
+
+
+
+.. _subclassing:
+Defining custom measurements by subclassing Iterator
+=========================================================
+
+
+This section is under construction..
+

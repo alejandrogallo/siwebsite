@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Software generalities &mdash; Time Tagger 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Time Tagger 1.0 documentation" href="index.html"/>
+        <link rel="prev" title="Hardware" href="hardware.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Time Tagger
+        
+
+        
+          
+          <img src="_static/logo_transparent.png" class="logo" />
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#windows-users">Windows users</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#windows-users">Windows users</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#data-connection">Data connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#input-channels">Input channels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hardware.html#electrical-characteristics">Electrical characteristics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#laser-synchronization-filter">Laser synchronization filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#general-purpose-io-available-upon-request">General purpose IO (available upon request)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Software generalities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#web-application-and-json-rpc-interface">Web application and JSON-RPC interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#precompiled-libraries-and-high-level-language-bindings">Precompiled libraries and high level language bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-api">C++ API</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Time Tagger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Software generalities</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="software-generalities">
+<h1>Software generalities<a class="headerlink" href="#software-generalities" title="Permalink to this headline">¶</a></h1>
+<p>The heart of the TimeTagger software is a multi-threaded driver
+that receives the time tag stream and feeds it to all running
+measurements. Measurements are small threads that analyze the time tag stream
+each in their own way. E.g., a count rate measurement will extract all time
+tags of a specific channel and calculate the average number of tags received per
+second, a cross-correlation measurement will compute the cross-correlation between two
+channels, typically by sorting the time tags in histograms, etc.. This is a
+powerful architecture that allows you to perform any thinkable time domain
+measurement in real time.</p>
+<div class="section" id="web-application-and-json-rpc-interface">
+<h2>Web application and JSON-RPC interface<a class="headerlink" href="#web-application-and-json-rpc-interface" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way of using the TimeTagger is via a web application
+that allows you to interact with the hardware interactively and create
+measurement threads and plot the resulting data in a web browser.
+You can create an unlimited number of measuremnts
+in parallel, plot interactively, save and load data, dump the time tag
+stream to a file, etc.. Refer to the subsequent chapter <a href="#id1"><span class="problematic" id="id2">`quickstart`_</span></a></p>
+<p>and to chapterref{sec:WebApplication} if you plan to use the TimeTagger in this
+way.</p>
+</div>
+<div class="section" id="precompiled-libraries-and-high-level-language-bindings">
+<h2>Precompiled libraries and high level language bindings<a class="headerlink" href="#precompiled-libraries-and-high-level-language-bindings" title="Permalink to this headline">¶</a></h2>
+<p>We have implemented a set of typical measurements including count rates, auto
+correlation, cross correlation, fluorescence lifetime imaging (FLIM), etc..
+For most users, these measurements
+will cover all needs. These measurements are included in
+the c++ API and provided as precompiled library files. To make using the
+TimeTagger even easier, we have equipped these libraries with
+bindings to higher level languages including Python, Java, Matlab and Labview
+so that you can directly ust the TimeTagger from either of these languages.
+With these APIs you can easily start a complex
+measurement from a higher level language with only two lines of code.
+To use one of these APIs, you have to write code in the high
+level language of your choice. Refer to chapterref{sec:API} and the chapter
+sepcific to your language if you plan to use the TimeTagger
+in this way.</p>
+</div>
+<div class="section" id="c-api">
+<h2>C++ API<a class="headerlink" href="#c-api" title="Permalink to this headline">¶</a></h2>
+<p>The underlying software architecture is provided by a c++ API that implements
+two classes: one class that represent the TimeTagger and one class that
+represents a base measurement thread. Ontop of that, the c++ API also provides
+all predefined measurement threads that are made available by the web
+application and high level language bindings. To use this API, you have to
+write and compile a c++ program. If you want to implement a custom
+measurement thread you need to follow this approach. Refer to
+chapterref{sec:API} if you plan to use the TimeTagger in this way.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="hardware.html" class="btn btn-neutral" title="Hardware" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Swabian Instruments.
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

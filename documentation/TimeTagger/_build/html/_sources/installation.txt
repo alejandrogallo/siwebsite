@@ -1,0 +1,37 @@
+
+
+*************************
+Installation instructions
+*************************
+
+
+
+Windows users
+=============
+
+#. Insert the USB Stick into your computer and run the installer. 
+
+	.. note:: If you want to use the TimeTagger from python, make sure you choose the 
+		installer that matches your python flavour! Install all components.
+		
+		
+
+
+#. Connect the TimeTagger to your computer with the USB cable. 
+
+	.. caution:: Wait until windows has recognized the device and finished installing the driver.
+ 
+  
+  
+#. Start the TimeTagger webapp e.g. through the windows start menu
+#. Open google chrome and navigate to the webapp by entering … in the location bar.
+#. Locate the TimeTagger ...
+#. Start built in test signal ...
+#. See a countrate and autocorrelation
+#. Save and load data
+#. Connect an external signal, e.g. a 1 MHz square wave. 
+
+	.. note:: Make sure that the frequency of the external signal does not exceed the total time tag rate of ~10 MHz. Deactivate the built in signal
+
+#. Adjust the triggerlevel see how the countrate changes
+

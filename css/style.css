@@ -1,0 +1,140 @@
+
+
+
+#welcome-container{
+	margin-top: 0;
+	height: auto;
+
+}
+
+#welcome-carousel{
+	box-shadow: rgb(41,128,185) 0 0 5px;
+	height: 50%;
+	border-radius: 5px;
+	margin-bottom: 3%;
+}
+#welcome-carousel img{
+	max-height: 80%;
+}
+
+
+#welcome-logo{
+	background-color:none; 
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 3%;
+	width:50%;
+}
+
+
+.carousel-indicators li{
+	background-color: none;
+	border-color: black;
+}
+.carousel-indicators .active {
+	background-color: rgb(41,128,185);
+	border-color: black;
+}
+
+body{
+	background-color: rgb(247,247,247);
+}
+
+#welcome-message{
+	background-color: none;
+	text-align: center;
+	color: white;
+	font-style: italic;
+
+}
+
+#leitmotiv{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	border-style: solid;
+	background-color: rgb(41,128,185);
+	border-width: 1px;
+}
+
+
+#about{
+	height: 100%;
+	background-color: rgb(41,128,185);
+}
+
+#about-image{
+	height: 40%;
+}
+
+#contact{
+	height: 100%;
+	background-color: white;
+}
+
+.form-container{
+	background-color: rgb(41,128,185);
+	color: white;
+	margin-top: 0%;
+	margin-bottom: 0%;
+}
+
+#email-contact{
+	margin-top: 5%;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+#address-contact{
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+#google-map{
+	box-shadow: white 0 0 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*TIME TAGGER PAGE*/
+
+#timetagger-carousel{
+	position: relative;
+	height: 50%;
+}
+#timetagger-carousel img{
+	max-height: 80%;
+}
+
+#timetagger-carousel .carousel-caption {
+	color:black;
+}
+
+#timetagger-title{
+	background-color: rgb(41,128,185);
+	color: white;
+}
+.timetagger-doc-buttons{
+	margin-bottom: 1%;
+}
+
+

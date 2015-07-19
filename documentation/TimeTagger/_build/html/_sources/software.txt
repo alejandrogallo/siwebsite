@@ -1,0 +1,68 @@
+
+*********************
+Software generalities
+*********************
+
+
+The heart of the TimeTagger software is a multi-threaded driver
+that receives the time tag stream and feeds it to all running
+measurements. Measurements are small threads that analyze the time tag stream
+each in their own way. E.g., a count rate measurement will extract all time
+tags of a specific channel and calculate the average number of tags received per
+second, a cross-correlation measurement will compute the cross-correlation between two
+channels, typically by sorting the time tags in histograms, etc.. This is a
+powerful architecture that allows you to perform any thinkable time domain
+measurement in real time.
+
+
+
+Web application and JSON-RPC interface
+======================================
+
+
+The easiest way of using the TimeTagger is via a web application
+that allows you to interact with the hardware interactively and create
+measurement threads and plot the resulting data in a web browser.
+You can create an unlimited number of measuremnts
+in parallel, plot interactively, save and load data, dump the time tag
+stream to a file, etc.. Refer to the subsequent chapter `quickstart`_ 
+
+.. quickstart: http://google.com
+
+and to chapter\ref{sec:WebApplication} if you plan to use the TimeTagger in this
+way.
+
+
+
+Precompiled libraries and high level language bindings
+======================================================
+
+
+We have implemented a set of typical measurements including count rates, auto
+correlation, cross correlation, fluorescence lifetime imaging (FLIM), etc..
+For most users, these measurements
+will cover all needs. These measurements are included in
+the c++ API and provided as precompiled library files. To make using the
+TimeTagger even easier, we have equipped these libraries with
+bindings to higher level languages including Python, Java, Matlab and Labview
+so that you can directly ust the TimeTagger from either of these languages.
+With these APIs you can easily start a complex
+measurement from a higher level language with only two lines of code. 
+To use one of these APIs, you have to write code in the high
+level language of your choice. Refer to chapter\ref{sec:API} and the chapter
+sepcific to your language if you plan to use the TimeTagger
+in this way. 
+
+C++ API
+=======
+
+
+The underlying software architecture is provided by a c++ API that implements
+two classes: one class that represent the TimeTagger and one class that
+represents a base measurement thread. Ontop of that, the c++ API also provides
+all predefined measurement threads that are made available by the web
+application and high level language bindings. To use this API, you have to
+write and compile a c++ program. If you want to implement a custom
+measurement thread you need to follow this approach. Refer to
+chapter\ref{sec:API} if you plan to use the TimeTagger in this way.
+

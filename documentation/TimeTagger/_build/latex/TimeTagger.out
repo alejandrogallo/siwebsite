@@ -1,0 +1,27 @@
+\BOOKMARK [0][-]{chapter.1}{Installation instructions}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Windows users}{chapter.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Getting Started}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Windows users}{chapter.2}% 4
+\BOOKMARK [0][-]{chapter.3}{Hardware}{}% 5
+\BOOKMARK [1][-]{section.3.1}{Input channels}{chapter.3}% 6
+\BOOKMARK [1][-]{section.3.2}{Data connection}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.3}{Status LEDs}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.4}{Test signal}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.5}{Virtual channels}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.6}{Synthetic input delay}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.7}{Synthetic dead time}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.8}{Event filter}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.9}{Bin equilibration}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.10}{Overflows}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.11}{General purpose IO \(available upon request\)}{chapter.3}% 16
+\BOOKMARK [0][-]{chapter.4}{Software Overview}{}% 17
+\BOOKMARK [1][-]{section.4.1}{Web application and JSON-RPC interface}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.2}{Precompiled libraries and high level language bindings}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.3}{C++ API}{chapter.4}% 20
+\BOOKMARK [0][-]{chapter.5}{Application Programmer's Interface}{}% 21
+\BOOKMARK [1][-]{section.5.1}{Overview}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.2}{Organization}{chapter.5}% 23
+\BOOKMARK [1][-]{section.5.3}{The TimeTagger class}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.4}{Measurement Classes}{chapter.5}% 25
+\BOOKMARK [1][-]{section.5.5}{Defining custom measurements by subclassing Iterator}{chapter.5}% 26
+\BOOKMARK [0][-]{chapter.6}{Indices and tables}{}% 27

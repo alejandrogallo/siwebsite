@@ -1,0 +1,80 @@
+
+********
+Hardware
+********
+
+
+
+Data connection
+===============
+
+A USB connection is used for data and power supply. Please ensure that the USB port is capable of providing the full
+specified current (500 mA). A USB 2.0 data connection is required for reasonable performance. Operating the device via
+a USB hub is strongly discouraged.
+
+
+
+
+
+Input channels
+==============
+
+The TimeTagger has 8 SMA connectorized input channels numbered 0 to 7 throughout this document. The electrical
+characteristics are tabulated below. Both rising and falling edges are detected on the input channels.
+On the software level, rising edges correspond to channel numbers 0 to 7 and falling edges correspond to
+respective channel numbers 8 to 15. Thereby, you can treat rising and falling edges in a fully equivalent fashion.
+
+
+
+
+Electrical characteristics
+---------------------------
+
++-----------------------+---------------+
+| Property              | Value         |
++=======================+===============+
+| Termination           |    50  Ω      |
++-----------------------+---------------+
+| Input voltage range   |      0 to 5 V |
++-----------------------+---------------+
+| Trigger level range   |    0 to 3.3 V |
++-----------------------+---------------+
+| Minimum signal level  |      ~30 mV   |
++-----------------------+---------------+
+|  Minimum pulse width  |  ~1 ns        |
++-----------------------+---------------+
+
+
+
+
+Laser synchronization filter
+============================
+
+
+In a typical fluorescence lifetime application, a target is stimulated with laser pulses with
+a fast repetition rate, typically in the 10 to 100 MHz range. Electrical synchronization pulses
+are generated that are simultaneous with the excitation laser pulses and are sent to
+the TimeTagger along with the single photon signals detected from the target. Because the
+data rate of the synchronization pulses is so high, streaming and processing all generated
+time tags by the computer is not feasible - and not necessary, since only those synchronization
+pulses are of interest that are followed by a photon event. It is therefore desirable
+to discard all synchronization time tags in the data stream except those that are followed by a photon.
+Since the synchronization pulses are periodic with a very well defined period, it is equivalent
+to keep only those synchronization time tags that follow a photon.
+
+This feature is implemented by the onboard event filter that is currently hardcoded between
+channel 0 and channel 7. It is assumed that photon clicks are entering channel 0 and laser sync clicks
+are entering channel 7. When the filter is active, time tags on channel 7 are only passed
+if a time tag has been registered on channel 0 before. Subsequent tags are discarded until the next
+tag on channel 0 is detected.
+
+
+
+General purpose IO (available upon request)
+===========================================
+
+
+The device is ready to be equipped with up to four SMA connectorized general purpose IO ports. These can be used
+to implement custom features such as special fast input or output triggers, enable / disable gates,
+software controllable input and output lines, etc.. Please contact us for custom designs.
+

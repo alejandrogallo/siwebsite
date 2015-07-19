@@ -1,0 +1,23 @@
+
+***************
+Getting Started
+***************
+
+
+
+Windows users
+=============
+
+#. Make sure the TimeTagger software is installed and the TimeTagger connected to your computer (see the Windows quickstart card).
+#. Open a command shell and ``cd`` to the examples folder on the USB stick
+#. Start an **ipython** shell
+#. Run the **test.py** script by entering ``run test``, this will create an instance **time_tagger** that represents the device.
+#. Check the channel jitter calibration by ...
+#. Start the builtin test signal by … this will enable an about 3 MHz square wave applied internally to all input channels
+#. Create a simple countrate on the first two channel … by entering …
+#. Upon running of ``count_rate.getData()`` will return the average countrate since its instantiation
+#. Create a crosscorrelation …
+#. Connect an external signal (e.g. a 1 MHz square wave, 1V). 
+   	.. danger:: Make sure that the frequency of the external signal does not exceed 
+   		the maximum time tag rate of ~10 MHz. Deactivate the builtin test signal.
+#. Adjust the triggerlevel see how the rate changes.
