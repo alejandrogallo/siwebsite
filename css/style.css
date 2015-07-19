@@ -1,4 +1,6 @@
-
+#navigation {
+	margin: 0;
+}
 
 
 #welcome-container{
@@ -61,11 +63,20 @@ body{
 #about{
 	height: 100%;
 	background-color: rgb(41,128,185);
+	background: url(../images/timetaggrtest.png) rgb(41,128,185);
+	background-size: 100% 100%;
+}
+#about .jumbotron{
+	opacity: .95;
 }
 
 #about-image{
-	height: 40%;
+	max-height: 40%;
+	border-radius: 20px;
+	box-shadow: black 0 0 10px;
+	opacity: .9;
 }
+
 
 #contact{
 	height: 100%;

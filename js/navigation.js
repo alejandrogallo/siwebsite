@@ -23,7 +23,7 @@ function Navigation () {
 			"type":"dropdown",
 			"dropdownItems":[
 				{"label":"Time Tagger 20","href":"./timetagger.html"},
-				{"label":"Pulse Generator","href":"#"}
+				{"label":"Pulse Generator\n <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
 				]
 		},
 	];
