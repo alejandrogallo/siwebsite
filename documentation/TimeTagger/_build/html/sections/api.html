@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Application Programmer’s Interface &mdash; Time Tagger 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Time Tagger 1.0 documentation" href="../index.html"/>
+        <link rel="prev" title="Software Overview" href="software.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> Time Tagger
+        
+
+        
+          
+          <img src="../_static/logo_transparent.png" class="logo" />
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#windows-users">Windows users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#requirements">Requirements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#operating-system">Operating System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#windows-users">Windows users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gettingStarted.html#where-to-go-from-here">Where to go from here</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#input-channels">Input channels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hardware.html#electrical-characteristics">Electrical characteristics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#data-connection">Data connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#status-leds">Status LEDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#test-signal">Test signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#virtual-channels">Virtual channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#synthetic-input-delay">Synthetic input delay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#synthetic-dead-time">Synthetic dead time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#event-filter">Event filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#bin-equilibration">Bin equilibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#overflows">Overflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html#general-purpose-io-available-upon-request">General purpose IO (available upon request)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#web-application-and-json-rpc-interface">Web application and JSON-RPC interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#precompiled-libraries-and-high-level-language-bindings">Precompiled libraries and high level language bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#c-api">C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Application Programmer&#8217;s Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-documentation">API documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#channel-numbers">Channel Numbers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#organization">Organization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hardware">Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-channels">Virtual Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#measurements">Measurements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-timetagger-class">The TimeTagger class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#measurement-classes">Measurement Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#methods-common-to-all-measurements">Methods common to all Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#countrate">Countrate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#counter">Counter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#countbetweenmarkers">CountBetweenMarkers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#timedifferences">TimeDifferences</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#correlation">Correlation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#flim">FLIM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dump">Dump</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-custom-measurements-by-subclassing-iterator">Defining custom measurements by subclassing Iterator</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Time Tagger</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Application Programmer&#8217;s Interface</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="application-programmer-s-interface">
+<span id="api"></span><h1>Application Programmer&#8217;s Interface<a class="headerlink" href="#application-programmer-s-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The API provides methods to control the hardware and to create
+measurements that are hooked onto the time tag stream. It is written in C++ but
+wrapper classes for higher level languages, specifically python
+can be provided, such that the C++ API can directly be used in your application,
+in a way that is equivalent to the C++ classes.
+The API includes a set of typical measurements that will most likely
+cover your needs. Implementation of custom measurements is based on
+subclassing from a C++ base class and thus is only available in the C++ API.</p>
+<div class="section" id="api-documentation">
+<h3>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h3>
+<p>The API documentation in this manual gives a general overview how to use the <em>TimeTagger 20</em>.
+More detailed information can be found in the API reference (generated with
+Doxygen).
+.. ToDo reference to doxygen stuff</p>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Often the fastest way to learn how to use an API is by means of examples. Please see the <code class="docutils literal"><span class="pre">\exsamples</span></code>
+subfolder of your <em>TimeTagger 20</em> installation for examples.</p>
+</div>
+<div class="section" id="units">
+<h3>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h3>
+<p>Time is measured in ps since device startup and represented by 64 bit integers. Note that this
+implies that the time variable will rollover once after about 0.83 years. This
+will most likely not be relevant to you unless you plan to run your software
+continuously over one year and are taking data at the instance when the rollover is happening.</p>
+</div>
+<div class="section" id="channel-numbers">
+<h3>Channel Numbers<a class="headerlink" href="#channel-numbers" title="Permalink to this headline">¶</a></h3>
+<p>You can use the <em>TimeTagger 20</em> to detect both rising and falling edges. Throughout
+the software API, the rising edges are represented by channels 0 to 7 and
+the falling edges are represented by channel numbers 8 to 15. Virtual channels will obtain numbers
+from 16 onwards.</p>
+</div>
+</div>
+<div class="section" id="organization">
+<h2>Organization<a class="headerlink" href="#organization" title="Permalink to this headline">¶</a></h2>
+<p>The API contains a <em>small</em> number of <strong>classes</strong> which you instantiate in your code.
+These <strong>classes</strong> are summarized below.</p>
+<div class="section" id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>TimeTagger</dt>
+<dd>Represents the hardware and provides methods to control the trigger levels, input delay, dead time, event filter and test signals.</dd>
+</dl>
+</div>
+<div class="section" id="virtual-channels">
+<h3>Virtual Channels<a class="headerlink" href="#virtual-channels" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Combiner</dt>
+<dd>Combines two channels into one</dd>
+<dt>Coincidences</dt>
+<dd>Detects coincidence clicks on two or more channels within a given window</dd>
+</dl>
+</div>
+<div class="section" id="measurements">
+<h3>Measurements<a class="headerlink" href="#measurements" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Iterator</dt>
+<dd>Base class for implementing custom measurements.</dd>
+<dt>Countrate</dt>
+<dd>Average tag rate on one or more channels.</dd>
+<dt>Counter</dt>
+<dd>Counts clicks on one or more channels with a fixed binwidth and
+circular buffer output.</dd>
+<dt>CountBetweenMarkers</dt>
+<dd>Counts tags on one channel where the bins are
+determined by triggers on one or two other channels. Uses static buffer
+output. Use this to implement a gated counter, a counter synchronized to
+an external sampling clock, etc.</dd>
+<dt>TimeDifferences</dt>
+<dd>Accumulates the time differences between tags on two
+channels in one or more histograms. The sweeping through
+histograms is optionally controlled by one or two additional triggers.</dd>
+<dt>Histogram</dt>
+<dd>A simple histogram of time differences. This can be used e.g.
+to measure lifetime.</dd>
+<dt>Correlation</dt>
+<dd>auto- and cross-correlation.</dd>
+<dt>FLIM</dt>
+<dd>Fluorescence lifetime imaging.</dd>
+<dt>StartStop</dt>
+<dd>Accumulates a histogram of time difference between
+pairs of tagss on two channels. Only the first stop tag after a start tag is
+considered. Subsequent stop tags are discarded. The Histogram length is
+unlimited.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="the-timetagger-class">
+<h2>The TimeTagger class<a class="headerlink" href="#the-timetagger-class" title="Permalink to this headline">¶</a></h2>
+<p>This class provides access to the hardware and exposes methods to control hardware settings.
+Behind the scenes it opens the USB connection, initializes the device
+and receives the time tag stream. Every measurement requires an
+instance of the TimeTagger class to which it will be associated. In a typical application
+you will perform the following steps:</p>
+<ol class="arabic simple">
+<li>create an instance of TimeTagger</li>
+<li>use methods on the instance of TimeTagger to adjust the trigger levels</li>
+<li>create an instance of a measurement passing the instance of TimeTagger to the constructor</li>
+</ol>
+<p>You can use multiple TimeTaggers on one computer simultaneously. In this case, you usually want to
+associate your instance of the TimeTagger class to a physical TimeTagger. To
+implement this in a bullet proof way, TimeTagger instances must be created
+with a factory function called &#8216;createTimeTagger&#8217;. The factory function accepts
+the serial number of a physical TimeTagger as a string argument (every
+TimeTagger has a unique hardware serial number). The serial number is the only argument that can
+be passed. If an mpty string or no argument is passed, the first detected
+TimeTagger will be used. To find out the hardware serial number, you can connect
+a single timetagger, open it and use the &#8216;getSerial&#8217; function described below.</p>
+<p>The TimeTagger class contains a small number of methods to control the hardware settings that are summarized below.</p>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>setTriggerLevel()</dt>
+<dd>set the trigger level of an input channel</dd>
+<dt>getTriggerLevel()</dt>
+<dd>return the trigger level of an input channel</dd>
+<dt>setInputDelay()</dt>
+<dd>set the input delay of a channel</dd>
+<dt>getInputDelay()</dt>
+<dd>return the input delay of a channel</dd>
+<dt>setFilter()</dt>
+<dd>enable or disable the laser synchronization filter (currently hardcoded between channel 0 and 7)</dd>
+<dt>getFilter()</dt>
+<dd>return the state of the laser synchronization filter</dd>
+<dt>setNormalization()</dt>
+<dd>activate or deactivate gaussian normalization of the
+detection jitter</dd>
+<dt>getNormalization()</dt>
+<dd>return whether input normalization is turned on</dd>
+<dt>setDeadTime()</dt>
+<dd>set the dead time of a channel</dd>
+<dt>getDeadTime()</dt>
+<dd>return the dead time of a channel</dd>
+<dt>setTestSignal</dt>
+<dd>apply internal test signal to a channel</dd>
+<dt>getTestSignal</dt>
+<dd>check whether the internal test signal is applied to a channel</dd>
+<dt>getSerial()</dt>
+<dd>return the hardware serial number</dd>
+<dt>getOverflows()</dt>
+<dd>return the number of overflows that occurred since startup</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="measurement-classes">
+<h2>Measurement Classes<a class="headerlink" href="#measurement-classes" title="Permalink to this headline">¶</a></h2>
+<p>The library includes a number of common measurements that will be described in this section.
+All measurements are derived from a base class called &#8216;Iterator&#8217; that is described further down.
+As the name suggests, it uses the <cite>iterator</cite> programming concept.
+You can use this base class to write custom measurments in C++, as described in <span class="xref std std-ref">subclassing</span>.</p>
+<p>All measurements provide a small number of methods to start and stop the excecution
+and to access the accumulated data. The methods are summarized below.</p>
+<div class="section" id="methods-common-to-all-measurements">
+<h3>Methods common to all Measurements<a class="headerlink" href="#methods-common-to-all-measurements" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>Returns the data accumulated up to now. The returned data can be a scalar, vector or array,
+depending on the measurement.</dd>
+<dt>clear()</dt>
+<dd>reset the accumulated data to an array filled with zeros</dd>
+<dt>start()</dt>
+<dd>start data acquisition</dd>
+<dt>stop()</dt>
+<dd>stop data acquisition</dd>
+</dl>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">All measurements start accumulating data immediately after their creation.</p>
+</div>
+<p>In a typical application you will perform the following steps:</p>
+<ol class="arabic simple">
+<li>create an instance of a measurement, e.g.~a countrate on channel 0</li>
+<li>wait for some time</li>
+<li>retrieve the data accumulated by the measurement up to now by calling the &#8216;getData&#8217; method.</li>
+</ol>
+<p>The specific measurements are described below.</p>
+</div>
+<div class="section" id="countrate">
+<h3>Countrate<a class="headerlink" href="#countrate" title="Permalink to this headline">¶</a></h3>
+<p>Measures the average countrate on one or more channels. Specifically, it
+counts tags on the specified channels and determines the time between the first tag since
+instantiation and the latest tag. The ratio of the number of tags and the
+time corresponds to the average countrate since the first tag.</p>
+<div class="section" id="arguments">
+<h4>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>channels</dt>
+<dd>&lt;vector int&gt; channels used for counting tags</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h4>Methods<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns the average countrate in counts per second.</dd>
+<dt>clear()</dt>
+<dd>resets the accumulated counts to zero and uses the next incoming tag as the first tag.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="counter">
+<h3>Counter<a class="headerlink" href="#counter" title="Permalink to this headline">¶</a></h3>
+<p>Time trace of the countrate on one or more channels. Specifically
+this measurement repeatedly counts tags on one or more channels within a
+time interval &#8216;binwidth&#8217; and stores the results in a two dimensional array of size
+&#8216;number of channels&#8217; times &#8216;n_values&#8217;. The array is treated as a circular buffer that is,
+all values in the array are shifted by on position when a new value is generated. The
+last entry in the array is always the most recent value.</p>
+<div class="section" id="id2">
+<h4>Arguments<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>channels</dt>
+<dd>&lt;vector int&gt; channels used for counting tags</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_values</dt>
+<dd>&lt;int&gt; number of values</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h4>Methods<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns an array of size &#8216;number of channels&#8217; times &#8216;n_values&#8217; containing the current values of the circular buffer
+(counts in each bin).</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_values&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero and restarts the measurement.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="countbetweenmarkers">
+<h3>CountBetweenMarkers<a class="headerlink" href="#countbetweenmarkers" title="Permalink to this headline">¶</a></h3>
+<p>Countrate on a single channel. The bin edges between which counts are accumulated
+are determined by one or more hardware triggers. Specifically, the measurement records data into a vector of length &#8216;n_values&#8217; (initially filled with zeros).
+It waits for tags on the &#8216;begin_channel&#8217;. When a tag is detected on the &#8216;begin_channel&#8217; it starts counting tags
+on the &#8216;click_channel&#8217;. When the next tag is detected on the &#8216;begin_channel&#8217; it stores the current counter value as next entry in the data vector,
+resets the counter to zero and starts accumulating counts again. If an &#8216;end_channel&#8217; is specified, the measurement stores the current counter value and resets the counter
+when a tag is detected on the &#8216;end_channel&#8217; rather than the &#8216;begin_channel&#8217;. You can use this e.g., to accumulate counts within a gate by using
+rising edges on one channel as the &#8216;begin_channel&#8217; and falling edges on the same channel as the &#8216;end_channel&#8217;. The measurement stops when all
+entries in the data vector are filled.</p>
+<div class="section" id="id4">
+<h4>Arguments<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>begin_channel</dt>
+<dd>&lt;int&gt; channel that triggers beginning of counting and stepping to the next value</dd>
+<dt>end_channel</dt>
+<dd>&lt;int&gt; channel that triggers end of counting</dd>
+<dt>n_values</dt>
+<dd>&lt;int&gt; number of values</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h4>Methods<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns an array of size &#8216;n_values&#8217; containing the acquired counter values.</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_values&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero and restarts the measurement.</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the entire array is filled.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="timedifferences">
+<h3>TimeDifferences<a class="headerlink" href="#timedifferences" title="Permalink to this headline">¶</a></h3>
+<p>A multidimensional histogram measurement optionally with up to three additional channels that control how to
+step through the indices of the histogram array. This is a very powerful and generic measurment.
+You can use it to record cross-correlation, lifetime measurements, fluorescence lifetime imaging
+and many more measurements based on pulsed excitation.
+Specifically, the measurement waits for a tag on the &#8216;start_channel&#8217;, then measures the
+time difference between the start tag and all subsequent tags on the &#8216;click_channel&#8217;
+and stores them in a histogram. If no &#8216;start_channel&#8217; is specified, the &#8216;click_channel&#8217; is used as &#8216;start_channel&#8217;
+corresponding to an auto-correlation measurement.
+The histogram has a number of &#8216;n_bins&#8217; bins of binwidth &#8216;binwidth&#8217;. Clicks that fall outside the histogram range are discarded.
+Data accumulation is performed independently for all start tags. This type of measurement is frequently refered to as
+&#8216;single start, multiple stop&#8217; measurement and corresponds to a full auto- or cross-correlation measurement.</p>
+<p>The data obtained from subsequent start tags can be accumulated into the same histogram (one-dimensional measurement)
+or into different histograms (two-dimensional measurement). In this way you can perform more general two-dimensional
+time-difference measurements. The parameter &#8216;n_histograms&#8217; specifies the number of histograms. After each tag
+on the &#8216;next_channel&#8217;, the histogram index is incremented by one (and reset to zero after reaching the last valid index.
+You can also provide a synchronization trigger that resets the histogram index by
+specifying a &#8216;sync_channel&#8217;.</p>
+<p>Typically, you will run the measurement indefinitely until stopped by the user. However, it is also possible to
+specify the maximum number of rollovers of the histogram index. In this case the measurement stops when the number of
+rollovers has reached the specified value. This means that both for a one-dimensional and for a
+two-dimensional measurement, it will measure until every histogram has a seen the specified number of start tags.</p>
+<div class="section" id="id6">
+<h4>Arguments<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>click channel</dt>
+<dd>&lt;int&gt; channel that increments the count in a bin</dd>
+<dt>start channel</dt>
+<dd>&lt;int&gt; channel that sets start times relative to which s on the click channel are measured</dd>
+<dt>next channel</dt>
+<dd>&lt;int&gt; channel that increments the histogram index</dd>
+<dt>sync channel</dt>
+<dd>&lt;int&gt; channel that resets the histogram index to zero</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_bins</dt>
+<dd>&lt;int&gt; number of bins in each histogram</dd>
+<dt>n_histograms</dt>
+<dd>&lt;int&gt; number of histograms</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h4>Methods<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns a two-dimensional array of size &#8216;n_bins&#8217; times &#8216;n_histograms&#8217; containing the histograms.</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero.</dd>
+<dt>setMaxCounts()</dt>
+<dd>set the maximum number of start clicks accepted</dd>
+<dt>getCounts()</dt>
+<dd>returns the number of start clicks</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the required number of start clicks set by &#8216;setMaxCounts&#8217; has been reached</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="correlation">
+<h3>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
+<p>Accumulates time differences between clicks on two channels into
+a histogram, where all ticks are considered both as start and stop
+clicks and both positive and negative time differences are considered.</p>
+<div class="section" id="id8">
+<h4>Arguments<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>channel 1</dt>
+<dd>&lt;int&gt; first channel</dd>
+<dt>channel 2</dt>
+<dd>&lt;int&gt; second channel</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_bins</dt>
+<dd>&lt;int&gt; the number of bins in the resulting histogram</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h4>Methods<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns a one-dimensional array of size 2*n_bins+1 containing the histograms.</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero.</dd>
+<dt>setMaxCounts()</dt>
+<dd>set the maximum number of start tags accepted</dd>
+<dt>getCounts()</dt>
+<dd>returns the number of start tags</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="flim">
+<h3>FLIM<a class="headerlink" href="#flim" title="Permalink to this headline">¶</a></h3>
+<p>Fluorescence lifetime imaging. Specifically, the measurement performs a single-start-multiple-stop measurement
+and accumulates the time differences into a histogram with specified binwidth and number of bins. The condition
+for moving to the next pixel can either be a pixel trigger on a third channel or a predefined accumulation
+time per pixel. After accumulating a number of &#8216;pixels&#8217; histograms, the measurement stops. This measurement
+is also useful to record cross-correlation on multiple pixels.</p>
+<div class="section" id="id10">
+<h4>Arguments<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>click_channel</dt>
+<dd>&lt;int&gt; channel that increments the count in a bin</dd>
+<dt>start_channel</dt>
+<dd>&lt;int&gt; channel that sets start times relative to which clicks on the click channel are measured</dd>
+<dt>next_channel</dt>
+<dd>&lt;int&gt; channel that increments the histogram index</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_bins</dt>
+<dd>&lt;int&gt; number of bins in each histogram</dd>
+<dt>n_pixels</dt>
+<dd>&lt;int&gt; number of pixels</dd>
+</dl>
+</div>
+<div class="section" id="id11">
+<h4>Methods<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns a two-dimensional array of size &#8216;pixels&#8217; times &#8216;bins&#8217; containing the histograms.</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_pixels&#8217; containing the pixel times in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero.</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the measurement is ready</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="dump">
+<h3>Dump<a class="headerlink" href="#dump" title="Permalink to this headline">¶</a></h3>
+<p>Dump the time tag stream to a file in a binary format.</p>
+<div class="section" id="id12">
+<h4>Arguments<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>&lt;str&gt; filename</dt>
+<dd>name of the file to dump to</dd>
+</dl>
+</div>
+<div class="section" id="id13">
+<h4>Methods<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>stop()</dt>
+<dd>stop the measurement</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="defining-custom-measurements-by-subclassing-iterator">
+<h2>Defining custom measurements by subclassing Iterator<a class="headerlink" href="#defining-custom-measurements-by-subclassing-iterator" title="Permalink to this headline">¶</a></h2>
+<p>This section is under construction..</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="software.html" class="btn btn-neutral" title="Software Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Swabian Instruments.
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
