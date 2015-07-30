@@ -11,11 +11,11 @@ function Navigation () {
 	this.sections = [
 		{
 			"label":"About",
-			"href":"./index_good.html#about",
+			"href":"./index.html#about",
 			"type":"inline"
 		},{
 			"label":"Contact",
-			"href":"./index_good.html#contact",
+			"href":"./index.html#contact",
 			"type":"inline"
 		},{
 			"label":"Products",
@@ -30,7 +30,7 @@ function Navigation () {
 
 	this.textLogo = {
 		"label":"Swabian Instruments",
-		"href":"./index_good.html"
+		"href":"./index.html"
 	};
 
 	// this.getCurrentPage = function(){
