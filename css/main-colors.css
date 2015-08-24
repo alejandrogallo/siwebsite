@@ -1,20 +1,20 @@
-.color-primary-0 { color: rgba( 41,128,185,1) }	/* Main Primary color */
-.color-primary-1 { color: rgba(114,176,217,1) }
-.color-primary-2 { color: rgba( 73,149,199,1) }
-.color-primary-3 { color: rgba(  9,110,176,1) }
-.color-primary-4 { color: rgba(  7, 80,127,1) }
+.color-primary-0 { color: rgba( 41,128,185,1) !important; }	/* Main Primary color */
+.color-primary-1 { color: rgba(114,176,217,1) !important; }
+.color-primary-2 { color: rgba( 73,149,199,1) !important; }
+.color-primary-3 { color: rgba(  9,110,176,1) !important; }
+.color-primary-4 { color: rgba(  7, 80,127,1) !important; }
 
-.color-secondary-0 { color: rgba( 57, 64,196,1) }	/* Main Secondary color (1) */
-.color-secondary-1 { color: rgba(127,131,223,1) }
-.color-secondary-2 { color: rgba( 88, 94,207,1) }
-.color-secondary-3 { color: rgba( 23, 31,188,1) }
-.color-secondary-4 { color: rgba( 17, 23,138,1) }
+.color-secondary-0 { color: rgba( 57, 64,196,1) !important; }	/* Main Secondary color (1) */
+.color-secondary-1 { color: rgba(127,131,223,1) !important; }
+.color-secondary-2 { color: rgba( 88, 94,207,1) !important; }
+.color-secondary-3 { color: rgba( 23, 31,188,1) !important; }
+.color-secondary-4 { color: rgba( 17, 23,138,1) !important; }
 
-.color-tertiary-0 { color: rgba( 34,196,118,1) }	/* Main Secondary color (2) */
-.color-tertiary-1 { color: rgba(111,223,169,1) }
-.color-tertiary-2 { color: rgba( 68,208,140,1) }
-.color-tertiary-3 { color: rgba(  0,188, 98,1) }
-.color-tertiary-4 { color: rgba(  0,138, 72,1) }
+.color-tertiary-0 { color: rgba( 34,196,118,1) !important; }	/* Main Secondary color (2) */
+.color-tertiary-1 { color: rgba(111,223,169,1) !important; }
+.color-tertiary-2 { color: rgba( 68,208,140,1) !important; }
+.color-tertiary-3 { color: rgba(  0,188, 98,1) !important; }
+.color-tertiary-4 { color: rgba(  0,138, 72,1) !important; }
 
 .bg-primary-0 { background-color: rgba( 41,128,185,1) !important; }	/* Main Primary color */
 .bg-primary-1 { background-color: rgba(114,176,217,1) !important; }

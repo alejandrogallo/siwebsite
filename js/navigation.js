@@ -15,7 +15,7 @@ function Navigation () {
 			"type":"inline"
 		},{
 			"label":"Contact",
-			"href":"./index.html#contact",
+			"href":"./contact.html",
 			"type":"inline"
 		},{
 			"label":"Products",
