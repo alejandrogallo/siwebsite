@@ -1,8 +1,4 @@
 
-body{
-	background-color: rgb(247,247,247);
-}
-
 
 #navigation {
 	margin: 0;
@@ -68,20 +64,15 @@ body{
 
 #leitmotiv{
 	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
-	border-style: solid;
-	background-color: rgb(41,128,185);
-	border-width: 1px;
 }
 
 
 #about{
 	min-height: 100%;
-	background-color: rgb(41,128,185);
-	background: url(../images/timetaggrtest.png) rgb(41,128,185);
-	background-size: 100% 100%;
 }
+
+
+
 #about .jumbotron{
 	opacity: .95;
 }
@@ -97,8 +88,7 @@ body{
 
 
 #contact{
-	height: 100%;
-	background-color: white;
+	min-height: 100%;
 }
 
 .form-container{
