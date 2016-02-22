@@ -22,10 +22,10 @@ function Navigation () {
 			"href":"#",
 			"type":"dropdown",
 			"dropdownItems":[
-				{"label":"TimeTagger 20","href":"./timetagger.html"},
-				{"label":"PulseStreamer 8","href":"./pulsestreamer.html"},
-				{"label":"PulseEmitter\n <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"},
-				{"label":"PIDCOntroller\n <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
+				{"label":"TimeTagger 20 - 20 picosecond resolution, streaming signal acquisition","href":"./timetagger.html"},
+				{"label":"PulseStreamer 8 - Streaming analog and digical signal generation ","href":"./pulsestreamer.html"},
+				{"label":"PulseEmitter\n - Programmable pulsating laser<span style='color:red'><i>(Coming soon!)</i></span>","href":"#"},
+				{"label":"PIDController\n - Programmable PID <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
 				]
 		},
 	];
