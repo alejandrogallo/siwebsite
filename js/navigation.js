@@ -22,8 +22,8 @@ function Navigation () {
 			"href":"#",
 			"type":"dropdown",
 			"dropdownItems":[
-				{"label":"TimeTagger 20 - 20 picosecond resolution, streaming signal acquisition","href":"./timetagger.html"},
-				{"label":"PulseStreamer 8 - Streaming analog and digical signal generation ","href":"./pulsestreamer.html"},
+				{"label":"TimeTagger 20 - Streaming signal acquisition device with 20 picosecond resolution, n","href":"./timetagger.html"},
+				{"label":"PulseStreamer 8 - Streaming analog and digical signal generation device","href":"./pulsestreamer.html"},
 				{"label":"PulseEmitter\n - Programmable pulsating laser<span style='color:red'><i>(Coming soon!)</i></span>","href":"#"},
 				{"label":"PIDController\n - Programmable PID <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
 				]
