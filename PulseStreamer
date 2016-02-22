@@ -1,0 +1,117 @@
+<html>
+<head>
+	<title>PulseStreamer 8</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" lang="en_GB" content="We are a small group of enthusiastic physicists and electrical engineers based in Stuttgart, Germany, with strong ties to the University. Our goal is to provide high-quality electronics and service for research and development at a highly competitive price. Our focus is on detection and generation of fast arbitrary digital signals.">
+    <meta name="author" content="Alejandro Gallo">
+    
+    <link rel="stylesheet" type="text/css" href="css/main-colors.css">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome-4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+ <!-- Navigation -->
+    <nav id="navigation">
+        
+    </nav>
+    <img src="images/platine1_cut.png"  class="img-responsive center-block" style="width:40%;"  alt="TimeTagger20">
+ <!-- Navigation END -->
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="jumbotron" id="timetagger-title"> <h1>Time Tagger 20</h1> </div>
+            <div id="timetagger-carousel" class="carousel slide center-block" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators" >
+                    <li data-target="#timetagger-carousel" data-slide-to="0" class="active" ></li>
+                    <li data-target="#timetagger-carousel" data-slide-to="1"></li>
+                    <li data-target="#timetagger-carousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item tt-carousel-item  active " style="background-image: url(images/kiste1_lower.png)">
+                        
+  
+                    </div>
+                    <div class="item tt-carousel-item   " style="background-image: url(images/TT_platine2.png);">
+
+                    </div>
+                    
+                   
+                    <div class="item tt-carousel-item " style="background-image: url(images/TTV6_render_reduced.png)">
+                        <!-- <img src="images/TTV6_render_reduced.png" class="img-responsive center-block" alt="TimeTagger20"> -->
+                        <div class="carousel-caption" >
+                        </div>
+                    </div>
+
+                    <!-- Controls (We don´t reallz need)-->
+                    <a class="left carousel-control" href="#timetagger-carousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#timetagger-carousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+        <div class="btn-group row center-block">
+                <a target="_blank" href="documentation/TimeTagger/_build/html/index.html" type="button" class="btn btn-primary btn-lg col-md-3 col-xs-12 timetagger-doc-buttons" >
+                    <span class="fa fa-book"></span>
+                    Documentation html
+                </a>
+                <a target="_blank" href="documentation/TimeTagger/_build/latex/TimeTagger.pdf" type="button" class="btn btn-primary btn-lg col-md-3 col-xs-12  timetagger-doc-buttons"  >
+                    <span class="fa fa-file-pdf-o" ></span>
+                    Documentation PDF
+                </a>
+                <a target="_blank" href="downloads/TimeTagger/TimeTagger-1.0.exe"  type="button" class="btn btn-primary btn-lg col-md-3 col-xs-12 timetagger-doc-buttons"  >
+                    <span class="fa fa-windows"></span>
+                    Software
+                </a>
+                <a target="_blank" href="downloads/TimeTagger20_brief.pdf" class="btn btn-primary btn-lg col-md-3 col-xs-12 timetagger-doc-buttons">
+                    <span class="fa fa-file"></span>
+                    Brochure
+                </a>
+        </div>
+
+        <div class="alert alert-info center-block" role="alert"> <strong>Support:</strong> For further inquiries, send us an <a href="mailto:info@swabianinstruments.com" ><strong>e-mail</strong>.</a> </div>
+    </div>
+</div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/navigation.js"></script>
+
+
+
+</body>
+
+</html>
+Status API Training Shop Blog About Pricing
+© 2016 GitHub, Inc. Terms Privacy Security C
