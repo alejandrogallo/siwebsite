@@ -24,7 +24,7 @@ function Navigation () {
 			"dropdownItems":[
 				{"label":"TimeTagger 20","href":"./timetagger.html"},
 				{"label":"PulseStreamer 8","href":"./pulsestreamer.html"},
-				{"label":"PulseStreamer 8\n <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
+				{"label":"PulseStreamer 8\n <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"},
 				{"label":"PIDCOntroller\n <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
 				]
 		},
