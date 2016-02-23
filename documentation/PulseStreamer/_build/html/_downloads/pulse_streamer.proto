@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pulse_streamer;
+
+message PulseMessage {
+    uint32 ticks = 1;
+    uint32 digi = 2;
+    int32 ao0 = 3;
+    int32 ao1 = 4;
+}
+
+message SequenceMessage {
+    repeated PulseMessage pulse = 1;
+    int64 n_runs = 2;
+    PulseMessage final = 3;
+    PulseMessage underflow = 4;
+    bool triggered = 5;
+}
+
+message PulseStreamerReply {
+    string message = 1;
+}
+
+service PulseStreamer {
+    rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
+}

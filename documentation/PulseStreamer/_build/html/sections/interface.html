@@ -244,7 +244,7 @@ one conversion step is needed before sending a sequence. The JSON-RPC interface 
 </div>
 <p>&#8220;sequence&#8221; is the array data as per above C++ data format definition packed into a binary string and converted
 to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
-<a class="reference external" href="file:///home/helmut/git/pulsestreamer/examples/python/json/random_pulses.py">random_pulses.py</a>.
+<a class="reference download internal" href="../_downloads/random_pulses.py"><tt class="xref download docutils literal"><span class="pre">random_pulses.py</span></tt></a>.
 All other arguments are self explanatory.</p>
 </div>
 </div>
@@ -262,40 +262,9 @@ standard and is in a beta development stage.</p>
 The language specific implementation automatically takes care about conversion
 to native data types.</p>
 <p>The Pulse Streamer interface looks like this. Please check out the source file
-<a class="reference external" href="file:///home/helmut/git/pulsestreamer/proto/pulse_streamer.proto">pulse_streamer.proto</a>.</p>
-<div class="highlight-python"><div class="highlight"><pre>syntax = &quot;proto3&quot;;
-package pulse_streamer;
-
-message PulseMessage
-{
-    uint32 ticks = 1;
-    uint32 digi = 2;
-    int32 ao0 = 3;
-    int32 ao1 = 4;
-}
-
-message SequenceMessage
-{
-    repeated PulseMessage pulse = 1;
-    int64 repeat = 2;
-    PulseMessage final = 3;
-    PulseMessage underflow = 4;
-    bool triggered = 5;
-}
-
-message PulseStreamerReply
-{
-    string message = 1;
-}
-
-service PulseStreamer
-{
-    rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
-}
-</pre></div>
-</div>
+<a class="reference download internal" href="../_downloads/pulse_streamer.proto"><tt class="xref download docutils literal"><span class="pre">pulse_streamer.proto</span></tt></a>.</p>
 <p>Please check out the python example for connecting to the gRPC interface
-<a class="reference external" href="file:///home/helmut/git/pulsestreamer/examples/python/grpc/random_pulses.py">random_pulses.py</a>.</p>
+<a class="reference download internal" href="../_downloads/random_pulses1.py"><tt class="xref download docutils literal"><span class="pre">random_pulses.py</span></tt></a>.</p>
 </div>
 </div>
 </div>

@@ -11,7 +11,7 @@
 	:align: center
 
 Welcome to Pulse Streamer's documentation!
-=======================================
+==========================================
 
 
 .. toctree::

@@ -131,7 +131,7 @@ one conversion step is needed before sending a sequence. The JSON-RPC interface 
 
 "sequence" is the array data as per above C++ data format definition packed into a binary string and converted
 to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
-`random_pulses.py <file:///home/helmut/git/pulsestreamer/examples/python/json/random_pulses.py>`_.
+:download:`random_pulses.py <../../examples/python/json/random_pulses.py>`.
 All other arguments are self explanatory.
 
 gRPC Interface
@@ -153,41 +153,10 @@ The language specific implementation automatically takes care about conversion
 to native data types. 
 
 The Pulse Streamer interface looks like this. Please check out the source file
-`pulse_streamer.proto <file:///home/helmut/git/pulsestreamer/proto/pulse_streamer.proto>`_.
+:download:`pulse_streamer.proto <../../proto/pulse_streamer.proto>`.
 
-::
-
-    syntax = "proto3";
-    package pulse_streamer;
-
-    message PulseMessage
-    {
-        uint32 ticks = 1;
-        uint32 digi = 2;
-        int32 ao0 = 3;
-        int32 ao1 = 4;
-    }
-
-    message SequenceMessage
-    {
-        repeated PulseMessage pulse = 1;
-        int64 repeat = 2;
-        PulseMessage final = 3;
-        PulseMessage underflow = 4;
-        bool triggered = 5;
-    }
-
-    message PulseStreamerReply
-    {
-        string message = 1;
-    }
-
-    service PulseStreamer
-    {
-        rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
-    }
 
 Please check out the python example for connecting to the gRPC interface
-`random_pulses.py <file:///home/helmut/git/pulsestreamer/examples/python/grpc/random_pulses.py>`_.
+:download:`random_pulses.py <../../examples/python/grpc/random_pulses.py>`.
 
 
