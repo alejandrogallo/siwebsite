@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Programming Interface &mdash; Pulse Streamer 8/2 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Pulse Streamer 8/2 0.1 documentation" href="../index.html"/>
+        <link rel="prev" title="Hardware" href="hardware.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Pulse Streamer 8/2
+          
+
+          
+            
+            <img src="../_static/logo_transparent.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Programming Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pulse-sequences">Pulse Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-pulse-sequences">Running pulse sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-streaming-and-underflows">Data streaming and underflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-for-buffer-underflows">Checking for buffer underflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#communicating-with-the-instrument">Communicating with the instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#json-rpc-interface">JSON-RPC Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sending-data-over-json-rpc">Sending Data over JSON-RPC</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#grpc-interface">gRPC Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sending-data-over-grpc">Sending Data over gRPC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Pulse Streamer 8/2</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Programming Interface</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="programming-interface">
+<h1>Programming Interface<a class="headerlink" href="#programming-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pulse-sequences">
+<h2>Pulse Sequences<a class="headerlink" href="#pulse-sequences" title="Permalink to this headline">¶</a></h2>
+<p>Pulse sequences are represented  as one dimensional arrays of pulses.
+Each pulse specifies its duration and the states of the digital
+and analog output channels. The C++ data type is:</p>
+<div class="highlight-python"><div class="highlight"><pre>struct Pulse {
+    unsigned int ticks; // duration in ns
+    unsigned char digi; // bit mask
+    short ao0;
+    short ao1;
+};
+</pre></div>
+</div>
+<p>The pulse duration is specified in nanoseconds.</p>
+<p>The lowest bit in the digital bit mask &#8220;digi&#8221; corresponds to channel 0, the highest bit to channel 7.
+A channel is high when its corresponding bit is 1 and low otherwise.</p>
+<p>The analog values span the full signed 16 bit integer range, i.e. -1.0 V corresponds
+to -0x7fff and 1.0 V corresponds to 0x7fff. Note that the DAC resolution is 12 bits,
+i.e., the 4 LSB are ignored.</p>
+</div>
+<div class="section" id="running-pulse-sequences">
+<h2>Running pulse sequences<a class="headerlink" href="#running-pulse-sequences" title="Permalink to this headline">¶</a></h2>
+<p>Running a pulse sequence corresponds to a single function call where you
+pass your pulse sequence as an argument.</p>
+<p>You can repeat a pulse sequence indefinitely or an integer number of times.
+In the latter case, you can additionally specify the output state after the
+execution of the sequence.</p>
+<p>By default, the sequence is executed immediately. Alternatively, you can
+tell the system to wait for an external trigger applied to GPIO channel 3.</p>
+<p>The C++ method to run a pulse sequence is:</p>
+<div class="highlight-python"><div class="highlight"><pre>void stream(std::vector&lt;Pulse&gt; sequence,
+            unsigned long n_runs=0,
+            Pulse final=Pulse{0,0,0,0},
+            Pulse underflow=Pulse{0,0,0,0},
+            bool triggered=False
+            )
+</pre></div>
+</div>
+<p>sequence represents the pulse sequence</p>
+<p>the sequence is repeated indefinitely if n_runs &lt;=0 and a finite number of repetitions otherwise.</p>
+<p>final represents the final output state after completing the sequence (the tick value is ignored).</p>
+<p>underflow specifies the output state that the instrument should enter in case a buffer undeflow occurs (the tick value is ignored).</p>
+<p>If trigger is true, the system waits for an external trigger before starting the sequence.</p>
+</div>
+<div class="section" id="data-streaming-and-underflows">
+<h2>Data streaming and underflows<a class="headerlink" href="#data-streaming-and-underflows" title="Permalink to this headline">¶</a></h2>
+<p>The total sampling rate of the pulse streamer is higher than its internal data transfer rate (~6.4 Gbit / s).
+Thus, the instrument will run into buffer underflow conditions when the pulse sequence cannot be represented
+in a compressed form. This is the case e.g. for very short digital pulses with arbitrary channel masks
+or for arbitrary analog sequences with the full sample rate.
+However, in most use cases the pulse sequence can be represented in a compressed form, where the
+actual rate of transfered information is smaller than the sampling rate.
+Buffer underflows will not occurr when the average repeat value of the corresponding low level pulses is
+larger or equal to 3.</p>
+<p>To treat buffer underflows gracefully, the instrument will halt the output data stream and set the output levels
+to a user defined state.</p>
+<p>If you are streaming sequences at the edge of the cappability, it is good practice to check for buffer underflows
+on a regular basis using the programming interface.</p>
+</div>
+<div class="section" id="checking-for-buffer-underflows">
+<h2>Checking for buffer underflows<a class="headerlink" href="#checking-for-buffer-underflows" title="Permalink to this headline">¶</a></h2>
+<p>You can check for buffer underflows with a single function call. The underlying C++ function is</p>
+<div class="highlight-python"><div class="highlight"><pre>bool getUnderflow()
+</pre></div>
+</div>
+<p>The function returns true when the system has entered the underflow state.</p>
+</div>
+<div class="section" id="communicating-with-the-instrument">
+<h2>Communicating with the instrument<a class="headerlink" href="#communicating-with-the-instrument" title="Permalink to this headline">¶</a></h2>
+<p>Your Pulse Streamer 8/2 contains an embedded operating system.
+You connect to the embedded system over LAN through straight forward
+&#8220;Remote Procedure Calls&#8221; (RPC). Requests to the system are
+directly converted into C++ calls.
+This architecture gives you direct control over the system.</p>
+<p>You can connect throught two RPC interfaces. (i) a JSON-RPC interface that is based on
+the well established JSON data format (<a class="reference external" href="http://www.json.org/">http://www.json.org/</a>)
+(ii) a google RPC interface (gRPC) that is based on googles data exchange format
+(<a class="reference external" href="https://developers.google.com/protocol-buffers/">https://developers.google.com/protocol-buffers/</a>).
+Both RPC interfaces provide the same functionality.</p>
+</div>
+<div class="section" id="json-rpc-interface">
+<h2>JSON-RPC Interface<a class="headerlink" href="#json-rpc-interface" title="Permalink to this headline">¶</a></h2>
+<p>JSON-RPC libraries are available for most software languages. More information can be found
+on the official website <a class="reference external" href="http://json-rpc.org/">http://json-rpc.org/</a> and on Wikpedia <a class="reference external" href="https://en.wikipedia.org/wiki/JSON-RPC">https://en.wikipedia.org/wiki/JSON-RPC</a>.</p>
+<p>The JSON-RPC URL of the Pulse Streamer is <a class="reference external" href="http://192.168.1.100:8050/json-rpc">http://192.168.1.100:8050/json-rpc</a>.</p>
+<div class="section" id="sending-data-over-json-rpc">
+<h3>Sending Data over JSON-RPC<a class="headerlink" href="#sending-data-over-json-rpc" title="Permalink to this headline">¶</a></h3>
+<p>There is no native format for sending array data over JSON-RPC. Therefore the pulse sequence
+is sent as a binary string. Since the http transport layer requires string data to be base64 encoded,
+one conversion step is needed before sending a sequence. The JSON-RPC interface call is</p>
+<div class="highlight-python"><div class="highlight"><pre>{base64 string sequence,
+ unsigned long n_runs,
+ {unsigned int ticks, unsigned char digi, short ao0, short ao1},
+ {unsigned int ticks, unsigned char digi, short ao0, short ao1},
+ bool triggered}
+</pre></div>
+</div>
+<p>&#8220;sequence&#8221; is the array data as per above C++ data format definition packed into a binary string and converted
+to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
+<a class="reference external" href="file:///home/helmut/git/pulsestreamer/examples/python/json/random_pulses.py">random_pulses.py</a>.
+All other arguments are self explanatory.</p>
+</div>
+</div>
+<div class="section" id="grpc-interface">
+<h2>gRPC Interface<a class="headerlink" href="#grpc-interface" title="Permalink to this headline">¶</a></h2>
+<p>gRPC (<a class="reference external" href="http://www.grpc.io/">http://www.grpc.io/</a>) is a new RPC interface that is based on googles well established
+data exchange format called Protocol Buffers (<a class="reference external" href="https://developers.google.com/protocol-buffers/">https://developers.google.com/protocol-buffers/</a>).
+There are gRPC libraries available
+for most programming languages. Note that gRPC requires the new Protobuf3
+standard and is in a beta development stage.</p>
+<p>The gRPC server of the Pulse Streamer is 192.168.1.100:50051.</p>
+<div class="section" id="sending-data-over-grpc">
+<h3>Sending Data over gRPC<a class="headerlink" href="#sending-data-over-grpc" title="Permalink to this headline">¶</a></h3>
+<p>In gRPC, data types are defined by generic, language independent templates.
+The language specific implementation automatically takes care about conversion
+to native data types.</p>
+<p>The Pulse Streamer interface looks like this. Please check out the source file
+<a class="reference external" href="file:///home/helmut/git/pulsestreamer/proto/pulse_streamer.proto">pulse_streamer.proto</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre>syntax = &quot;proto3&quot;;
+package pulse_streamer;
+
+message PulseMessage
+{
+    uint32 ticks = 1;
+    uint32 digi = 2;
+    int32 ao0 = 3;
+    int32 ao1 = 4;
+}
+
+message SequenceMessage
+{
+    repeated PulseMessage pulse = 1;
+    int64 repeat = 2;
+    PulseMessage final = 3;
+    PulseMessage underflow = 4;
+    bool triggered = 5;
+}
+
+message PulseStreamerReply
+{
+    string message = 1;
+}
+
+service PulseStreamer
+{
+    rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
+}
+</pre></div>
+</div>
+<p>Please check out the python example for connecting to the gRPC interface
+<a class="reference external" href="file:///home/helmut/git/pulsestreamer/examples/python/grpc/random_pulses.py">random_pulses.py</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="hardware.html" class="btn btn-neutral" title="Hardware" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Swabian Instruments.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

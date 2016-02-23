@@ -1,0 +1,56 @@
+
+********
+Hardware
+********
+
+
+Output Channels
+===============
+
+The *The Pulse Streamer 8/2* has 8 digital and two analog output channels.
+The electrical characteristics are tabulated below.
+
+Digital Output
+--------------
+
++-----------------------+---------------+
+| Property              | Value         |
++=======================+===============+
+| Voltage level         |    0 to 3.3 V |
++-----------------------+---------------+
+| Output drive          |          50 Ω |
++-----------------------+---------------+
+| Sampling rate         |         1 GHz |
++-----------------------+---------------+
+| Bandwidth             |       300 MHz |
++-----------------------+---------------+
+
+Analog Output
+-------------
+
++-----------------------+---------------+
+| Property              | Value         |
++=======================+===============+
+| Output Voltage Range  | -1.0 to 1.0 V |
++-----------------------+---------------+
+| Output drive          |          50 Ω |
++-----------------------+---------------+
+| Sampling rate         |       125 MHz |
++-----------------------+---------------+
+| Bandwidth             |        80 MHz |
++-----------------------+---------------+
+
+Trigger Input
+=============
+
+The Pulse Streamer 8/2 has one trigger input that can be applied to GPIO 3.
+
+
+General purpose IO (available upon request)
+===========================================
+
+The device is ready to be equipped with SMA connectorized general purpose digital IO ports and
+slow analog input and output ports. These can be used to implement custom features such as special fast input or
+output triggers, enable / disable gates, software controllable input and output lines, etc..
+Please contact us for custom designs.
+
