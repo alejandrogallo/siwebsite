@@ -1,0 +1,27 @@
+*********
+Changelog
+*********
+
+2016-03-07
+==========
+
+provide network configuration
+
+* added section on network configuration
+
+2016-03-03
+==========
+
+static sequence release
+
+* initial, final, underflow states
+* software start
+* external trigger
+* rerun sequence
+* separate underflow flags for digital and analog
+* optional values in jRPC
+
+2016-02-02
+==========
+
+static sequence beta

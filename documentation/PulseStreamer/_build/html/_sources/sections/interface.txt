@@ -28,6 +28,20 @@ The analog values span the full signed 16 bit integer range, i.e. -1.0 V corresp
 to -0x7fff and 1.0 V corresponds to 0x7fff. Note that the DAC resolution is 12 bits,
 i.e., the 4 LSB are ignored.
 
+Setting constant outputs
+========================
+
+You can set the outputs to a constant state.
+
+The C++ method is:
+
+::
+
+    void constant(Pulse pulse={0,0,0,0})
+ 
+Calling the method without a parameter will result in the default output state with all
+outputs set to 0V.
+
 Running pulse sequences
 =======================
 
@@ -35,32 +49,75 @@ Running a pulse sequence corresponds to a single function call where you
 pass your pulse sequence as an argument.
 
 You can repeat a pulse sequence indefinitely or an integer number of times.
-In the latter case, you can additionally specify the output state after the
-execution of the sequence.
 
-By default, the sequence is executed immediately. Alternatively, you can
-tell the system to wait for an external trigger applied to GPIO channel 3. 
+A sequence run is associated with up to three constant output states.
+Specifically, the instrument will assert constant outputs
+before and after the sequence run (the latter only if the number of repetitions is finite)
+and if a buffer underflow occurs. You can specify independent values
+for these three possible constant states.
+
+By default the sequence is started immediately. Alternatively you can
+tell the system to wait for a later software start command or for an
+external hardware trigger applied to GPIO channel 3. 
 
 The C++ method to run a pulse sequence is:
 
 ::
 
     void stream(std::vector<Pulse> sequence,
-                unsigned long n_runs=0,
+                unsigned long n_runs=-1,
+                Pulse initial=Pulse{0,0,0,0},
                 Pulse final=Pulse{0,0,0,0},
                 Pulse underflow=Pulse{0,0,0,0},
-                bool triggered=False
+                bool triggered=False,
+                bool auto_start=True,
                 )
 
 sequence represents the pulse sequence
 
 the sequence is repeated indefinitely if n_runs <=0 and a finite number of repetitions otherwise.
 
-final represents the final output state after completing the sequence (the tick value is ignored).
-
-underflow specifies the output state that the instrument should enter in case a buffer undeflow occurs (the tick value is ignored).
+initial, final and underflow represent the three possible constant outputs (the tick values are ignored).
 
 If trigger is true, the system waits for an external trigger before starting the sequence.
+
+If triggered is false and auto_start is true, the sequence is started immediately.
+
+All parameters except 'sequence' have default values and can be omitted if not needed.
+
+If you have passed auto_start = false, you can start the sequence at a later time using the method
+
+::
+
+    void start()
+
+
+If you have run a sequence and just want to rerun the same sequence at a later time, you can
+skip uploading the sequence to memory. You can do this by calling the 'sequence' method
+with the following C++ signature
+
+::
+
+    void stream(Pulse initial=Pulse{0,0,0,0},
+                Pulse underflow=Pulse{0,0,0,0},
+                bool triggered=False,
+                bool auto_start=True,
+                )
+
+Note that 'n_runs' and 'final' cannot be passed when rerunning the previous sequence, since these values
+affect the memory layout of the pulse sequence.
+
+If you try to rerun a sequence but there is no previous sequence in memory, this
+will result in an error.
+
+You can check whether a sequence is available in memory by the following method
+
+::
+
+    bool sequenceInMemory()
+
+The method returns true if a sequence is available in memory.
+
 
 Data streaming and underflows 
 ============================= 
@@ -75,7 +132,7 @@ Buffer underflows will not occurr when the average repeat value of the correspon
 larger or equal to 3. 
  
 To treat buffer underflows gracefully, the instrument will halt the output data stream and set the output levels 
-to a user defined state. 
+to a user defined underflow state as indicated above.
  
 If you are streaming sequences at the edge of the cappability, it is good practice to check for buffer underflows 
 on a regular basis using the programming interface. 
@@ -83,13 +140,14 @@ on a regular basis using the programming interface.
 Checking for buffer underflows
 ==============================
 
-You can check for buffer underflows with a single function call. The underlying C++ function is
+You can check for buffer underflows with a single function call. The C++ method is
 
 ::
 
-    bool getUnderflow()
+    int getUnderflow()
 
-The function returns true when the system has entered the underflow state.
+The method returns 1,2 or 3 if the digital output, the analog output or both
+have entered the underflow state, respectively.
 
 Communicating with the instrument
 =================================
@@ -112,14 +170,16 @@ JSON-RPC Interface
 JSON-RPC libraries are available for most software languages. More information can be found
 on the official website http://json-rpc.org/ and on Wikpedia https://en.wikipedia.org/wiki/JSON-RPC.
 
-The JSON-RPC URL of the Pulse Streamer is http://192.168.1.100:8050/json-rpc. 
+The JSON-RPC URL of the Pulse Streamer is http://<pulse_streamer_ip>:8050/json-rpc, where <pulse_streamer_ip>
+is the IP address of your pulse streamer.
 
 Sending Data over JSON-RPC
 --------------------------
 
 There is no native format for sending array data over JSON-RPC. Therefore the pulse sequence
 is sent as a binary string. Since the http transport layer requires string data to be base64 encoded,
-one conversion step is needed before sending a sequence. The JSON-RPC interface call is
+one conversion step is needed before sending a sequence. The JSON-RPC interface call can be performed 
+with an array
 
 ::
 
@@ -127,12 +187,35 @@ one conversion step is needed before sending a sequence. The JSON-RPC interface 
      unsigned long n_runs,
      {unsigned int ticks, unsigned char digi, short ao0, short ao1},
      {unsigned int ticks, unsigned char digi, short ao0, short ao1},
-     bool triggered}
+     {unsigned int ticks, unsigned char digi, short ao0, short ao1},
+     bool triggered,
+     bool auto_start,
+     }
+
+or with named parameters
+
+::
+
+    {"sequence":base64 string sequence,
+     "n_runs":unsigned long n_runs,
+     "initial":{unsigned int ticks, unsigned char digi, short ao0, short ao1},
+     "final":{unsigned int ticks, unsigned char digi, short ao0, short ao1},
+     "underflow":{unsigned int ticks, unsigned char digi, short ao0, short ao1},
+     "triggered":bool triggered,
+     "auto_start":bool auto_start,
+     }
+
 
 "sequence" is the array data as per above C++ data format definition packed into a binary string and converted
 to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
 :download:`random_pulses.py <../../examples/python/json/random_pulses.py>`.
-All other arguments are self explanatory.
+All other arguments are self explanatory as per the above sections.
+
+Most parameters are optional and the call can be used both to run a new sequence and to rerun
+the previous sequence.
+
+Other remote call methods are one to one correspondances to the
+C++ interface.
 
 gRPC Interface
 ==============
@@ -143,20 +226,58 @@ There are gRPC libraries available
 for most programming languages. Note that gRPC requires the new Protobuf3
 standard and is in a beta development stage.
 
-The gRPC server of the Pulse Streamer is 192.168.1.100:50051. 
+The gRPC server of the Pulse Streamer is <pulse_streamer_ip>:50051, where <pulse_streamer_ip>
+is the IP address of your pulse streamer. 
 
 Sending Data over gRPC
 ----------------------
 
 In gRPC, data types are defined by generic, language independent templates.
 The language specific implementation automatically takes care about conversion
-to native data types. 
+to native data types.
 
-The Pulse Streamer interface looks like this. Please check out the source file
+The Pulse Streamer interface looks like this.
+
+::
+
+    package pulse_streamer;
+
+    message VoidMessage {}
+
+    message PulseMessage {
+        uint32 ticks = 1;
+        uint32 digi = 2;
+        int32 ao0 = 3;
+        int32 ao1 = 4;
+    }
+
+    message SequenceMessage {
+        repeated PulseMessage pulse = 1;
+        int64 n_runs = 2;
+        PulseMessage initial = 3;
+        PulseMessage final = 4;
+        PulseMessage underflow = 5;
+        bool triggered = 6;
+        bool auto_start = 7;
+    }
+
+    message PulseStreamerReply {
+        int32 value = 1;
+    }
+
+    service PulseStreamer {
+        rpc constant (PulseMessage) returns (PulseStreamerReply) {}
+        rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
+        rpc start (VoidMessage) returns (PulseStreamerReply) {}
+        rpc sequenceInMemory (VoidMessage) returns (PulseStreamerReply) {}
+        rpc getUnderflow (VoidMessage) returns (PulseStreamerReply) {}
+    }
+
+
+You may want to check out the source file
 :download:`pulse_streamer.proto <../../proto/pulse_streamer.proto>`.
 
-
-Please check out the python example for connecting to the gRPC interface
+We recommend to check out the python example for connecting to the gRPC interface
 :download:`random_pulses.py <../../examples/python/grpc/random_pulses.py>`.
 
 

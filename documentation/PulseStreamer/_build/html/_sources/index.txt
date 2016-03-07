@@ -18,7 +18,9 @@ Welcome to Pulse Streamer's documentation!
    :maxdepth: 2
 
    sections/hardware
+   sections/network
    sections/interface
+   sections/changelog
 
 
 

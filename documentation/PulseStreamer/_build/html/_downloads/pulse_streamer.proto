@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package pulse_streamer;
 
+message VoidMessage {}
+
 message PulseMessage {
     uint32 ticks = 1;
     uint32 digi = 2;
@@ -12,15 +14,21 @@ message PulseMessage {
 message SequenceMessage {
     repeated PulseMessage pulse = 1;
     int64 n_runs = 2;
-    PulseMessage final = 3;
-    PulseMessage underflow = 4;
-    bool triggered = 5;
+    PulseMessage initial = 3;
+    PulseMessage final = 4;
+    PulseMessage underflow = 5;
+    bool triggered = 6;
+    bool auto_start = 7;
 }
 
 message PulseStreamerReply {
-    string message = 1;
+    int32 value = 1;
 }
 
 service PulseStreamer {
+    rpc constant (PulseMessage) returns (PulseStreamerReply) {}
     rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
+    rpc start (VoidMessage) returns (PulseStreamerReply) {}
+    rpc sequenceInMemory (VoidMessage) returns (PulseStreamerReply) {}
+    rpc getUnderflow (VoidMessage) returns (PulseStreamerReply) {}
 }

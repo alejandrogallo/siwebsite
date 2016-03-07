@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Network Connection &mdash; Pulse Streamer 8/2 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Pulse Streamer 8/2 0.1 documentation" href="../index.html"/>
+        <link rel="next" title="Programming Interface" href="interface.html"/>
+        <link rel="prev" title="Hardware" href="hardware.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Pulse Streamer 8/2
+          
+
+          
+            
+            <img src="../_static/logo_transparent.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Network Connection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#assign-a-static-ip-with-the-mac-address-and-dhcp">assign a static IP with the MAC address and DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-192-168-1-100-static-fallback-ip">use 192.168.1.100 static fallback IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modify-the-network-settings">modify the network settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verify-network-access-to-your-pulse-streamer">verify network access to your Pulse Streamer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#login-to-your-pulse-streamer">Login to your Pulse Streamer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit-the-ip-configuration">Edit the IP configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">Programming Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Pulse Streamer 8/2</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Network Connection</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="network-connection">
+<h1>Network Connection<a class="headerlink" href="#network-connection" title="Permalink to this headline">¶</a></h1>
+<p>In order to communicate with the Pulse Streamer, you need to know its IP.
+By default the Pulse Streamer will attempt to acquire an IP address via
+DHCP. If no IP address is received after 20 seconds, it will fallback to a static
+IP address 192.168.1.100.</p>
+<div class="section" id="assign-a-static-ip-with-the-mac-address-and-dhcp">
+<h2>assign a static IP with the MAC address and DHCP<a class="headerlink" href="#assign-a-static-ip-with-the-mac-address-and-dhcp" title="Permalink to this headline">¶</a></h2>
+<p>You can configure your DHCP server or router to assign a static
+DHCP IP to the Pulse Streamer&#8217;s MAC address. In this way you
+know the IP that the Pulse Streamer will receive by DHCP.
+You find the MAC address of your Pulse Streamer
+on the bottom of the device.</p>
+<p>To verify your network configuration, open a terminal and enter</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[user@host~] arp
+
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.1.108            ether   00:26:32:f0:09:30   C                     wlp1s0
+router                   ether   18:83:bf:c1:1f:67   C                     wlp1s0
+</pre></div>
+</div>
+<p>In this example the first line is the Pulse Streamer and the second
+line is the router.</p>
+</div>
+<div class="section" id="use-192-168-1-100-static-fallback-ip">
+<h2>use 192.168.1.100 static fallback IP<a class="headerlink" href="#use-192-168-1-100-static-fallback-ip" title="Permalink to this headline">¶</a></h2>
+<p>Either connect your Pulse Streamer directly to your computer with
+an ethernet cable or setup a static 192.168.1.xxx network and connect the Pulse Streamer
+to this network. Assign a static IP to your computer that is not 192.168.1.100, e.g. 192.168.1.88.</p>
+<p>Note that with this configuration, the startup time
+is delayed by about 20 seconds since the Pulse Streamer searches for
+a DHCP IP at every startup. This can be improved by setting the default
+IP configuration to static.</p>
+</div>
+<div class="section" id="modify-the-network-settings">
+<h2>modify the network settings<a class="headerlink" href="#modify-the-network-settings" title="Permalink to this headline">¶</a></h2>
+<p>Requirements:</p>
+<blockquote>
+<div><ul class="simple">
+<li>network access to your Pulse Streamer (e.g. 192.168.1.100 static fallback)</li>
+<li>ssh / putty</li>
+</ul>
+</div></blockquote>
+<div class="section" id="verify-network-access-to-your-pulse-streamer">
+<h3>verify network access to your Pulse Streamer<a class="headerlink" href="#verify-network-access-to-your-pulse-streamer" title="Permalink to this headline">¶</a></h3>
+<p>open a console and enter</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ping &lt;pulse_streamer_ip&gt;
+</pre></div>
+</div>
+<p>where &lt;pulse_streamer_ip&gt; is the IP of your Pulse Streamer. You should see something like</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[user@host~] ping 192.168.1.108
+
+PING 192.168.1.108 (192.168.1.108) 56(84) bytes of data.
+64 bytes from 192.168.1.108: icmp_seq=1 ttl=64 time=6.74 ms
+</pre></div>
+</div>
+</div>
+<div class="section" id="login-to-your-pulse-streamer">
+<h3>Login to your Pulse Streamer<a class="headerlink" href="#login-to-your-pulse-streamer" title="Permalink to this headline">¶</a></h3>
+<p>Windows:</p>
+<p>Open <a class="reference external" href="http://www.putty.org/">putty</a>, enter the IP of your Pulse Streamer and press &#8216;Open&#8217;. If you connect
+for the first time, a security alert about an unknown host key should pop up. Click &#8216;Yes&#8217; to store
+the host key for the future. Enter the username &#8216;root&#8217; and password &#8216;root&#8217;.</p>
+<img alt="../_images/putty.png" src="../_images/putty.png" />
+<p>Linux:</p>
+<p>Open a terminal and enter</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ssh root@&lt;pulse_streamer_ip&gt;
+</pre></div>
+</div>
+<p>where &lt;pulse_streamer_ip&gt; is the IP of your Pulse Streamer. Enter the password &#8216;root&#8217;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[user@host~] ssh root@192.168.1.100
+root@192.168.1.108&#39;s password: root
+</pre></div>
+</div>
+</div>
+<div class="section" id="edit-the-ip-configuration">
+<h3>Edit the IP configuration<a class="headerlink" href="#edit-the-ip-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Open the IP configuration file in the <a class="reference external" href="http://ex-vi.sourceforge.net/">vi</a> editor.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">pulsestreamer</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">network</span><span class="o">/</span><span class="n">interfaces</span>
+</pre></div>
+</div>
+<p>Switch to &#8216;insert mode&#8217;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">i</span>
+</pre></div>
+</div>
+<p>Change the file according to your needs. For DHCP, these lines should be
+uncommented</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span># Dynamic (DHCP) IP address
+auto eth0
+iface eth0 inet dhcp
+    udhcpc_opts -t7 -T3
+</pre></div>
+</div>
+<p>For a static IP configuration, these lines should be uncommented.
+Modify these lines to your needs.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span># static IP address
+auto eth0
+iface eth0 inet static
+    address 192.168.1.101
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+</pre></div>
+</div>
+<p>When you are done with your edits, press</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;ESC&gt;
+</pre></div>
+</div>
+<p>to exit &#8216;insert mode&#8217;. To save your changes, type</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ZZ</span>
+</pre></div>
+</div>
+<p>To discard your changes, type</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>:q!
+</pre></div>
+</div>
+<p>Reboot your Pulse Streamer.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="interface.html" class="btn btn-neutral float-right" title="Programming Interface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hardware.html" class="btn btn-neutral" title="Hardware" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Swabian Instruments.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

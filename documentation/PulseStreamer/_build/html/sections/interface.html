@@ -31,7 +31,8 @@
 
   
     <link rel="top" title="Pulse Streamer 8/2 0.1 documentation" href="../index.html"/>
-        <link rel="prev" title="Hardware" href="hardware.html"/> 
+        <link rel="next" title="Changelog" href="changelog.html"/>
+        <link rel="prev" title="Network Connection" href="network.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,8 +86,10 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network Connection</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Programming Interface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pulse-sequences">Pulse Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-constant-outputs">Setting constant outputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-pulse-sequences">Running pulse sequences</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data-streaming-and-underflows">Data streaming and underflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#checking-for-buffer-underflows">Checking for buffer underflows</a></li>
@@ -101,6 +104,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
             
@@ -123,7 +127,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -150,7 +154,7 @@
 <p>Pulse sequences are represented  as one dimensional arrays of pulses.
 Each pulse specifies its duration and the states of the digital
 and analog output channels. The C++ data type is:</p>
-<div class="highlight-python"><div class="highlight"><pre>struct Pulse {
+<div class="highlight-python"><div class="highlight"><pre><span></span>struct Pulse {
     unsigned int ticks; // duration in ns
     unsigned char digi; // bit mask
     short ao0;
@@ -165,29 +169,69 @@ A channel is high when its corresponding bit is 1 and low otherwise.</p>
 to -0x7fff and 1.0 V corresponds to 0x7fff. Note that the DAC resolution is 12 bits,
 i.e., the 4 LSB are ignored.</p>
 </div>
+<div class="section" id="setting-constant-outputs">
+<h2>Setting constant outputs<a class="headerlink" href="#setting-constant-outputs" title="Permalink to this headline">¶</a></h2>
+<p>You can set the outputs to a constant state.</p>
+<p>The C++ method is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>void constant(Pulse pulse={0,0,0,0})
+</pre></div>
+</div>
+<p>Calling the method without a parameter will result in the default output state with all
+outputs set to 0V.</p>
+</div>
 <div class="section" id="running-pulse-sequences">
 <h2>Running pulse sequences<a class="headerlink" href="#running-pulse-sequences" title="Permalink to this headline">¶</a></h2>
 <p>Running a pulse sequence corresponds to a single function call where you
 pass your pulse sequence as an argument.</p>
-<p>You can repeat a pulse sequence indefinitely or an integer number of times.
-In the latter case, you can additionally specify the output state after the
-execution of the sequence.</p>
-<p>By default, the sequence is executed immediately. Alternatively, you can
-tell the system to wait for an external trigger applied to GPIO channel 3.</p>
+<p>You can repeat a pulse sequence indefinitely or an integer number of times.</p>
+<p>A sequence run is associated with up to three constant output states.
+Specifically, the instrument will assert constant outputs
+before and after the sequence run (the latter only if the number of repetitions is finite)
+and if a buffer underflow occurs. You can specify independent values
+for these three possible constant states.</p>
+<p>By default the sequence is started immediately. Alternatively you can
+tell the system to wait for a later software start command or for an
+external hardware trigger applied to GPIO channel 3.</p>
 <p>The C++ method to run a pulse sequence is:</p>
-<div class="highlight-python"><div class="highlight"><pre>void stream(std::vector&lt;Pulse&gt; sequence,
-            unsigned long n_runs=0,
+<div class="highlight-python"><div class="highlight"><pre><span></span>void stream(std::vector&lt;Pulse&gt; sequence,
+            unsigned long n_runs=-1,
+            Pulse initial=Pulse{0,0,0,0},
             Pulse final=Pulse{0,0,0,0},
             Pulse underflow=Pulse{0,0,0,0},
-            bool triggered=False
+            bool triggered=False,
+            bool auto_start=True,
             )
 </pre></div>
 </div>
 <p>sequence represents the pulse sequence</p>
 <p>the sequence is repeated indefinitely if n_runs &lt;=0 and a finite number of repetitions otherwise.</p>
-<p>final represents the final output state after completing the sequence (the tick value is ignored).</p>
-<p>underflow specifies the output state that the instrument should enter in case a buffer undeflow occurs (the tick value is ignored).</p>
+<p>initial, final and underflow represent the three possible constant outputs (the tick values are ignored).</p>
 <p>If trigger is true, the system waits for an external trigger before starting the sequence.</p>
+<p>If triggered is false and auto_start is true, the sequence is started immediately.</p>
+<p>All parameters except &#8216;sequence&#8217; have default values and can be omitted if not needed.</p>
+<p>If you have passed auto_start = false, you can start the sequence at a later time using the method</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>void start()
+</pre></div>
+</div>
+<p>If you have run a sequence and just want to rerun the same sequence at a later time, you can
+skip uploading the sequence to memory. You can do this by calling the &#8216;sequence&#8217; method
+with the following C++ signature</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>void stream(Pulse initial=Pulse{0,0,0,0},
+            Pulse underflow=Pulse{0,0,0,0},
+            bool triggered=False,
+            bool auto_start=True,
+            )
+</pre></div>
+</div>
+<p>Note that &#8216;n_runs&#8217; and &#8216;final&#8217; cannot be passed when rerunning the previous sequence, since these values
+affect the memory layout of the pulse sequence.</p>
+<p>If you try to rerun a sequence but there is no previous sequence in memory, this
+will result in an error.</p>
+<p>You can check whether a sequence is available in memory by the following method</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>bool sequenceInMemory()
+</pre></div>
+</div>
+<p>The method returns true if a sequence is available in memory.</p>
 </div>
 <div class="section" id="data-streaming-and-underflows">
 <h2>Data streaming and underflows<a class="headerlink" href="#data-streaming-and-underflows" title="Permalink to this headline">¶</a></h2>
@@ -200,17 +244,18 @@ actual rate of transfered information is smaller than the sampling rate.
 Buffer underflows will not occurr when the average repeat value of the corresponding low level pulses is
 larger or equal to 3.</p>
 <p>To treat buffer underflows gracefully, the instrument will halt the output data stream and set the output levels
-to a user defined state.</p>
+to a user defined underflow state as indicated above.</p>
 <p>If you are streaming sequences at the edge of the cappability, it is good practice to check for buffer underflows
 on a regular basis using the programming interface.</p>
 </div>
 <div class="section" id="checking-for-buffer-underflows">
 <h2>Checking for buffer underflows<a class="headerlink" href="#checking-for-buffer-underflows" title="Permalink to this headline">¶</a></h2>
-<p>You can check for buffer underflows with a single function call. The underlying C++ function is</p>
-<div class="highlight-python"><div class="highlight"><pre>bool getUnderflow()
+<p>You can check for buffer underflows with a single function call. The C++ method is</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>int getUnderflow()
 </pre></div>
 </div>
-<p>The function returns true when the system has entered the underflow state.</p>
+<p>The method returns 1,2 or 3 if the digital output, the analog output or both
+have entered the underflow state, respectively.</p>
 </div>
 <div class="section" id="communicating-with-the-instrument">
 <h2>Communicating with the instrument<a class="headerlink" href="#communicating-with-the-instrument" title="Permalink to this headline">¶</a></h2>
@@ -229,23 +274,43 @@ Both RPC interfaces provide the same functionality.</p>
 <h2>JSON-RPC Interface<a class="headerlink" href="#json-rpc-interface" title="Permalink to this headline">¶</a></h2>
 <p>JSON-RPC libraries are available for most software languages. More information can be found
 on the official website <a class="reference external" href="http://json-rpc.org/">http://json-rpc.org/</a> and on Wikpedia <a class="reference external" href="https://en.wikipedia.org/wiki/JSON-RPC">https://en.wikipedia.org/wiki/JSON-RPC</a>.</p>
-<p>The JSON-RPC URL of the Pulse Streamer is <a class="reference external" href="http://192.168.1.100:8050/json-rpc">http://192.168.1.100:8050/json-rpc</a>.</p>
+<p>The JSON-RPC URL of the Pulse Streamer is <a class="reference external" href="http:/">http:/</a>/&lt;pulse_streamer_ip&gt;:8050/json-rpc, where &lt;pulse_streamer_ip&gt;
+is the IP address of your pulse streamer.</p>
 <div class="section" id="sending-data-over-json-rpc">
 <h3>Sending Data over JSON-RPC<a class="headerlink" href="#sending-data-over-json-rpc" title="Permalink to this headline">¶</a></h3>
 <p>There is no native format for sending array data over JSON-RPC. Therefore the pulse sequence
 is sent as a binary string. Since the http transport layer requires string data to be base64 encoded,
-one conversion step is needed before sending a sequence. The JSON-RPC interface call is</p>
-<div class="highlight-python"><div class="highlight"><pre>{base64 string sequence,
+one conversion step is needed before sending a sequence. The JSON-RPC interface call can be performed
+with an array</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>{base64 string sequence,
  unsigned long n_runs,
  {unsigned int ticks, unsigned char digi, short ao0, short ao1},
  {unsigned int ticks, unsigned char digi, short ao0, short ao1},
- bool triggered}
+ {unsigned int ticks, unsigned char digi, short ao0, short ao1},
+ bool triggered,
+ bool auto_start,
+ }
+</pre></div>
+</div>
+<p>or with named parameters</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>{&quot;sequence&quot;:base64 string sequence,
+ &quot;n_runs&quot;:unsigned long n_runs,
+ &quot;initial&quot;:{unsigned int ticks, unsigned char digi, short ao0, short ao1},
+ &quot;final&quot;:{unsigned int ticks, unsigned char digi, short ao0, short ao1},
+ &quot;underflow&quot;:{unsigned int ticks, unsigned char digi, short ao0, short ao1},
+ &quot;triggered&quot;:bool triggered,
+ &quot;auto_start&quot;:bool auto_start,
+ }
 </pre></div>
 </div>
 <p>&#8220;sequence&#8221; is the array data as per above C++ data format definition packed into a binary string and converted
 to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
-<a class="reference download internal" href="../_downloads/random_pulses.py"><tt class="xref download docutils literal"><span class="pre">random_pulses.py</span></tt></a>.
-All other arguments are self explanatory.</p>
+<a class="reference download internal" href="../_downloads/random_pulses.py" download=""><code class="xref download docutils literal"><span class="pre">random_pulses.py</span></code></a>.
+All other arguments are self explanatory as per the above sections.</p>
+<p>Most parameters are optional and the call can be used both to run a new sequence and to rerun
+the previous sequence.</p>
+<p>Other remote call methods are one to one correspondances to the
+C++ interface.</p>
 </div>
 </div>
 <div class="section" id="grpc-interface">
@@ -255,16 +320,52 @@ data exchange format called Protocol Buffers (<a class="reference external" href
 There are gRPC libraries available
 for most programming languages. Note that gRPC requires the new Protobuf3
 standard and is in a beta development stage.</p>
-<p>The gRPC server of the Pulse Streamer is 192.168.1.100:50051.</p>
+<p>The gRPC server of the Pulse Streamer is &lt;pulse_streamer_ip&gt;:50051, where &lt;pulse_streamer_ip&gt;
+is the IP address of your pulse streamer.</p>
 <div class="section" id="sending-data-over-grpc">
 <h3>Sending Data over gRPC<a class="headerlink" href="#sending-data-over-grpc" title="Permalink to this headline">¶</a></h3>
 <p>In gRPC, data types are defined by generic, language independent templates.
 The language specific implementation automatically takes care about conversion
 to native data types.</p>
-<p>The Pulse Streamer interface looks like this. Please check out the source file
-<a class="reference download internal" href="../_downloads/pulse_streamer.proto"><tt class="xref download docutils literal"><span class="pre">pulse_streamer.proto</span></tt></a>.</p>
-<p>Please check out the python example for connecting to the gRPC interface
-<a class="reference download internal" href="../_downloads/random_pulses1.py"><tt class="xref download docutils literal"><span class="pre">random_pulses.py</span></tt></a>.</p>
+<p>The Pulse Streamer interface looks like this.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>package pulse_streamer;
+
+message VoidMessage {}
+
+message PulseMessage {
+    uint32 ticks = 1;
+    uint32 digi = 2;
+    int32 ao0 = 3;
+    int32 ao1 = 4;
+}
+
+message SequenceMessage {
+    repeated PulseMessage pulse = 1;
+    int64 n_runs = 2;
+    PulseMessage initial = 3;
+    PulseMessage final = 4;
+    PulseMessage underflow = 5;
+    bool triggered = 6;
+    bool auto_start = 7;
+}
+
+message PulseStreamerReply {
+    int32 value = 1;
+}
+
+service PulseStreamer {
+    rpc constant (PulseMessage) returns (PulseStreamerReply) {}
+    rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
+    rpc start (VoidMessage) returns (PulseStreamerReply) {}
+    rpc sequenceInMemory (VoidMessage) returns (PulseStreamerReply) {}
+    rpc getUnderflow (VoidMessage) returns (PulseStreamerReply) {}
+}
+</pre></div>
+</div>
+<p>You may want to check out the source file
+<a class="reference download internal" href="../_downloads/pulse_streamer.proto" download=""><code class="xref download docutils literal"><span class="pre">pulse_streamer.proto</span></code></a>.</p>
+<p>We recommend to check out the python example for connecting to the gRPC interface
+<a class="reference download internal" href="../_downloads/random_pulses1.py" download=""><code class="xref download docutils literal"><span class="pre">random_pulses.py</span></code></a>.</p>
 </div>
 </div>
 </div>
@@ -276,8 +377,10 @@ to native data types.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="hardware.html" class="btn btn-neutral" title="Hardware" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="network.html" class="btn btn-neutral" title="Network Connection" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -38,14 +38,17 @@ client = RPCClient(
 # create the proxy class
 pulse_streamer = client.get_proxy()
 
-seq = get_random_sequence()
+seq = get_random_sequence(mean_length=400000, n_pulses=10)
 
 seq_b64 = encode_sequence(seq)
 
-n_runs = 0
-final = (0,0,0,0)
+n_runs = -1
+initial = (0,0xff,0,0)
+final = (0,0x00,0x7fff,0)
 underflow = (0,0,0,0)
 triggered = False
 
-pulse_streamer.stream(seq_b64, n_runs, final, underflow, triggered)
+pulse_streamer.constant(initial)
+pulse_streamer.constant(final)
+pulse_streamer.stream(seq_b64, n_runs, initial, final, underflow, triggered)
 
