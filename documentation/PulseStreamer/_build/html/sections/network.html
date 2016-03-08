@@ -218,6 +218,11 @@ root@192.168.1.108&#39;s password: root
 </div>
 <div class="section" id="edit-the-ip-configuration">
 <h3>Edit the IP configuration<a class="headerlink" href="#edit-the-ip-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Enter</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">rw</span>
+</pre></div>
+</div>
+<p>to make the internal disk writable.</p>
 <p>Open the IP configuration file in the <a class="reference external" href="http://ex-vi.sourceforge.net/">vi</a> editor.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">pulsestreamer</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">network</span><span class="o">/</span><span class="n">interfaces</span>
 </pre></div>
@@ -256,6 +261,11 @@ iface eth0 inet static
 <div class="highlight-python"><div class="highlight"><pre><span></span>:q!
 </pre></div>
 </div>
+<p>Enter</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ro</span>
+</pre></div>
+</div>
+<p>to make the internal disk readonly.</p>
 <p>Reboot your Pulse Streamer.</p>
 </div>
 </div>

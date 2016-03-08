@@ -100,6 +100,14 @@ where <pulse_streamer_ip> is the IP of your Pulse Streamer. Enter the password '
 Edit the IP configuration
 +++++++++++++++++++++++++
 
+Enter
+
+::
+
+    rw
+
+to make the internal disk writable.
+
 Open the IP configuration file in the `vi <http://ex-vi.sourceforge.net/>`_ editor.
 
 ::
@@ -152,6 +160,13 @@ To discard your changes, type
 
     :q!
 
-Reboot your Pulse Streamer.
+Enter
 
+::
+
+    ro
+
+to make the internal disk readonly.
+
+Reboot your Pulse Streamer.
 
