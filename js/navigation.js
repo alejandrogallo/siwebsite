@@ -26,7 +26,7 @@ function Navigation () {
 				]
 		},{
 			"label":"Sales",
-			"href":"./sales.html",
+			"href":"mailto:info@swabianinstruments.com?subject=Sales%20Inquiry",
 			"type":"inline"
 		},{
 			"label":"General Contact",
