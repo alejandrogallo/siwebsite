@@ -8,14 +8,11 @@ function Navigation () {
 	// this.height=0.05*window.screen.availHeight;
 	// this.width=window.screen.availWidth;
 	this.tagName = "nav";
-	this.sections = [
+	this.sections = 
+	[
 		{
 			"label":"About",
 			"href":"./index.html#about",
-			"type":"inline"
-		},{
-			"label":"Contact",
-			"href":"./contact.html",
 			"type":"inline"
 		},{
 			"label":"Products",
@@ -24,10 +21,18 @@ function Navigation () {
 			"dropdownItems":[
 				{"label":"TimeTagger 20 - Streaming signal acquisition device with 20 picosecond resolution","href":"./timetagger.html"},
 				{"label":"PulseStreamer 8/2 - Streaming analog and digital signal generation device","href":"./pulsestreamer.html"},
-				{"label":"PulseEmitter\n -  Pulsed laser<span style='color:red'><i>(Coming soon!)</i></span>","href":"#"},
-				{"label":"ProgrammablePID\n - Software programmable proportional–integral–derivative controller (PID controller) <span style='color:red'><i>(Coming soon!)</i></span>","href":"#"}
+				{"label":"PulseEmitter\n -  Pulsed laser<span style='color:red'> <i>(Coming soon!)</i></span>","href":"#"},
+				{"label":"ProgrammablePID\n - Software programmable proportional–integral–derivative controller (PID controller) <span style='color:red'> <i>(Coming soon!)</i></span>","href":"#"}
 				]
-		},
+		},{
+			"label":"Sales",
+			"href":"./sales.html",
+			"type":"inline"
+		},{
+			"label":"General Contact",
+			"href":"./contact.html",
+			"type":"inline"
+		}
 	];
 
 	this.textLogo = {
