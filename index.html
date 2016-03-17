@@ -20,40 +20,58 @@
   </nav>
   <!-- Navigation END -->
 
+<!--
   <div class="container" id = "welcome-container" >
     <div class = "container" id ="logo-container">
 
-      <img src="images/logo_transparent.png" class="img-responsive"  id="welcome-logo">
+      <img src="images/logo_transparent.png" class="img-responsive"  id="welcome-logo"> 
+-->
 
-
-
+<div class="container">
+	<div class="jumbotron" id="timetagger-title">   
+  		<div class="container"> 
+  			<img src="images/logo_transparent.png" 
+    				class="img-responsive"  
+		      		 id="welcome-logo"
+		      		 style="float: left; margin: 5px 50px 5px 5px;">
+        	 	<h2 style="display: inline-block;text-align: right;">
+        	 		<i><strong>Technology by Experts<br>... for Experts</strong></i>
+	 		</h2>
+        	 </div>
+	 </div>
+ 
       <!-- CAROUSEL -->
     <div id="welcome-carousel" class="carousel slide center-block" data-ride="carousel">
+      
       <!-- Indicators -->
       <ol class="carousel-indicators" >
         <li data-target="#welcome-carousel" data-slide-to="0" class="active" ></li>
         <li data-target="#welcome-carousel" data-slide-to="1"></li>
+        <li data-target="#welcome-carousel" data-slide-to="2"></li>
+        <li data-target="#welcome-carousel" data-slide-to="3"></li>
+   
       </ol>
 
       <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
+      <div class="carousel-inner" role="listbox" >
        
-        <div class="item tt-carousel-item" style="background-image: url(images/SWI4pillars-sm.png);">
+        <div class="item tt-carousel-item" style="background-image: url(images/SWI4pillars-sm.png);background-size: 40%;
+    background-repeat: no-repeat;">
         </div>
         
-        <div class="item active tt-carousel-item" style="background-image: url(images/kiste1_lower.png);">
+        <div class="item active tt-carousel-item" style="background-image: url(images/kiste1_lower.png);background-size: 40%;
+    background-repeat: no-repeat;">
         </div>
         
-        <div class="item tt-carousel-item" style="background-image: url(images/SWISTRINT.png);">
+        <div class="item tt-carousel-item" style="background-image: url(images/SWISTRINT.png);background-size: 40%;
+    background-repeat: no-repeat;">
         </div>
-<!--
-        <div class="item tt-carousel-item" style="background-image: url(images/TTV6_render_reduced.png);">
-        </div>
--->
+
         
         <div class="item tt-carousel-item" >
         	<p> </p>
-        	<div class="testimonial-wrap"  style=" width: 625px;margin: auto;">
+        	<div class="testimonial-wrap"  style=" width: 625px;margin: auto;background-size: 40%;
+    background-repeat: no-repeat;">
 			<div class="row">
 				<div class="large-6 columns testimonial">
 					<div class="quote">
@@ -90,8 +108,7 @@
       </a>
     </div>
 
-    <div id="leitmotiv" class="jumbotron bg-primary-1 center-block">
-      <h3 id="welcome-message">Technology by experts for experts</h3>
+  <div class="alert alert-info center-block" role="alert"> <strong>Support:</strong> For further inquiries and for sales, send an email to <a href="mailto:info@swabianinstruments.com" ><strong>info@swabianinstruments.com</strong></a> </div>
     </div>
 
     </div>
@@ -106,7 +123,7 @@
       <br>
       <div class="jumbotron bg-primary-1">
         <h1>About</h1>
-        <p>
+        <p style="font-size:16px;">
         We are a small group of enthusiastic physicists, computer scientists,
         and electrical engineers based in Stuttgart, Germany, with strong ties
         to the University of Stuttgart.
@@ -123,8 +140,8 @@
         complex control-loop feedback experiments.
         <br><br>
 
-        Currently two of our products, , TimeTagger 20
-        and PulseStreamer, are commercially available, and two additional products, PulseEmitter and ProgrammablePID, are becoming
+        Currently two of our products, TimeTagger 
+        and PulseStreamer, are commercially available, and two additional products, PulseEmitter and WaveModulator, are becoming
         available in 2016.
         <br><br>
 
@@ -157,13 +174,10 @@
         product on very favorable terms.  Contact us for details.
         <br><br>
 
-        <b>ProgrammablePID</b> is a software programmable
+        <b>WaveModulator</b> is a software programmable
         proportional–integral–derivative controller (PID controller.) This
         product is currently in the design phase and is not yet available to
         the public.
-
-
-
         </p>
       </div>
 
