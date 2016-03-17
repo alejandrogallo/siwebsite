@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Programming Interface &mdash; Pulse Streamer 8/2 0.1 documentation</title>
+  <title>Programming Interface &mdash; Pulse Streamer 8/2 0.9 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Pulse Streamer 8/2 0.1 documentation" href="../index.html"/>
+    <link rel="top" title="Pulse Streamer 8/2 0.9 documentation" href="../index.html"/>
         <link rel="next" title="Changelog" href="changelog.html"/>
         <link rel="prev" title="Network Connection" href="network.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.1
+                0.9
               </div>
             
           
@@ -191,35 +191,38 @@ and if a buffer underflow occurs. You can specify independent values
 for these three possible constant states.</p>
 <p>By default the sequence is started immediately. Alternatively you can
 tell the system to wait for a later software start command or for an
-external hardware trigger applied to GPIO channel 3.</p>
+external hardware trigger applied to slow digital channel 0.</p>
 <p>The C++ method to run a pulse sequence is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>void stream(std::vector&lt;Pulse&gt; sequence,
             unsigned long n_runs=-1,
             Pulse initial=Pulse{0,0,0,0},
             Pulse final=Pulse{0,0,0,0},
             Pulse underflow=Pulse{0,0,0,0},
-            bool triggered=False,
-            bool auto_start=True,
+            start_t start=IMMEDIATE
             )
 </pre></div>
 </div>
 <p>sequence represents the pulse sequence</p>
 <p>the sequence is repeated indefinitely if n_runs &lt;=0 and a finite number of repetitions otherwise.</p>
 <p>initial, final and underflow represent the three possible constant outputs (the tick values are ignored).</p>
-<p>If trigger is true, the system waits for an external trigger before starting the sequence.</p>
-<p>If triggered is false and auto_start is true, the sequence is started immediately.</p>
-<p>All parameters except &#8216;sequence&#8217; have default values and can be omitted if not needed.</p>
-<p>If you have passed auto_start = false, you can start the sequence at a later time using the method</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>void start()
+<p>start is an enum with the mapping {IMMEDIATE:0, SOFTWARE:1, HARDWARE:2} specifying how the stream
+should be started.</p>
+<p>All parameters except &#8216;sequence&#8217; have default values and can be omitted.</p>
+<p>If you have passed start=SOFTWARE, you can start the sequence at a later time using the method</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>void startNow()
 </pre></div>
 </div>
-<p>If you have run a sequence and just want to rerun the same sequence at a later time, you can
+<p>You can set the edge type of the external trigger using the method</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>void setTrigger(edge_t edge=RISING)
+</pre></div>
+</div>
+<p>edge is an enum with the mapping {RISING:0, FALLING:1, BOTH:2}.</p>
+<p>If you have run a sequence and want to rerun the same sequence, you can
 skip uploading the sequence to memory. You can do this by calling the &#8216;sequence&#8217; method
 with the following C++ signature</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>void stream(Pulse initial=Pulse{0,0,0,0},
             Pulse underflow=Pulse{0,0,0,0},
-            bool triggered=False,
-            bool auto_start=True,
+            start_t start=IMMEDIATE
             )
 </pre></div>
 </div>
@@ -228,10 +231,15 @@ affect the memory layout of the pulse sequence.</p>
 <p>If you try to rerun a sequence but there is no previous sequence in memory, this
 will result in an error.</p>
 <p>You can check whether a sequence is available in memory by the following method</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>bool sequenceInMemory()
+<div class="highlight-python"><div class="highlight"><pre><span></span>bool hasSequence()
 </pre></div>
 </div>
-<p>The method returns true if a sequence is available in memory.</p>
+<p>The method returns true if a previous sequence is available.</p>
+<p>You can check whether the Pulse Streamer is running by calling the method</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>bool isRunning()
+</pre></div>
+</div>
+<p>The method returns true if the Pulse Streamer is running.</p>
 </div>
 <div class="section" id="data-streaming-and-underflows">
 <h2>Data streaming and underflows<a class="headerlink" href="#data-streaming-and-underflows" title="Permalink to this headline">¶</a></h2>
@@ -287,8 +295,7 @@ with an array</p>
  {unsigned int ticks, unsigned char digi, short ao0, short ao1},
  {unsigned int ticks, unsigned char digi, short ao0, short ao1},
  {unsigned int ticks, unsigned char digi, short ao0, short ao1},
- bool triggered,
- bool auto_start,
+ string / int start
  }
 </pre></div>
 </div>
@@ -298,13 +305,12 @@ with an array</p>
  &quot;initial&quot;:{unsigned int ticks, unsigned char digi, short ao0, short ao1},
  &quot;final&quot;:{unsigned int ticks, unsigned char digi, short ao0, short ao1},
  &quot;underflow&quot;:{unsigned int ticks, unsigned char digi, short ao0, short ao1},
- &quot;triggered&quot;:bool triggered,
- &quot;auto_start&quot;:bool auto_start,
+ &quot;start&quot;:string / int start
  }
 </pre></div>
 </div>
 <p>&#8220;sequence&#8221; is the array data as per above C++ data format definition packed into a binary string and converted
-to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
+to a base64 string. Please check out the python example for connecting to the JSON-RPC server
 <a class="reference download internal" href="../_downloads/random_pulses.py" download=""><code class="xref download docutils literal"><span class="pre">random_pulses.py</span></code></a>.
 All other arguments are self explanatory as per the above sections.</p>
 <p>Most parameters are optional and the call can be used both to run a new sequence and to rerun
@@ -345,8 +351,21 @@ message SequenceMessage {
     PulseMessage initial = 3;
     PulseMessage final = 4;
     PulseMessage underflow = 5;
-    bool triggered = 6;
-    bool auto_start = 7;
+    enum Start {
+        IMMEDIATE = 0;
+        SOFTWARE = 1;
+        HARDWARE = 2;
+      }
+    Start start = 6;
+}
+
+message TriggerMessage {
+    enum Edge {
+        RISING = 0;
+        FALLING = 1;
+        BOTH = 2;
+      }
+    Edge edge = 1;
 }
 
 message PulseStreamerReply {
@@ -356,8 +375,10 @@ message PulseStreamerReply {
 service PulseStreamer {
     rpc constant (PulseMessage) returns (PulseStreamerReply) {}
     rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
-    rpc start (VoidMessage) returns (PulseStreamerReply) {}
-    rpc sequenceInMemory (VoidMessage) returns (PulseStreamerReply) {}
+    rpc startNow (VoidMessage) returns (PulseStreamerReply) {}
+    rpc setTrigger (TriggerMessage) returns (PulseStreamerReply) {}
+    rpc isRunning (VoidMessage) returns (PulseStreamerReply) {}
+    rpc hasSequence (VoidMessage) returns (PulseStreamerReply) {}
     rpc getUnderflow (VoidMessage) returns (PulseStreamerReply) {}
 }
 </pre></div>
@@ -410,7 +431,7 @@ service PulseStreamer {
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1',
+            VERSION:'0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

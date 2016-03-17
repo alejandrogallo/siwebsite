@@ -10,45 +10,48 @@ import base64
 
 import numpy as np
 
-def get_random_sequence(mean_length=1024, n_pulses=1000):
+def get_random_seq(min_len=0, max_len=1024, n_pulses=1000):
     """
-    Generate a sequence of random pulses
+    Generate a sequence of random pulses on the digital
+    channels 1-7 and the two analog channels.
+    
+    Digital channel 0 is used as a trigger.    
     """
-    t = np.random.uniform(0, mean_length*2, n_pulses).astype(int)
-    seq = [ (8, 0x01, 0x7fff, -0x7fff) ]
+    t = np.random.uniform(min_len, max_len, n_pulses).astype(int)
+    seq = [ (8, 1, 0, 0) ] # 8 ns trigger pulse on channel 0
     for i, ti in enumerate(t):
         state = i%2
         seq += [ (ti, 0xfe*state, 0x7fff*state, -0x7fff*state) ]
     return seq
 
-def encode_sequence(seq):
+def enc(seq):
     """
-    Convert a human readable python sequence to a base64 encoded binary string
+    Convert a human readable python sequence to a base64 encoded string
     """
     s = b''
     for pulse in seq:
         s+=struct.pack('>IBhh', *pulse)
     return base64.b64encode(s)
 
+ip = '192.168.1.100'
+url = 'http://'+ip+':8050/json-rpc'
+
 client = RPCClient(
     JSONRPCProtocol(),
-    HttpPostClientTransport('http://192.168.1.100:8050/json-rpc')
+    HttpPostClientTransport(url)
 )
 
-# create the proxy class
-pulse_streamer = client.get_proxy()
+ps = client.get_proxy()
 
-seq = get_random_sequence(mean_length=400000, n_pulses=10)
-
-seq_b64 = encode_sequence(seq)
+seq = get_random_seq()
 
 n_runs = -1
 initial = (0,0xff,0,0)
 final = (0,0x00,0x7fff,0)
 underflow = (0,0,0,0)
-triggered = False
+start = 'IMMEDIATE'
 
-pulse_streamer.constant(initial)
-pulse_streamer.constant(final)
-pulse_streamer.stream(seq_b64, n_runs, initial, final, underflow, triggered)
+ps.stream(enc(seq), n_runs, initial, final, underflow, start)
+
+print('Pulse Streamer is running: '+str(ps.isRunning()))
 

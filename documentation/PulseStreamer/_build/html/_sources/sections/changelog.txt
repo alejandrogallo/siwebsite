@@ -2,6 +2,16 @@
 Changelog
 *********
 
+2016-03-17
+==========
+
+static sequence beta 0.9
+
+* enums in RPCs
+* API name changes
+* rising and falling edges on external trigger
+
+
 2016-03-07
 ==========
 
@@ -12,7 +22,7 @@ provide network configuration
 2016-03-03
 ==========
 
-static sequence release
+static sequence alpha
 
 * initial, final, underflow states
 * software start
@@ -24,4 +34,4 @@ static sequence release
 2016-02-02
 ==========
 
-static sequence beta
+static sequence alpha

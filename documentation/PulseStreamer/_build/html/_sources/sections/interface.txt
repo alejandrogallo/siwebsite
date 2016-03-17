@@ -58,7 +58,7 @@ for these three possible constant states.
 
 By default the sequence is started immediately. Alternatively you can
 tell the system to wait for a later software start command or for an
-external hardware trigger applied to GPIO channel 3. 
+external hardware trigger applied to slow digital channel 0. 
 
 The C++ method to run a pulse sequence is:
 
@@ -69,8 +69,7 @@ The C++ method to run a pulse sequence is:
                 Pulse initial=Pulse{0,0,0,0},
                 Pulse final=Pulse{0,0,0,0},
                 Pulse underflow=Pulse{0,0,0,0},
-                bool triggered=False,
-                bool auto_start=True,
+                start_t start=IMMEDIATE
                 )
 
 sequence represents the pulse sequence
@@ -79,20 +78,26 @@ the sequence is repeated indefinitely if n_runs <=0 and a finite number of repet
 
 initial, final and underflow represent the three possible constant outputs (the tick values are ignored).
 
-If trigger is true, the system waits for an external trigger before starting the sequence.
+start is an enum with the mapping {IMMEDIATE:0, SOFTWARE:1, HARDWARE:2} specifying how the stream
+should be started.
 
-If triggered is false and auto_start is true, the sequence is started immediately.
+All parameters except 'sequence' have default values and can be omitted.
 
-All parameters except 'sequence' have default values and can be omitted if not needed.
-
-If you have passed auto_start = false, you can start the sequence at a later time using the method
+If you have passed start=SOFTWARE, you can start the sequence at a later time using the method
 
 ::
 
-    void start()
+    void startNow()
 
+You can set the edge type of the external trigger using the method
 
-If you have run a sequence and just want to rerun the same sequence at a later time, you can
+::
+
+    void setTrigger(edge_t edge=RISING)
+
+edge is an enum with the mapping {RISING:0, FALLING:1, BOTH:2}.
+
+If you have run a sequence and want to rerun the same sequence, you can
 skip uploading the sequence to memory. You can do this by calling the 'sequence' method
 with the following C++ signature
 
@@ -100,8 +105,7 @@ with the following C++ signature
 
     void stream(Pulse initial=Pulse{0,0,0,0},
                 Pulse underflow=Pulse{0,0,0,0},
-                bool triggered=False,
-                bool auto_start=True,
+                start_t start=IMMEDIATE
                 )
 
 Note that 'n_runs' and 'final' cannot be passed when rerunning the previous sequence, since these values
@@ -114,9 +118,17 @@ You can check whether a sequence is available in memory by the following method
 
 ::
 
-    bool sequenceInMemory()
+    bool hasSequence()
 
-The method returns true if a sequence is available in memory.
+The method returns true if a previous sequence is available.
+
+You can check whether the Pulse Streamer is running by calling the method
+
+::
+
+    bool isRunning()
+
+The method returns true if the Pulse Streamer is running.
 
 
 Data streaming and underflows 
@@ -188,8 +200,7 @@ with an array
      {unsigned int ticks, unsigned char digi, short ao0, short ao1},
      {unsigned int ticks, unsigned char digi, short ao0, short ao1},
      {unsigned int ticks, unsigned char digi, short ao0, short ao1},
-     bool triggered,
-     bool auto_start,
+     string / int start
      }
 
 or with named parameters
@@ -201,13 +212,12 @@ or with named parameters
      "initial":{unsigned int ticks, unsigned char digi, short ao0, short ao1},
      "final":{unsigned int ticks, unsigned char digi, short ao0, short ao1},
      "underflow":{unsigned int ticks, unsigned char digi, short ao0, short ao1},
-     "triggered":bool triggered,
-     "auto_start":bool auto_start,
+     "start":string / int start
      }
 
 
 "sequence" is the array data as per above C++ data format definition packed into a binary string and converted
-to a base64 string. Please check out the python exaple for connecting to the JSON-RPC server
+to a base64 string. Please check out the python example for connecting to the JSON-RPC server
 :download:`random_pulses.py <../../examples/python/json/random_pulses.py>`.
 All other arguments are self explanatory as per the above sections.
 
@@ -257,8 +267,21 @@ The Pulse Streamer interface looks like this.
         PulseMessage initial = 3;
         PulseMessage final = 4;
         PulseMessage underflow = 5;
-        bool triggered = 6;
-        bool auto_start = 7;
+        enum Start {
+            IMMEDIATE = 0;
+            SOFTWARE = 1;
+            HARDWARE = 2;
+          }
+        Start start = 6;
+    }
+
+    message TriggerMessage {
+        enum Edge {
+            RISING = 0;
+            FALLING = 1;
+            BOTH = 2;
+          }
+        Edge edge = 1;
     }
 
     message PulseStreamerReply {
@@ -268,11 +291,12 @@ The Pulse Streamer interface looks like this.
     service PulseStreamer {
         rpc constant (PulseMessage) returns (PulseStreamerReply) {}
         rpc stream (SequenceMessage) returns (PulseStreamerReply) {}
-        rpc start (VoidMessage) returns (PulseStreamerReply) {}
-        rpc sequenceInMemory (VoidMessage) returns (PulseStreamerReply) {}
+        rpc startNow (VoidMessage) returns (PulseStreamerReply) {}
+        rpc setTrigger (TriggerMessage) returns (PulseStreamerReply) {}
+        rpc isRunning (VoidMessage) returns (PulseStreamerReply) {}
+        rpc hasSequence (VoidMessage) returns (PulseStreamerReply) {}
         rpc getUnderflow (VoidMessage) returns (PulseStreamerReply) {}
     }
-
 
 You may want to check out the source file
 :download:`pulse_streamer.proto <../../proto/pulse_streamer.proto>`.
