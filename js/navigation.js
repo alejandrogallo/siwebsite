@@ -30,7 +30,7 @@ function Navigation () {
 			"type":"inline"
 		},{
 			"label":"Email Support",
-			"href":"mailto:info@swabianinstruments.com?subject=Support%Request",
+			"href":"mailto:info@swabianinstruments.com?subject=Support%20Request",
 			"type":"inline"
 		},{
 			"label":"General Contact",
