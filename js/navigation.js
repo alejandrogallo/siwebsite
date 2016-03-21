@@ -25,8 +25,12 @@ function Navigation () {
 				{"label":"DigiLoop\n - Digital PID controller<span style='color:red'> <i>(Coming soon!)</i></span>","href":"#"}
 				]
 		},{
-			"label":"Sales",
+			"label":"Email Sales",
 			"href":"mailto:sales@swabianinstruments.com?subject=Sales%20Inquiry",
+			"type":"inline"
+		},{
+			"label":"Email Support",
+			"href":"mailto:info@swabianinstruments.com?subject=Support%Request",
 			"type":"inline"
 		},{
 			"label":"General Contact",
