@@ -26,11 +26,11 @@ function Navigation () {
 				]
 		},{
 			"label":"Email Sales",
-			"href":"mailto:sales@swabianinstruments.com?subject=Sales%20Inquiry",
+			"href":"mailto:sales@swabianinstruments.com?subject=Sales%20Inquiry%20--",
 			"type":"inline"
 		},{
 			"label":"Email Support",
-			"href":"mailto:info@swabianinstruments.com?subject=Support%20Request",
+			"href":"mailto:support@swabianinstruments.com?subject=Support%20Request%20--",
 			"type":"inline"
 		},{
 			"label":"General Contact",
