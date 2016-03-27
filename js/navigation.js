@@ -26,7 +26,7 @@ function Navigation () {
 				]
 		},{
 			"label":"Email Sales",
-			"href":"mailto:sales@swabianinstruments.com?subject=Sales$20Inquiry%20-->%20",
+			"href":"mailto:sales@swabianinstruments.com?subject=Sales%20Inquiry%20-->%20",
 			"type":"inline"
 		},{
 			"label":"Email Support",
