@@ -1,0 +1,21 @@
+{
+  "name": "siwebsite",
+  "homepage": "https://github.com/alejandrogallo/siwebsite",
+  "description": "Swabian instruments website",
+  "main": "index.html",
+  "keywords": [
+    "swabian",
+    "instruments",
+    "timetagger"
+  ],
+  "authors": [
+    "Alejandro Gallo"
+  ],
+  "license": "GPL2",
+  "private": true,
+  "dependencies": {
+    "font-awesome": "^4.6.3",
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.8"
+  }
+}
