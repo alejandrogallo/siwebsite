@@ -12,7 +12,7 @@ function Navigation () {
     [
     {
       "label":"About",
-      "href":"./index.html#about",
+      "href":"./about.html",
       "type":"inline"
     },{
       "label":"Products",
@@ -45,8 +45,8 @@ function Navigation () {
   };
 
   // this.getCurrentPage = function(){
-  // 	var currentPage = location.pathname.split("/").slice(-1);// get the last element of the path 
-  // 	return currentPage; 
+  //   var currentPage = location.pathname.split("/").slice(-1);// get the last element of the path 
+  //   return currentPage; 
   // }
 
 
@@ -161,7 +161,7 @@ function Navigation () {
   }
 
   this.init = function(){
-    // this method inits 	everything together
+    // this method inits   everything together
     this.createNavigation();
   }
 }
