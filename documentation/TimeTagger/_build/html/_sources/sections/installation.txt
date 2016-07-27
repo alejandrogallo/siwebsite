@@ -35,8 +35,7 @@ of these Python distributions. Note that **anaconda** is available as **Python 3
 Installation
 ^^^^^^^^^^^^
 
-.. note:: If you intend to use the *TimeTagger 20* with the Python programming language, please make sure that you install Python first as described above. 
-This ensures that the installer detects your Python installation automatically.
+.. note:: If you intend to use the *TimeTagger 20* with the Python programming language, please make sure that you install Python first as described above. This ensures that the installer detects your Python installation automatically.
 
 #. Download and run the most recent *TimeTagger 20* windows installer.
 
