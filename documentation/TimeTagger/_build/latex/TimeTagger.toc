@@ -1,64 +1,77 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Installation instructions}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}Windows users}{3}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Requirements}{3}{subsection.1.1.1}
-\contentsline {subsubsection}{Operating System}{3}{subsubsection*.3}
-\contentsline {subsubsection}{Python}{3}{subsubsection*.4}
-\contentsline {subsubsection}{Installation}{3}{subsubsection*.5}
-\contentsline {chapter}{\numberline {2}Getting Started}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Windows users}{5}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Where to go from here}{5}{subsection.2.1.1}
-\contentsline {chapter}{\numberline {3}Hardware}{7}{chapter.3}
-\contentsline {section}{\numberline {3.1}Input channels}{7}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Electrical characteristics}{7}{subsection.3.1.1}
-\contentsline {section}{\numberline {3.2}Data connection}{7}{section.3.2}
-\contentsline {section}{\numberline {3.3}Status LEDs}{7}{section.3.3}
-\contentsline {section}{\numberline {3.4}Test signal}{8}{section.3.4}
-\contentsline {section}{\numberline {3.5}Virtual channels}{8}{section.3.5}
-\contentsline {section}{\numberline {3.6}Synthetic input delay}{8}{section.3.6}
-\contentsline {section}{\numberline {3.7}Synthetic dead time}{8}{section.3.7}
-\contentsline {section}{\numberline {3.8}Event filter}{8}{section.3.8}
-\contentsline {section}{\numberline {3.9}Bin equilibration}{8}{section.3.9}
-\contentsline {section}{\numberline {3.10}Overflows}{9}{section.3.10}
-\contentsline {section}{\numberline {3.11}General purpose IO (available upon request)}{9}{section.3.11}
-\contentsline {chapter}{\numberline {4}Software Overview}{11}{chapter.4}
-\contentsline {section}{\numberline {4.1}Web application and JSON-RPC interface}{11}{section.4.1}
-\contentsline {section}{\numberline {4.2}Precompiled libraries and high level language bindings}{11}{section.4.2}
-\contentsline {section}{\numberline {4.3}C++ API}{11}{section.4.3}
-\contentsline {chapter}{\numberline {5}Application Programmer's Interface}{13}{chapter.5}
-\contentsline {section}{\numberline {5.1}Overview}{13}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}API documentation}{13}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Examples}{13}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Units}{13}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}Channel Numbers}{13}{subsection.5.1.4}
-\contentsline {section}{\numberline {5.2}Organization}{13}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Hardware}{14}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Virtual Channels}{14}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Measurements}{14}{subsection.5.2.3}
-\contentsline {section}{\numberline {5.3}The TimeTagger class}{14}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Methods}{15}{subsection.5.3.1}
-\contentsline {section}{\numberline {5.4}Measurement Classes}{15}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Methods common to all Measurements}{15}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Countrate}{16}{subsection.5.4.2}
-\contentsline {subsubsection}{Arguments}{16}{subsubsection*.6}
-\contentsline {subsubsection}{Methods}{16}{subsubsection*.7}
-\contentsline {subsection}{\numberline {5.4.3}Counter}{16}{subsection.5.4.3}
-\contentsline {subsubsection}{Arguments}{16}{subsubsection*.8}
-\contentsline {subsubsection}{Methods}{16}{subsubsection*.9}
-\contentsline {subsection}{\numberline {5.4.4}CountBetweenMarkers}{16}{subsection.5.4.4}
-\contentsline {subsubsection}{Arguments}{17}{subsubsection*.10}
-\contentsline {subsubsection}{Methods}{17}{subsubsection*.11}
-\contentsline {subsection}{\numberline {5.4.5}TimeDifferences}{17}{subsection.5.4.5}
-\contentsline {subsubsection}{Arguments}{17}{subsubsection*.12}
-\contentsline {subsubsection}{Methods}{18}{subsubsection*.13}
-\contentsline {subsection}{\numberline {5.4.6}Correlation}{18}{subsection.5.4.6}
-\contentsline {subsubsection}{Arguments}{18}{subsubsection*.14}
-\contentsline {subsubsection}{Methods}{18}{subsubsection*.15}
-\contentsline {subsection}{\numberline {5.4.7}FLIM}{19}{subsection.5.4.7}
-\contentsline {subsubsection}{Arguments}{19}{subsubsection*.16}
-\contentsline {subsubsection}{Methods}{19}{subsubsection*.17}
-\contentsline {subsection}{\numberline {5.4.8}Dump}{19}{subsection.5.4.8}
-\contentsline {subsubsection}{Arguments}{19}{subsubsection*.18}
-\contentsline {subsubsection}{Methods}{19}{subsubsection*.19}
-\contentsline {section}{\numberline {5.5}Defining custom measurements by subclassing Iterator}{19}{section.5.5}
-\contentsline {chapter}{\numberline {6}Indices and tables}{21}{chapter.6}
+\contentsline {chapter}{\numberline {1}Installation instructions}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Windows users}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Requirements}{1}{subsection.1.1.1}
+\contentsline {subsubsection}{Operating System}{1}{subsubsection*.3}
+\contentsline {subsubsection}{Python}{1}{subsubsection*.4}
+\contentsline {subsubsection}{Installation}{1}{subsubsection*.5}
+\contentsline {section}{\numberline {1.2}Linux users}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Getting Started}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Windows users}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Where to go from here}{3}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}DLL/wrappers for .net (e.g. Matlab, LabView)}{4}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}LabView}{4}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Matlab}{4}{subsection.2.1.4}
+\contentsline {chapter}{\numberline {3}Hardware}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Input channels}{5}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Electrical characteristics}{5}{subsection.3.1.1}
+\contentsline {section}{\numberline {3.2}Data connection}{5}{section.3.2}
+\contentsline {section}{\numberline {3.3}Status LEDs}{5}{section.3.3}
+\contentsline {section}{\numberline {3.4}Test signal}{6}{section.3.4}
+\contentsline {section}{\numberline {3.5}Virtual channels}{6}{section.3.5}
+\contentsline {section}{\numberline {3.6}Synthetic input delay}{6}{section.3.6}
+\contentsline {section}{\numberline {3.7}Synthetic dead time}{6}{section.3.7}
+\contentsline {section}{\numberline {3.8}Event filter}{6}{section.3.8}
+\contentsline {section}{\numberline {3.9}Bin equilibration}{6}{section.3.9}
+\contentsline {section}{\numberline {3.10}Overflows}{7}{section.3.10}
+\contentsline {section}{\numberline {3.11}General purpose IO (available upon request)}{7}{section.3.11}
+\contentsline {chapter}{\numberline {4}Software Overview}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Web application and JSON-RPC interface}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Precompiled libraries and high level language bindings}{9}{section.4.2}
+\contentsline {section}{\numberline {4.3}C++ API}{9}{section.4.3}
+\contentsline {chapter}{\numberline {5}Application Programmer's Interface}{11}{chapter.5}
+\contentsline {section}{\numberline {5.1}Overview}{11}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}API documentation}{11}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Examples}{11}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Units}{11}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.4}Channel Numbers}{11}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Undefined Channels}{11}{subsection.5.1.5}
+\contentsline {section}{\numberline {5.2}Organization}{12}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Hardware}{12}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Virtual Channels}{12}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Measurements}{12}{subsection.5.2.3}
+\contentsline {section}{\numberline {5.3}The TimeTagger class}{12}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Methods}{13}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Debug Methods}{13}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Measurement Classes}{14}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Methods common to all Measurements}{14}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Correlation}{14}{subsection.5.4.2}
+\contentsline {subsubsection}{Arguments}{14}{subsubsection*.6}
+\contentsline {subsubsection}{Methods}{15}{subsubsection*.7}
+\contentsline {subsection}{\numberline {5.4.3}CountBetweenMarkers}{15}{subsection.5.4.3}
+\contentsline {subsubsection}{Arguments}{15}{subsubsection*.8}
+\contentsline {subsubsection}{Methods}{15}{subsubsection*.9}
+\contentsline {subsection}{\numberline {5.4.4}Counter}{15}{subsection.5.4.4}
+\contentsline {subsubsection}{Arguments}{16}{subsubsection*.10}
+\contentsline {subsubsection}{Methods}{16}{subsubsection*.11}
+\contentsline {subsection}{\numberline {5.4.5}Countrate}{16}{subsection.5.4.5}
+\contentsline {subsubsection}{Arguments}{16}{subsubsection*.12}
+\contentsline {subsubsection}{Methods}{16}{subsubsection*.13}
+\contentsline {subsection}{\numberline {5.4.6}FLIM}{16}{subsection.5.4.6}
+\contentsline {subsubsection}{Arguments}{17}{subsubsection*.14}
+\contentsline {subsubsection}{Methods}{17}{subsubsection*.15}
+\contentsline {subsection}{\numberline {5.4.7}Histogram}{17}{subsection.5.4.7}
+\contentsline {subsubsection}{Arguments}{17}{subsubsection*.16}
+\contentsline {subsubsection}{Methods}{17}{subsubsection*.17}
+\contentsline {subsection}{\numberline {5.4.8}StartStop}{18}{subsection.5.4.8}
+\contentsline {subsubsection}{Arguments}{18}{subsubsection*.18}
+\contentsline {subsubsection}{Methods}{18}{subsubsection*.19}
+\contentsline {subsection}{\numberline {5.4.9}TimeDifferences}{18}{subsection.5.4.9}
+\contentsline {subsubsection}{Arguments}{19}{subsubsection*.20}
+\contentsline {subsubsection}{Methods}{19}{subsubsection*.21}
+\contentsline {subsection}{\numberline {5.4.10}Dump}{19}{subsection.5.4.10}
+\contentsline {subsubsection}{Arguments}{19}{subsubsection*.22}
+\contentsline {subsubsection}{Methods}{19}{subsubsection*.23}
+\contentsline {chapter}{\numberline {6}Revision History}{21}{chapter.6}
+\contentsline {section}{\numberline {6.1}V1.0.2 - 28.07.2016}{21}{section.6.1}
+\contentsline {section}{\numberline {6.2}V1.0.0}{21}{section.6.2}
