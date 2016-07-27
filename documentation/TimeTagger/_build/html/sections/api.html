@@ -94,6 +94,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#units">Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#channel-numbers">Channel Numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#undefined-channels">Undefined Channels</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#organization">Organization</a><ul>
@@ -224,6 +225,13 @@ continuously over one year and are taking data at the instance when the rollover
 the software API, the rising edges are represented by channels 0 to 7 and
 the falling edges are represented by channel numbers 8 to 15. Virtual channels will obtain numbers
 from 16 onwards.</p>
+</div>
+<div class="section" id="undefined-channels">
+<h3>Undefined Channels<a class="headerlink" href="#undefined-channels" title="Permalink to this headline">¶</a></h3>
+<p>There might be the need to leave a parameter undefined when calling a class constructor.
+Depending on the programming language you are using you pass an undefined channel via the
+static constant <code class="docutils literal"><span class="pre">CHANNEL_UNDEFINED</span></code> which can be found in the <code class="docutils literal"><span class="pre">TT</span></code> class for .net and
+in the <code class="docutils literal"><span class="pre">TimeTagger</span></code> class in Matlab.</p>
 </div>
 </div>
 <div class="section" id="organization">

@@ -126,7 +126,7 @@ Overflows
 The *TimeTagger 20* is capable of streaming on average about 5 million tags per second. 
 Higher data rates for short times will be buffered internally so that no overflow occurs.
 This internal buffer is limited so that on continuously higher data rates, data loss occurs and parts of the time tags are lost. The hardware allows you
-to check with ``timeTagger.getOverflows()`` whether an overflow condition has occurred. If no overflow are returned, you can be sure that every time tag is received.
+to check with ``timeTagger.getOverflows()`` whether an overflow condition has occurred. If no overflow is returned, you can be sure that every time tag is received.
 
 General purpose IO (available upon request)
 ===========================================
