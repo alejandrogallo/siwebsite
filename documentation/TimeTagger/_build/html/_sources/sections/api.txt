@@ -78,34 +78,34 @@ Coincidences
 
 Measurements
 ------------
-Iterator
-  Base class for implementing custom measurements.
-Countrate 
-  Average tag rate on one or more channels.
-Counter 
-  Counts clicks on one or more channels with a fixed binwidth and
-  circular buffer output.
+Correlation 
+  auto- and cross-correlation.
 CountBetweenMarkers 
   Counts tags on one channel where the bins are
   determined by triggers on one or two other channels. Uses static buffer
   output. Use this to implement a gated counter, a counter synchronized to
   an external sampling clock, etc.
-TimeDifferences 
-  Accumulates the time differences between tags on two
-  channels in one or more histograms. The sweeping through
-  histograms is optionally controlled by one or two additional triggers.
+Counter 
+  Counts clicks on one or more channels with a fixed binwidth and
+  circular buffer output.
+Countrate 
+  Average tag rate on one or more channels.
+FLIM 
+  Fluorescence lifetime imaging.
+Iterator
+  Base class for implementing custom measurements.
 Histogram
   A simple histogram of time differences. This can be used e.g.
   to measure lifetime.
-Correlation 
-  auto- and cross-correlation.
-FLIM 
-  Fluorescence lifetime imaging.
 StartStop 
   Accumulates a histogram of time difference between
   pairs of tags on two channels. Only the first stop tag after a start tag is
   considered. Subsequent stop tags are discarded. The Histogram length is
   unlimited.
+TimeDifferences 
+  Accumulates the time differences between tags on two
+  channels in one or more histograms. The sweeping through
+  histograms is optionally controlled by one or two additional triggers.
   
 
 The TimeTagger class
@@ -213,8 +213,6 @@ Measurement Classes
 The library includes a number of common measurements that will be described in this section.
 All measurements are derived from a base class called 'Iterator' that is described further down.
 As the name suggests, it uses the `iterator` programming concept.
-You can use this base class to write custom measurements in C++, as described in :ref:`subclassing`.
-
 
 All measurements provide a small number of methods to start and stop the execution
 and to access the accumulated data. The methods are summarized below.
@@ -245,72 +243,51 @@ In a typical application you will perform the following steps:
 The specific measurements are described below.
 
 
-Countrate
----------
+Correlation
+-----------
 
 
-Measures the average countrate on one or more channels. Specifically, it
-counts tags on the specified channels and determines the time between the first tag since
-instantiation and the latest tag. The ratio of the number of tags and the
-time corresponds to the average countrate since the first tag.
+Accumulates time differences between clicks on two channels into
+a histogram, where all ticks are considered both as start and stop
+clicks and both positive and negative time differences are considered.
 
-
-Arguments
-^^^^^^^^^
-
-tagger
-  <reference> reference to a time tagger
-channels
-  <vector int> channels used for counting tags
-
-Methods
-^^^^^^^
-
-getData()
-  returns the average countrate in counts per second.
-clear()
-  resets the accumulated counts to zero and uses the next incoming tag as the first tag.
-
-
-Counter
--------
-
-Time trace of the countrate on one or more channels. Specifically
-this measurement repeatedly counts tags on one or more channels within a
-time interval 'binwidth' and stores the results in a two dimensional array of size
-'number of channels' times 'n_values'. The array is treated as a circular buffer that is,
-all values in the array are shifted by on position when a new value is generated. The
-last entry in the array is always the most recent value.
 
 
 Arguments
 ^^^^^^^^^
 
 
+
 tagger
   <reference> reference to a time tagger
-channels 
-  <vector int> channels used for counting tags
-binwidth 
+channel 1
+  <int> first channel
+channel 2
+  <int> second channel
+binwidth
   <longlong> binwidth in ps
-n_values
-  <int> number of values
+n_bins
+  <int> the number of bins in the resulting histogram
 
 
 
 
 Methods
 ^^^^^^^
-
 
 getData() 
-  returns an array of size 'number of channels' times 'n_values' containing the current values of the circular buffer
-  (counts in each bin).
+  returns a one-dimensional array of size 2*n_bins+1 containing the histograms.
 getIndex() 
-  returns a vector of size 'n_values' containing the time bins in ps.
+  returns a vector of size 'n_bins' containing the time bins in ps.
 clear()
-  resets the array to zero and restarts the measurement.
-
+  resets the array to zero.
+setMaxCounts() 
+  set the maximum number of start tags accepted
+getCounts() 
+  returns the number of start tags
+ready() 
+  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
+  
 
 
 CountBetweenMarkers
@@ -351,6 +328,189 @@ clear()
 ready() 
   returns 'true' when the entire array is filled.
 
+
+
+  
+  
+Counter
+-------
+
+Time trace of the countrate on one or more channels. Specifically
+this measurement repeatedly counts tags on one or more channels within a
+time interval 'binwidth' and stores the results in a two dimensional array of size
+'number of channels' times 'n_values'. The array is treated as a circular buffer that is,
+all values in the array are shifted by on position when a new value is generated. The
+last entry in the array is always the most recent value.
+
+
+Arguments
+^^^^^^^^^
+
+
+tagger
+  <reference> reference to a time tagger
+channels 
+  <vector int> channels used for counting tags
+binwidth 
+  <longlong> binwidth in ps
+n_values
+  <int> number of values
+
+
+
+
+Methods
+^^^^^^^
+
+
+getData() 
+  returns an array of size 'number of channels' times 'n_values' containing the current values of the circular buffer
+  (counts in each bin).
+getIndex() 
+  returns a vector of size 'n_values' containing the time bins in ps.
+clear()
+  resets the array to zero and restarts the measurement.
+  
+  
+Countrate
+---------
+
+
+Measures the average countrate on one or more channels. Specifically, it
+counts tags on the specified channels and determines the time between the first tag since
+instantiation and the latest tag. The ratio of the number of tags and the
+time corresponds to the average countrate since the first tag.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+channels
+  <vector int> channels used for counting tags
+
+Methods
+^^^^^^^
+
+getData()
+  returns the average countrate in counts per second.
+clear()
+  resets the accumulated counts to zero and uses the next incoming tag as the first tag.
+
+  
+  
+FLIM
+----
+
+Fluorescence-lifetime imaging microscopy or FLIM is an imaging technique
+for producing an image based on the differences in the exponential decay rate
+of the fluorescence from a sample.
+
+Fluorescence lifetimes can be determined in the time domain by using a pulsed source. When a population
+of fluorophores is excited by an ultrashort or delta pulse of light, the time-resolved fluorescence will
+decay exponentially.
+
+This measurement implements a line scan in a FLIM image that
+consists of a sequence of pixels. This could either represent a single line
+of the image, or - if the image is represented as a single meandering line - 
+this could represent the entire image.
+
+This measurement is a special case of the more general 'TimeDifferences' measurement.
+
+The measurement successively acquires n histograms
+(one for each pixel in the line scan), where each histogram
+is determined by the number of bins and the binwidth.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+click channel
+  <int> channel on which clicks are received
+start channel
+  <int> channel on which start clicks are received
+next_channel 
+  <int> channel on which pixel triggers are received
+binwidth
+  <longlong> binwidth in ps
+n_bins
+  <int> number of bins in each histogram
+n_pixels 
+  <int> number of pixels
+
+
+Methods
+^^^^^^^
+
+getData()
+  returns a two-dimensional array of size 'n_bins' times 'n_pixels' containing the histograms.
+getIndex()
+  returns a vector of size 'n_bins' containing the time bins in ps.
+clear()
+  resets the array to zero.
+setMaxCounts() 
+  set the maximum number of start tags accepted
+getCounts()
+  returns the number of start tags
+ready()
+  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
+  
+  
+  
+  
+Histogram
+---------
+
+Accumulate time differences into a histogram. This is a simple multiple start,
+multiple stop measurement. This is a special case of the more general 'TimeDifferences' measurement.
+Specifically, the measurement waits for clicks on the 'start channel',
+and for each start click, it measures the time difference between
+the start click and all subsequent clicks on the 'click channel'
+and stores them in a histogram.
+The histogram range and resolution is specified by the number of bins
+and the binwidth specified in ps.
+Clicks that fall outside the histogram range are ignored.
+Data accumulation is performed independently for all start clicks.
+This type of measurement
+is frequently referred to as 'multiple start, multiple stop' measurement
+and corresponds to a
+full auto- or cross-correlation measurement.
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+click channel
+  <int> channel on which clicks are received
+start channel
+  <int> channel on which start clicks are received
+binwidth
+  <longlong> binwidth in ps
+n_bins
+  <int> the number of bins in the histogram
+
+
+Methods
+^^^^^^^
+
+getData()
+  returns a one-dimensional array of size n_bins containing the histogram.
+getIndex()
+  returns a vector of size 'n_bins' containing the time bins in ps.
+clear()
+  resets the array to zero.
+setMaxCounts() 
+  set the maximum number of start tags accepted
+getCounts()
+  returns the number of start tags
+ready()
+  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
+
+
 StartStop
 ---------
 
@@ -387,6 +547,8 @@ clear()
 ready() 
   returns 'true' when the entire array is filled.
 
+  
+  
 
 TimeDifferences
 ---------------
@@ -458,159 +620,7 @@ ready()
 
 
 
-Correlation
------------
 
-
-Accumulates time differences between clicks on two channels into
-a histogram, where all ticks are considered both as start and stop
-clicks and both positive and negative time differences are considered.
-
-
-
-Arguments
-^^^^^^^^^
-
-
-
-tagger
-  <reference> reference to a time tagger
-channel 1
-  <int> first channel
-channel 2
-  <int> second channel
-binwidth
-  <longlong> binwidth in ps
-n_bins
-  <int> the number of bins in the resulting histogram
-
-
-
-
-Methods
-^^^^^^^
-
-getData() 
-  returns a one-dimensional array of size 2*n_bins+1 containing the histograms.
-getIndex() 
-  returns a vector of size 'n_bins' containing the time bins in ps.
-clear()
-  resets the array to zero.
-setMaxCounts() 
-  set the maximum number of start tags accepted
-getCounts() 
-  returns the number of start tags
-ready() 
-  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
-
-
-Histogram
----------
-
-Accumulate time differences into a histogram. This is a simple multiple start,
-multiple stop measurement. This is a special case of the more general 'TimeDifferences' measurement.
-Specifically, the measurement waits for clicks on the 'start channel',
-and for each start click, it measures the time difference between
-the start click and all subsequent clicks on the 'click channel'
-and stores them in a histogram.
-The histogram range and resolution is specified by the number of bins
-and the binwidth specified in ps.
-Clicks that fall outside the histogram range are ignored.
-Data accumulation is performed independently for all start clicks.
-This type of measurement
-is frequently referred to as 'multiple start, multiple stop' measurement
-and corresponds to a
-full auto- or cross-correlation measurement.
-
-Arguments
-^^^^^^^^^
-
-tagger
-  <reference> reference to a time tagger
-click channel
-  <int> channel on which clicks are received
-start channel
-  <int> channel on which start clicks are received
-binwidth
-  <longlong> binwidth in ps
-n_bins
-  <int> the number of bins in the histogram
-
-
-Methods
-^^^^^^^
-
-getData()
-  returns a one-dimensional array of size n_bins containing the histogram.
-getIndex()
-  returns a vector of size 'n_bins' containing the time bins in ps.
-clear()
-  resets the array to zero.
-setMaxCounts() 
-  set the maximum number of start tags accepted
-getCounts()
-  returns the number of start tags
-ready()
-  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
-
-
-FLIM
-----
-
-Fluorescence-lifetime imaging microscopy or FLIM is an imaging technique
-for producing an image based on the differences in the exponential decay rate
-of the fluorescence from a sample.
-
-Fluorescence lifetimes can be determined in the time domain by using a pulsed source. When a population
-of fluorophores is excited by an ultrashort or delta pulse of light, the time-resolved fluorescence will
-decay exponentially.
-
-This measurement implements a line scan in a FLIM image that
-consists of a sequence of pixels. This could either represent a single line
-of the image, or - if the image is represented as a single meandering line - 
-this could represent the entire image.
-
-This measurement is a special case of the more general 'TimeDifferences' measurement.
-
-The measurement successively acquires n histograms
-(one for each pixel in the line scan), where each histogram
-is determined by the number of bins and the binwidth.
-
-
-Arguments
-^^^^^^^^^
-
-tagger
-  <reference> reference to a time tagger
-click channel
-  <int> channel on which clicks are received
-start channel
-  <int> channel on which start clicks are received
-next_channel 
-  <int> channel on which pixel triggers are received
-binwidth
-  <longlong> binwidth in ps
-n_bins
-  <int> number of bins in each histogram
-n_pixels 
-  <int> number of pixels
-
-
-Methods
-^^^^^^^
-
-getData()
-  returns a two-dimensional array of size 'n_bins' times 'n_pixels' containing the histograms.
-getIndex()
-  returns a vector of size 'n_bins' containing the time bins in ps.
-clear()
-  resets the array to zero.
-setMaxCounts() 
-  set the maximum number of start tags accepted
-getCounts()
-  returns the number of start tags
-ready()
-  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
 
 
 

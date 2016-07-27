@@ -31,6 +31,7 @@
 
   
     <link rel="top" title="Time Tagger 1.0.2 documentation" href="../index.html"/>
+        <link rel="next" title="Getting Started" href="changelog.html"/>
         <link rel="prev" title="Software Overview" href="software.html"/> 
 
   
@@ -110,42 +111,42 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#measurement-classes">Measurement Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#methods-common-to-all-measurements">Methods common to all Measurements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#countrate">Countrate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#correlation">Correlation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#arguments">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#counter">Counter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#countbetweenmarkers">CountBetweenMarkers</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#countbetweenmarkers">CountBetweenMarkers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#counter">Counter</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id4">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#startstop">StartStop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#countrate">Countrate</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id6">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id7">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#timedifferences">TimeDifferences</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flim">FLIM</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id8">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id9">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#correlation">Correlation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#histogram">Histogram</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id10">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id11">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#histogram">Histogram</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#startstop">StartStop</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id12">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id13">Methods</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#flim">FLIM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#timedifferences">TimeDifferences</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id14">Arguments</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id15">Methods</a></li>
 </ul>
@@ -159,6 +160,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Getting Started</a></li>
 </ul>
 
             
@@ -267,34 +269,34 @@ These <strong>classes</strong> are summarized below.</p>
 <div class="section" id="measurements">
 <h3>Measurements<a class="headerlink" href="#measurements" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
-<dt>Iterator</dt>
-<dd>Base class for implementing custom measurements.</dd>
-<dt>Countrate</dt>
-<dd>Average tag rate on one or more channels.</dd>
-<dt>Counter</dt>
-<dd>Counts clicks on one or more channels with a fixed binwidth and
-circular buffer output.</dd>
+<dt>Correlation</dt>
+<dd>auto- and cross-correlation.</dd>
 <dt>CountBetweenMarkers</dt>
 <dd>Counts tags on one channel where the bins are
 determined by triggers on one or two other channels. Uses static buffer
 output. Use this to implement a gated counter, a counter synchronized to
 an external sampling clock, etc.</dd>
-<dt>TimeDifferences</dt>
-<dd>Accumulates the time differences between tags on two
-channels in one or more histograms. The sweeping through
-histograms is optionally controlled by one or two additional triggers.</dd>
+<dt>Counter</dt>
+<dd>Counts clicks on one or more channels with a fixed binwidth and
+circular buffer output.</dd>
+<dt>Countrate</dt>
+<dd>Average tag rate on one or more channels.</dd>
+<dt>FLIM</dt>
+<dd>Fluorescence lifetime imaging.</dd>
+<dt>Iterator</dt>
+<dd>Base class for implementing custom measurements.</dd>
 <dt>Histogram</dt>
 <dd>A simple histogram of time differences. This can be used e.g.
 to measure lifetime.</dd>
-<dt>Correlation</dt>
-<dd>auto- and cross-correlation.</dd>
-<dt>FLIM</dt>
-<dd>Fluorescence lifetime imaging.</dd>
 <dt>StartStop</dt>
 <dd>Accumulates a histogram of time difference between
 pairs of tags on two channels. Only the first stop tag after a start tag is
 considered. Subsequent stop tags are discarded. The Histogram length is
 unlimited.</dd>
+<dt>TimeDifferences</dt>
+<dd>Accumulates the time differences between tags on two
+channels in one or more histograms. The sweeping through
+histograms is optionally controlled by one or two additional triggers.</dd>
 </dl>
 </div>
 </div>
@@ -399,8 +401,7 @@ tags in the pipeline are processed.</dd>
 <h2>Measurement Classes<a class="headerlink" href="#measurement-classes" title="Permalink to this headline">¶</a></h2>
 <p>The library includes a number of common measurements that will be described in this section.
 All measurements are derived from a base class called &#8216;Iterator&#8217; that is described further down.
-As the name suggests, it uses the <cite>iterator</cite> programming concept.
-You can use this base class to write custom measurements in C++, as described in <span class="xref std std-ref">subclassing</span>.</p>
+As the name suggests, it uses the <cite>iterator</cite> programming concept.</p>
 <p>All measurements provide a small number of methods to start and stop the execution
 and to access the accumulated data. The methods are summarized below.</p>
 <div class="section" id="methods-common-to-all-measurements">
@@ -428,62 +429,41 @@ depending on the measurement.</dd>
 </ol>
 <p>The specific measurements are described below.</p>
 </div>
-<div class="section" id="countrate">
-<h3>Countrate<a class="headerlink" href="#countrate" title="Permalink to this headline">¶</a></h3>
-<p>Measures the average countrate on one or more channels. Specifically, it
-counts tags on the specified channels and determines the time between the first tag since
-instantiation and the latest tag. The ratio of the number of tags and the
-time corresponds to the average countrate since the first tag.</p>
+<div class="section" id="correlation">
+<h3>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
+<p>Accumulates time differences between clicks on two channels into
+a histogram, where all ticks are considered both as start and stop
+clicks and both positive and negative time differences are considered.</p>
 <div class="section" id="arguments">
 <h4>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>tagger</dt>
 <dd>&lt;reference&gt; reference to a time tagger</dd>
-<dt>channels</dt>
-<dd>&lt;vector int&gt; channels used for counting tags</dd>
+<dt>channel 1</dt>
+<dd>&lt;int&gt; first channel</dd>
+<dt>channel 2</dt>
+<dd>&lt;int&gt; second channel</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_bins</dt>
+<dd>&lt;int&gt; the number of bins in the resulting histogram</dd>
 </dl>
 </div>
 <div class="section" id="id1">
 <h4>Methods<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>getData()</dt>
-<dd>returns the average countrate in counts per second.</dd>
-<dt>clear()</dt>
-<dd>resets the accumulated counts to zero and uses the next incoming tag as the first tag.</dd>
-</dl>
-</div>
-</div>
-<div class="section" id="counter">
-<h3>Counter<a class="headerlink" href="#counter" title="Permalink to this headline">¶</a></h3>
-<p>Time trace of the countrate on one or more channels. Specifically
-this measurement repeatedly counts tags on one or more channels within a
-time interval &#8216;binwidth&#8217; and stores the results in a two dimensional array of size
-&#8216;number of channels&#8217; times &#8216;n_values&#8217;. The array is treated as a circular buffer that is,
-all values in the array are shifted by on position when a new value is generated. The
-last entry in the array is always the most recent value.</p>
-<div class="section" id="id2">
-<h4>Arguments<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>tagger</dt>
-<dd>&lt;reference&gt; reference to a time tagger</dd>
-<dt>channels</dt>
-<dd>&lt;vector int&gt; channels used for counting tags</dd>
-<dt>binwidth</dt>
-<dd>&lt;longlong&gt; binwidth in ps</dd>
-<dt>n_values</dt>
-<dd>&lt;int&gt; number of values</dd>
-</dl>
-</div>
-<div class="section" id="id3">
-<h4>Methods<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>getData()</dt>
-<dd>returns an array of size &#8216;number of channels&#8217; times &#8216;n_values&#8217; containing the current values of the circular buffer
-(counts in each bin).</dd>
+<dd>returns a one-dimensional array of size 2*n_bins+1 containing the histograms.</dd>
 <dt>getIndex()</dt>
-<dd>returns a vector of size &#8216;n_values&#8217; containing the time bins in ps.</dd>
+<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
 <dt>clear()</dt>
-<dd>resets the array to zero and restarts the measurement.</dd>
+<dd>resets the array to zero.</dd>
+<dt>setMaxCounts()</dt>
+<dd>set the maximum number of start tags accepted</dd>
+<dt>getCounts()</dt>
+<dd>returns the number of start tags</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
 </dl>
 </div>
 </div>
@@ -497,8 +477,8 @@ resets the counter to zero and starts accumulating counts again. If an &#8216;en
 when a tag is detected on the &#8216;end_channel&#8217; rather than the &#8216;begin_channel&#8217;. You can use this e.g., to accumulate counts within a gate by using
 rising edges on one channel as the &#8216;begin_channel&#8217; and falling edges on the same channel as the &#8216;end_channel&#8217;. The measurement stops when all
 entries in the data vector are filled.</p>
-<div class="section" id="id4">
-<h4>Arguments<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id2">
+<h4>Arguments<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>tagger</dt>
 <dd>&lt;reference&gt; reference to a time tagger</dd>
@@ -510,8 +490,8 @@ entries in the data vector are filled.</p>
 <dd>&lt;int&gt; number of values</dd>
 </dl>
 </div>
-<div class="section" id="id5">
-<h4>Methods<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id3">
+<h4>Methods<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>getData()</dt>
 <dd>returns an array of size &#8216;n_values&#8217; containing the acquired counter values.</dd>
@@ -524,6 +504,167 @@ entries in the data vector are filled.</p>
 </dl>
 </div>
 </div>
+<div class="section" id="counter">
+<h3>Counter<a class="headerlink" href="#counter" title="Permalink to this headline">¶</a></h3>
+<p>Time trace of the countrate on one or more channels. Specifically
+this measurement repeatedly counts tags on one or more channels within a
+time interval &#8216;binwidth&#8217; and stores the results in a two dimensional array of size
+&#8216;number of channels&#8217; times &#8216;n_values&#8217;. The array is treated as a circular buffer that is,
+all values in the array are shifted by on position when a new value is generated. The
+last entry in the array is always the most recent value.</p>
+<div class="section" id="id4">
+<h4>Arguments<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>channels</dt>
+<dd>&lt;vector int&gt; channels used for counting tags</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_values</dt>
+<dd>&lt;int&gt; number of values</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h4>Methods<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns an array of size &#8216;number of channels&#8217; times &#8216;n_values&#8217; containing the current values of the circular buffer
+(counts in each bin).</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_values&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero and restarts the measurement.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="countrate">
+<h3>Countrate<a class="headerlink" href="#countrate" title="Permalink to this headline">¶</a></h3>
+<p>Measures the average countrate on one or more channels. Specifically, it
+counts tags on the specified channels and determines the time between the first tag since
+instantiation and the latest tag. The ratio of the number of tags and the
+time corresponds to the average countrate since the first tag.</p>
+<div class="section" id="id6">
+<h4>Arguments<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>channels</dt>
+<dd>&lt;vector int&gt; channels used for counting tags</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h4>Methods<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns the average countrate in counts per second.</dd>
+<dt>clear()</dt>
+<dd>resets the accumulated counts to zero and uses the next incoming tag as the first tag.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="flim">
+<h3>FLIM<a class="headerlink" href="#flim" title="Permalink to this headline">¶</a></h3>
+<p>Fluorescence-lifetime imaging microscopy or FLIM is an imaging technique
+for producing an image based on the differences in the exponential decay rate
+of the fluorescence from a sample.</p>
+<p>Fluorescence lifetimes can be determined in the time domain by using a pulsed source. When a population
+of fluorophores is excited by an ultrashort or delta pulse of light, the time-resolved fluorescence will
+decay exponentially.</p>
+<p>This measurement implements a line scan in a FLIM image that
+consists of a sequence of pixels. This could either represent a single line
+of the image, or - if the image is represented as a single meandering line -
+this could represent the entire image.</p>
+<p>This measurement is a special case of the more general &#8216;TimeDifferences&#8217; measurement.</p>
+<p>The measurement successively acquires n histograms
+(one for each pixel in the line scan), where each histogram
+is determined by the number of bins and the binwidth.</p>
+<div class="section" id="id8">
+<h4>Arguments<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>click channel</dt>
+<dd>&lt;int&gt; channel on which clicks are received</dd>
+<dt>start channel</dt>
+<dd>&lt;int&gt; channel on which start clicks are received</dd>
+<dt>next_channel</dt>
+<dd>&lt;int&gt; channel on which pixel triggers are received</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_bins</dt>
+<dd>&lt;int&gt; number of bins in each histogram</dd>
+<dt>n_pixels</dt>
+<dd>&lt;int&gt; number of pixels</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h4>Methods<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns a two-dimensional array of size &#8216;n_bins&#8217; times &#8216;n_pixels&#8217; containing the histograms.</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero.</dd>
+<dt>setMaxCounts()</dt>
+<dd>set the maximum number of start tags accepted</dd>
+<dt>getCounts()</dt>
+<dd>returns the number of start tags</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="histogram">
+<h3>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h3>
+<p>Accumulate time differences into a histogram. This is a simple multiple start,
+multiple stop measurement. This is a special case of the more general &#8216;TimeDifferences&#8217; measurement.
+Specifically, the measurement waits for clicks on the &#8216;start channel&#8217;,
+and for each start click, it measures the time difference between
+the start click and all subsequent clicks on the &#8216;click channel&#8217;
+and stores them in a histogram.
+The histogram range and resolution is specified by the number of bins
+and the binwidth specified in ps.
+Clicks that fall outside the histogram range are ignored.
+Data accumulation is performed independently for all start clicks.
+This type of measurement
+is frequently referred to as &#8216;multiple start, multiple stop&#8217; measurement
+and corresponds to a
+full auto- or cross-correlation measurement.</p>
+<div class="section" id="id10">
+<h4>Arguments<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>tagger</dt>
+<dd>&lt;reference&gt; reference to a time tagger</dd>
+<dt>click channel</dt>
+<dd>&lt;int&gt; channel on which clicks are received</dd>
+<dt>start channel</dt>
+<dd>&lt;int&gt; channel on which start clicks are received</dd>
+<dt>binwidth</dt>
+<dd>&lt;longlong&gt; binwidth in ps</dd>
+<dt>n_bins</dt>
+<dd>&lt;int&gt; the number of bins in the histogram</dd>
+</dl>
+</div>
+<div class="section" id="id11">
+<h4>Methods<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>getData()</dt>
+<dd>returns a one-dimensional array of size n_bins containing the histogram.</dd>
+<dt>getIndex()</dt>
+<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
+<dt>clear()</dt>
+<dd>resets the array to zero.</dd>
+<dt>setMaxCounts()</dt>
+<dd>set the maximum number of start tags accepted</dd>
+<dt>getCounts()</dt>
+<dd>returns the number of start tags</dd>
+<dt>ready()</dt>
+<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
+</dl>
+</div>
+</div>
 <div class="section" id="startstop">
 <h3>StartStop<a class="headerlink" href="#startstop" title="Permalink to this headline">¶</a></h3>
 <p>A simple start-stop measurement. This class performs a start-stop
@@ -532,8 +673,8 @@ in a histogram. The histogram resolution
 is specified beforehand (binwidth) but the histogram range is unlimited.
 It is adapted to the largest time difference that was detected. Thus
 all pairs of subsequent clicks are registered.</p>
-<div class="section" id="id6">
-<h4>Arguments<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>Arguments<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>tagger</dt>
 <dd>&lt;reference&gt; reference to a time tagger</dd>
@@ -545,8 +686,8 @@ all pairs of subsequent clicks are registered.</p>
 <dd>&lt;longlong&gt; binwidth in ps</dd>
 </dl>
 </div>
-<div class="section" id="id7">
-<h4>Methods<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>Methods<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>getData()</dt>
 <dd>returns a one dimensional array containing the histogram</dd>
@@ -582,8 +723,8 @@ specifying a &#8216;sync_channel&#8217;.</p>
 specify the maximum number of rollovers of the histogram index. In this case the measurement stops when the number of
 rollovers has reached the specified value. This means that both for a one-dimensional and for a
 two-dimensional measurement, it will measure until every histogram has a seen the specified number of start tags.</p>
-<div class="section" id="id8">
-<h4>Arguments<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id14">
+<h4>Arguments<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>tagger</dt>
 <dd>&lt;reference&gt; reference to a time tagger</dd>
@@ -603,8 +744,8 @@ two-dimensional measurement, it will measure until every histogram has a seen th
 <dd>&lt;int&gt; number of histograms</dd>
 </dl>
 </div>
-<div class="section" id="id9">
-<h4>Methods<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h4>Methods<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>getData()</dt>
 <dd>returns a two-dimensional array of size &#8216;n_bins&#8217; times &#8216;n_histograms&#8217; containing the histograms.</dd>
@@ -618,146 +759,6 @@ two-dimensional measurement, it will measure until every histogram has a seen th
 <dd>returns the number of start clicks</dd>
 <dt>ready()</dt>
 <dd>returns &#8216;true&#8217; when the required number of start clicks set by &#8216;setMaxCounts&#8217; has been reached</dd>
-</dl>
-</div>
-</div>
-<div class="section" id="correlation">
-<h3>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
-<p>Accumulates time differences between clicks on two channels into
-a histogram, where all ticks are considered both as start and stop
-clicks and both positive and negative time differences are considered.</p>
-<div class="section" id="id10">
-<h4>Arguments<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>tagger</dt>
-<dd>&lt;reference&gt; reference to a time tagger</dd>
-<dt>channel 1</dt>
-<dd>&lt;int&gt; first channel</dd>
-<dt>channel 2</dt>
-<dd>&lt;int&gt; second channel</dd>
-<dt>binwidth</dt>
-<dd>&lt;longlong&gt; binwidth in ps</dd>
-<dt>n_bins</dt>
-<dd>&lt;int&gt; the number of bins in the resulting histogram</dd>
-</dl>
-</div>
-<div class="section" id="id11">
-<h4>Methods<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>getData()</dt>
-<dd>returns a one-dimensional array of size 2*n_bins+1 containing the histograms.</dd>
-<dt>getIndex()</dt>
-<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
-<dt>clear()</dt>
-<dd>resets the array to zero.</dd>
-<dt>setMaxCounts()</dt>
-<dd>set the maximum number of start tags accepted</dd>
-<dt>getCounts()</dt>
-<dd>returns the number of start tags</dd>
-<dt>ready()</dt>
-<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
-</dl>
-</div>
-</div>
-<div class="section" id="histogram">
-<h3>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h3>
-<p>Accumulate time differences into a histogram. This is a simple multiple start,
-multiple stop measurement. This is a special case of the more general &#8216;TimeDifferences&#8217; measurement.
-Specifically, the measurement waits for clicks on the &#8216;start channel&#8217;,
-and for each start click, it measures the time difference between
-the start click and all subsequent clicks on the &#8216;click channel&#8217;
-and stores them in a histogram.
-The histogram range and resolution is specified by the number of bins
-and the binwidth specified in ps.
-Clicks that fall outside the histogram range are ignored.
-Data accumulation is performed independently for all start clicks.
-This type of measurement
-is frequently referred to as &#8216;multiple start, multiple stop&#8217; measurement
-and corresponds to a
-full auto- or cross-correlation measurement.</p>
-<div class="section" id="id12">
-<h4>Arguments<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>tagger</dt>
-<dd>&lt;reference&gt; reference to a time tagger</dd>
-<dt>click channel</dt>
-<dd>&lt;int&gt; channel on which clicks are received</dd>
-<dt>start channel</dt>
-<dd>&lt;int&gt; channel on which start clicks are received</dd>
-<dt>binwidth</dt>
-<dd>&lt;longlong&gt; binwidth in ps</dd>
-<dt>n_bins</dt>
-<dd>&lt;int&gt; the number of bins in the histogram</dd>
-</dl>
-</div>
-<div class="section" id="id13">
-<h4>Methods<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>getData()</dt>
-<dd>returns a one-dimensional array of size n_bins containing the histogram.</dd>
-<dt>getIndex()</dt>
-<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
-<dt>clear()</dt>
-<dd>resets the array to zero.</dd>
-<dt>setMaxCounts()</dt>
-<dd>set the maximum number of start tags accepted</dd>
-<dt>getCounts()</dt>
-<dd>returns the number of start tags</dd>
-<dt>ready()</dt>
-<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
-</dl>
-</div>
-</div>
-<div class="section" id="flim">
-<h3>FLIM<a class="headerlink" href="#flim" title="Permalink to this headline">¶</a></h3>
-<p>Fluorescence-lifetime imaging microscopy or FLIM is an imaging technique
-for producing an image based on the differences in the exponential decay rate
-of the fluorescence from a sample.</p>
-<p>Fluorescence lifetimes can be determined in the time domain by using a pulsed source. When a population
-of fluorophores is excited by an ultrashort or delta pulse of light, the time-resolved fluorescence will
-decay exponentially.</p>
-<p>This measurement implements a line scan in a FLIM image that
-consists of a sequence of pixels. This could either represent a single line
-of the image, or - if the image is represented as a single meandering line -
-this could represent the entire image.</p>
-<p>This measurement is a special case of the more general &#8216;TimeDifferences&#8217; measurement.</p>
-<p>The measurement successively acquires n histograms
-(one for each pixel in the line scan), where each histogram
-is determined by the number of bins and the binwidth.</p>
-<div class="section" id="id14">
-<h4>Arguments<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>tagger</dt>
-<dd>&lt;reference&gt; reference to a time tagger</dd>
-<dt>click channel</dt>
-<dd>&lt;int&gt; channel on which clicks are received</dd>
-<dt>start channel</dt>
-<dd>&lt;int&gt; channel on which start clicks are received</dd>
-<dt>next_channel</dt>
-<dd>&lt;int&gt; channel on which pixel triggers are received</dd>
-<dt>binwidth</dt>
-<dd>&lt;longlong&gt; binwidth in ps</dd>
-<dt>n_bins</dt>
-<dd>&lt;int&gt; number of bins in each histogram</dd>
-<dt>n_pixels</dt>
-<dd>&lt;int&gt; number of pixels</dd>
-</dl>
-</div>
-<div class="section" id="id15">
-<h4>Methods<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
-<dl class="docutils">
-<dt>getData()</dt>
-<dd>returns a two-dimensional array of size &#8216;n_bins&#8217; times &#8216;n_pixels&#8217; containing the histograms.</dd>
-<dt>getIndex()</dt>
-<dd>returns a vector of size &#8216;n_bins&#8217; containing the time bins in ps.</dd>
-<dt>clear()</dt>
-<dd>resets the array to zero.</dd>
-<dt>setMaxCounts()</dt>
-<dd>set the maximum number of start tags accepted</dd>
-<dt>getCounts()</dt>
-<dd>returns the number of start tags</dd>
-<dt>ready()</dt>
-<dd>returns &#8216;true&#8217; when the required number of start tags set by &#8216;setMaxCounts&#8217; has been reached</dd>
 </dl>
 </div>
 </div>
@@ -788,6 +789,8 @@ is determined by the number of bins and the binwidth.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="software.html" class="btn btn-neutral" title="Software Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
