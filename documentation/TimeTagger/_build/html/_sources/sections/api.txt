@@ -339,15 +339,49 @@ n_values
   <int> number of values
 
 
-
 Methods
 ^^^^^^^
-
 
 getData() 
   returns an array of size 'n_values' containing the acquired counter values.
 getIndex() 
   returns a vector of size 'n_values' containing the time bins in ps.
+clear()
+  resets the array to zero and restarts the measurement.
+ready() 
+  returns 'true' when the entire array is filled.
+
+StartStop
+---------
+
+A simple start-stop measurement. This class performs a start-stop
+measurement between two channels and stores the time differences
+in a histogram. The histogram resolution
+is specified beforehand (binwidth) but the histogram range is unlimited.
+It is adapted to the largest time difference that was detected. Thus
+all pairs of subsequent clicks are registered.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+click_channel
+  <int> channel on which stop clicks are received
+start_channel
+  <int> channel on which start clicks are received
+binwidth
+  <longlong> binwidth in ps
+
+
+Methods
+^^^^^^^
+
+getData()
+  returns a one dimensional array containing the histogram
+getIndex()
+  returns a vector of the time bins in ps.
 clear()
   resets the array to zero and restarts the measurement.
 ready() 
@@ -470,52 +504,113 @@ ready()
   returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
 
 
-FLIM
-----
+Histogram
+---------
 
-Fluorescence lifetime imaging. Specifically, the measurement performs a single-start-multiple-stop measurement
-and accumulates the time differences into a histogram with specified binwidth and number of bins. The condition
-for moving to the next pixel can either be a pixel trigger on a third channel or a predefined accumulation
-time per pixel. After accumulating a number of 'pixels' histograms, the measurement stops. This measurement
-is also useful to record cross-correlation on multiple pixels.
-
+Accumulate time differences into a histogram. This is a simple multiple start,
+multiple stop measurement. This is a special case of the more general 'TimeDifferences' measurement.
+Specifically, the measurement waits for clicks on the 'start channel',
+and for each start click, it measures the time difference between
+the start click and all subsequent clicks on the 'click channel'
+and stores them in a histogram.
+The histogram range and resolution is specified by the number of bins
+and the binwidth specified in ps.
+Clicks that fall outside the histogram range are ignored.
+Data accumulation is performed independently for all start clicks.
+This type of measurement
+is frequently referred to as 'multiple start, multiple stop' measurement
+and corresponds to a
+full auto- or cross-correlation measurement.
 
 Arguments
 ^^^^^^^^^
 
-
 tagger
   <reference> reference to a time tagger
-click_channel 
-  <int> channel that increments the count in a bin
-start_channel 
-  <int> channel that sets start times relative to which clicks on the click channel are measured
-next_channel 
-  <int> channel that increments the histogram index
-binwidth 
+click channel
+  <int> channel on which clicks are received
+start channel
+  <int> channel on which start clicks are received
+binwidth
   <longlong> binwidth in ps
-n_bins 
-  <int> number of bins in each histogram
-n_pixels 
-  <int> number of pixels
-
-
-
+n_bins
+  <int> the number of bins in the histogram
 
 
 Methods
 ^^^^^^^
 
-
-
-getData() 
-  returns a two-dimensional array of size 'pixels' times 'bins' containing the histograms.
-getIndex() 
-  returns a vector of size 'n_pixels' containing the pixel times in ps.
+getData()
+  returns a one-dimensional array of size n_bins containing the histogram.
+getIndex()
+  returns a vector of size 'n_bins' containing the time bins in ps.
 clear()
   resets the array to zero.
-ready() 
-  returns 'true' when the measurement is ready
+setMaxCounts() 
+  set the maximum number of start tags accepted
+getCounts()
+  returns the number of start tags
+ready()
+  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
+
+
+FLIM
+----
+
+Fluorescence-lifetime imaging microscopy or FLIM is an imaging technique
+for producing an image based on the differences in the exponential decay rate
+of the fluorescence from a sample.
+
+Fluorescence lifetimes can be determined in the time domain by using a pulsed source. When a population
+of fluorophores is excited by an ultrashort or delta pulse of light, the time-resolved fluorescence will
+decay exponentially.
+
+This measurement implements a line scan in a FLIM image that
+consists of a sequence of pixels. This could either represent a single line
+of the image, or - if the image is represented as a single meandering line - 
+this could represent the entire image.
+
+This measurement is a special case of the more general 'TimeDifferences' measurement.
+
+The measurement successively acquires n histograms
+(one for each pixel in the line scan), where each histogram
+is determined by the number of bins and the binwidth.
+
+
+Arguments
+^^^^^^^^^
+
+tagger
+  <reference> reference to a time tagger
+click channel
+  <int> channel on which clicks are received
+start channel
+  <int> channel on which start clicks are received
+next_channel 
+  <int> channel on which pixel triggers are received
+binwidth
+  <longlong> binwidth in ps
+n_bins
+  <int> number of bins in each histogram
+n_pixels 
+  <int> number of pixels
+
+
+Methods
+^^^^^^^
+
+getData()
+  returns a two-dimensional array of size 'n_bins' times 'n_pixels' containing the histograms.
+getIndex()
+  returns a vector of size 'n_bins' containing the time bins in ps.
+clear()
+  resets the array to zero.
+setMaxCounts() 
+  set the maximum number of start tags accepted
+getCounts()
+  returns the number of start tags
+ready()
+  returns 'true' when the required number of start tags set by 'setMaxCounts' has been reached
 
 
 
