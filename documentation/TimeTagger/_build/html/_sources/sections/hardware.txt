@@ -100,7 +100,7 @@ to discard all synchronization time tags in the data stream except those that ar
 Since the synchronization pulses are periodic with a very well defined period, it is equivalent
 to keep only those synchronization time tags that are {\em preceded} by a photon.
 
-This feature is implemented by an event filter that is currently hardcoded between
+This feature is implemented by an event filter that is currently hard coded between
 channel 0 and channel 7. It is assumed that photon clicks are entering channel 0 and laser sync clicks
 are entering channel 7. When the filter is active, time tags on channel 7 are only passed
 if a time tag has been registered on channel 0 before. Subsequent tags are discarded until the next
@@ -114,19 +114,19 @@ Bin equilibration
 
 Discretization of electrical signals is never perfect. In time-to-digital conversion, this is manifest
 as small differences (few ps) of the bin sizes inside the converter that even varies from chip to chip.
-This imperfection is inheret to any time-to-digital conversion hardware.
-It is usually not apperent to the user. However, when correlations between two channels are measured on short
-time scales you might see this as a weak periodic ripple ontop of your signal. 
+This imperfection is inherent to any time-to-digital conversion hardware.
+It is usually not apparent to the user. However, when correlations between two channels are measured on short
+time scales you might see this as a weak periodic ripple on top of your signal. 
 If you wish to turn off this ripple, you can enable an equilibration of the bin sizes
 at the cost of a decrease of the time resolution by :math:`\sqrt{2}`. This feature is disabled by default.
 
 Overflows
 =========
 
-Data rates are never infinite. The *TimeTagger 20* is capable of streaming about 5 M tags per second,
-At higher rates, data loss occurs and parts of the time tags are lost. The hardware allows you
-to check whether an overflow condition has occured. If no overflow occurrs,
-you can be sure that every time tag is received.
+The *TimeTagger 20* is capable of streaming on average about 5 million tags per second. 
+Higher data rates for short times will be buffered internally so that no overflow occurs.
+This internal buffer is limited so that on continuously higher data rates, data loss occurs and parts of the time tags are lost. The hardware allows you
+to check with ``timeTagger.getOverflows()`` whether an overflow condition has occurred. If no overflow are returned, you can be sure that every time tag is received.
 
 General purpose IO (available upon request)
 ===========================================

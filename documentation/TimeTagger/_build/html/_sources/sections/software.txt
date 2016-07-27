@@ -6,7 +6,7 @@ Software Overview
 The heart of the *TimeTagger 20* software is a multi-threaded driver
 that receives the time tag stream and feeds it to all running
 measurements. Measurements are small threads that analyze the time tag stream
-each in their own way. E.g., a count rate measurement will extract all time
+each in their own way. For example, a count rate measurement will extract all time
 tags of a specific channel and calculate the average number of tags received per
 second, a cross-correlation measurement will compute the cross-correlation between two
 channels, typically by sorting the time tags in histograms, etc.. This is a
@@ -16,13 +16,13 @@ measurement in real time. You have several choices to use this architecture.
 
 Web application and JSON-RPC interface
 ======================================
-.. Note:: This feature is currently under development. Please contact us if you would like to use the timetagger in this way.
+.. Note:: This feature is currently under development. Please contact us if you would like to use the TimeTagger in this way.
 
 The easiest way of using the *TimeTagger 20* is via a web application
 that allows you to interact with the hardware from a web browser on your computer
 or a tablet. You can create measurements
 and get life plots, save and load the acquired data from within a web browser.
-In addition, you can also access and reomte control the web application
+In addition, you can also access and remote control the web application
 via a JSON-RPC interface.
 
 
@@ -35,7 +35,7 @@ For most users, these measurements
 will cover all needs. These measurements are included in
 the C++ API and provided as precompiled library files. To make using the
 TimeTagger even easier, we have equipped these libraries with
-bindings to higher level languages, specifically Python so that you can directly
+bindings to higher level languages (Python, Matlab, LabView, .net in general) so that you can directly
 use the TimeTagger from this language.
 With these APIs you can easily start a complex
 measurement from a higher level language with only two lines of code. 
@@ -43,16 +43,11 @@ To use one of these APIs, you have to write code in the high
 level language of your choice. Refer to chapter :ref:`quickstart` and :ref:`api`
 if you plan to use the TimeTagger in this way.
 
-.. Note:: Bindings for other languages such as Java, Matlab and Labview are available upon request.
-
 C++ API
 =======
 The underlying software architecture is provided by a C++ API that implements
 two classes: one class that represent the TimeTagger and one class that
-represents a base measurement. Ontop of that, the C++ API also provides
+represents a base measurement. On top of that, the C++ API also provides
 all predefined measurements that are made available by the web
 application and high level language bindings. To use this API, you have to
-write and compile a C++ program. If you want to implement a custom
-measurement you need to follow this approach. Refer to
-chapter :ref:`API` if you plan to use the TimeTagger in this way.
-
+write and compile a C++ program.

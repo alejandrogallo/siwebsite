@@ -10,8 +10,8 @@ Overview
 
 The API provides methods to control the hardware and to create
 measurements that are hooked onto the time tag stream. It is written in C++ but
-wrapper classes for higher level languages, specifically python 
-can be provided, such that the C++ API can directly be used in your application,
+wrapper classes for higher level languages (python, Matlab, LabView)
+are provided, such that the C++ API can directly be used in your application,
 in a way that is equivalent to the C++ classes.
 The API includes a set of typical measurements that will most likely
 cover your needs. Implementation of custom measurements is based on
@@ -22,15 +22,11 @@ API documentation
 -----------------
 
 The API documentation in this manual gives a general overview how to use the *TimeTagger 20*.
-More detailed information can be found in the API reference (generated with
-Doxygen).
-.. ToDo reference to doxygen stuff
-
 
 Examples
 --------
 
-Often the fastest way to learn how to use an API is by means of examples. Please see the ``\exsamples``
+Often the fastest way to learn how to use an API is by means of examples. Please see the ``\examples``
 subfolder of your *TimeTagger 20* installation for examples.
 
 
@@ -100,7 +96,7 @@ FLIM
   Fluorescence lifetime imaging.
 StartStop 
   Accumulates a histogram of time difference between
-  pairs of tagss on two channels. Only the first stop tag after a start tag is
+  pairs of tags on two channels. Only the first stop tag after a start tag is
   considered. Subsequent stop tags are discarded. The Histogram length is
   unlimited.
   
@@ -125,9 +121,9 @@ implement this in a bullet proof way, TimeTagger instances must be created
 with a factory function called 'createTimeTagger'. The factory function accepts
 the serial number of a physical TimeTagger as a string argument (every
 TimeTagger has a unique hardware serial number). The serial number is the only argument that can
-be passed. If an mpty string or no argument is passed, the first detected
+be passed. If an empty string or no argument is passed, the first detected
 TimeTagger will be used. To find out the hardware serial number, you can connect
-a single timetagger, open it and use the 'getSerial' function described below.
+a single TimeTagger, open it and use the 'getSerial' function described below.
 
 The TimeTagger class contains a small number of methods to control the hardware settings that are summarized below.
 
@@ -135,37 +131,74 @@ The TimeTagger class contains a small number of methods to control the hardware 
 Methods
 -------
 
+reset()
+  reset the TimeTagger to the startup state
+setTriggerLevel(unsigned int channel, double voltage)
+  set the trigger level of an input channel in volts
+double getTriggerLevel(unsigned int channel)
+  return the trigger level of an input channel in volts
+setInputDelay(unsigned int channel, long long delay)
+  set the input delay of a channel in picoseconds
+long long getInputDelay(unsigned int channel)
+  return the input delay of a channel in picoseconds
+setFilter(bool state)
+  enable or disable the event filter on the FPGA board. If the filter
+  is active, tags on channel 7 are only transmitted if they were
+  immediately preceded by a tag on channel 0.
+bool getFilter()
+  returns true if the event filter on the FPGA board is enabled
+setNormalization(bool state)
+  enables or disable Gaussian normalization of the
+  detection jitter. Enabled by default.
+bool getNormalization()
+  returns true if Gaussian normalization is enabled.
+long long setDeadTime(unsigned int channel, long long deadtime)
+  sets the dead time of a channel in picoseconds. The requested time will
+  be rounded to the nearest multiple of the clock time. The deadtime will also
+  be clamped to device specific limitations. As the actual deadtime will
+  be altered, the real value will be returned.
+long long getDeadTime(unsigned int channel)
+  returns the dead time of a channel in picoseconds
+setTestSignal(unsigned int, bool state)
+  This will connect or disconnect the channel with the on-chip
+  uncorrelated signal generator.
+bool getTestSignal(unsigned int channel)
+  returns true if the internal test signal is activated on the specified channel
+string getSerial()
+  returns the hardware serial number
+long long getOverflows()
+  returns the number of overflows that occurred since startup
+long long getOverflowsAndClear()
+  returns the number of overflows that occurred since startup and sets them to zero
+clearOverflows()
+  set the overflow counter to zero
+sync()
+  ensure that all hardware settings such as trigger levels,
+  channel registrations, etc., have propagated to the FPGA
+  and are physically active and synchronize the TimeTagger pipeline,
+  so that all tags arriving after a sync call were actually produced
+  after the sync call. The sync function waits until all historic
+  tags in the pipeline are processed.
+  
+Debug Methods
+-------------
 
-setTriggerLevel()
-  set the trigger level of an input channel
-getTriggerLevel()
-  return the trigger level of an input channel
-setInputDelay()
-  set the input delay of a channel
-getInputDelay()
-  return the input delay of a channel
-setFilter()
-  enable or disable the laser synchronization filter (currently hardcoded between channel 0 and 7)
-getFilter()
-  return the state of the laser synchronization filter
-setNormalization()
-  activate or deactivate gaussian normalization of the
-  detection jitter
-getNormalization()
-  return whether input normalization is turned on
-setDeadTime()
-  set the dead time of a channel
-getDeadTime()
-  return the dead time of a channel
-setTestSignal
-  apply internal test signal to a channel
-getTestSignal
-  check whether the internal test signal is applied to a channel
-getSerial()
-  return the hardware serial number
-getOverflows()
-  return the number of overflows that occurred since startup
-
+int getBoardModel()
+  returns the hardware type
+registerChannel(unsigned int channel)
+  enable transmissions of time tags on the specified channel
+unregisterChannel(unsigned int channel)
+  disable transmissions of time tags on the specified channel
+unsigned int getChannels()
+  returns the number of registered channels
+autoCalibration(bool verbose=true)
+  run an auto calibration of the tagger hardware using the built in test signal
+2D array long long getDistributionCount()
+  returns the calibration data represented in counts
+2D array long long getDistributionPSec()
+  returns the calibration data in picoseconds
+long long getPsPerClock()
+  returns the the duration of a clock cycle in picoseconds
 
 Measurement Classes
 ===================
@@ -173,10 +206,10 @@ Measurement Classes
 The library includes a number of common measurements that will be described in this section.
 All measurements are derived from a base class called 'Iterator' that is described further down.
 As the name suggests, it uses the `iterator` programming concept.
-You can use this base class to write custom measurments in C++, as described in :ref:`subclassing`.
+You can use this base class to write custom measurements in C++, as described in :ref:`subclassing`.
 
 
-All measurements provide a small number of methods to start and stop the excecution
+All measurements provide a small number of methods to start and stop the execution
 and to access the accumulated data. The methods are summarized below.
 
 
@@ -318,7 +351,7 @@ TimeDifferences
 ---------------
 
 A multidimensional histogram measurement optionally with up to three additional channels that control how to
-step through the indices of the histogram array. This is a very powerful and generic measurment.
+step through the indices of the histogram array. This is a very powerful and generic measurement.
 You can use it to record cross-correlation, lifetime measurements, fluorescence lifetime imaging
 and many more measurements based on pulsed excitation.
 Specifically, the measurement waits for a tag on the 'start_channel', then measures the
@@ -326,7 +359,7 @@ time difference between the start tag and all subsequent tags on the 'click_chan
 and stores them in a histogram. If no 'start_channel' is specified, the 'click_channel' is used as 'start_channel'
 corresponding to an auto-correlation measurement.
 The histogram has a number of 'n_bins' bins of binwidth 'binwidth'. Clicks that fall outside the histogram range are discarded.
-Data accumulation is performed independently for all start tags. This type of measurement is frequently refered to as
+Data accumulation is performed independently for all start tags. This type of measurement is frequently referred to as
 'single start, multiple stop' measurement and corresponds to a full auto- or cross-correlation measurement.
 
 The data obtained from subsequent start tags can be accumulated into the same histogram (one-dimensional measurement)
@@ -505,14 +538,3 @@ Methods
 
 stop()
   stop the measurement
-
-
-
-
-.. _subclassing:
-Defining custom measurements by subclassing Iterator
-=========================================================
-
-
-This section is under construction..
-

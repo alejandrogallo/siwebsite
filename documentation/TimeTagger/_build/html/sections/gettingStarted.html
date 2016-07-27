@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; Time Tagger 1.0 documentation</title>
+  <title>Getting Started &mdash; Time Tagger 1.0.2 documentation</title>
   
 
   
@@ -30,12 +30,12 @@
   
 
   
-    <link rel="top" title="Time Tagger 1.0 documentation" href="../index.html"/>
+    <link rel="top" title="Time Tagger 1.0.2 documentation" href="../index.html"/>
         <link rel="next" title="Hardware" href="hardware.html"/>
         <link rel="prev" title="Installation instructions" href="installation.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -45,20 +45,30 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-
-        
-          <a href="../index.html" class="icon icon-home"> Time Tagger
-        
-
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
           
-          <img src="../_static/logo_transparent.png" class="logo" />
-        
-        </a>
 
-        
+          
+            <a href="../index.html" class="icon icon-home"> Time Tagger
+          
+
+          
+            
+            <img src="../_static/logo_transparent.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.2
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -67,122 +77,34 @@
   </form>
 </div>
 
-        
-      </div>
+          
+        </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-          
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#windows-users">Windows users</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#requirements">Requirements</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="installation.html#operating-system">Operating System</a></li>
-<li class="toctree-l4"><a class="reference internal" href="installation.html#python">Python</a></li>
-<li class="toctree-l4"><a class="reference internal" href="installation.html#installation">Installation</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#windows-users">Windows users</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#where-to-go-from-here">Where to go from here</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dll-wrappers-for-net-e-g-matlab-labview">DLL/wrappers for .net (e.g. Matlab, LabView)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#labview">LabView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#matlab">Matlab</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#input-channels">Input channels</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hardware.html#electrical-characteristics">Electrical characteristics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#data-connection">Data connection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#status-leds">Status LEDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#test-signal">Test signal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#virtual-channels">Virtual channels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#synthetic-input-delay">Synthetic input delay</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#synthetic-dead-time">Synthetic dead time</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#event-filter">Event filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#bin-equilibration">Bin equilibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#overflows">Overflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#general-purpose-io-available-upon-request">General purpose IO (available upon request)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="software.html#web-application-and-json-rpc-interface">Web application and JSON-RPC interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software.html#precompiled-libraries-and-high-level-language-bindings">Precompiled libraries and high level language bindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software.html#c-api">C++ API</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#overview">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#api-documentation">API documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#units">Units</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#channel-numbers">Channel Numbers</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#organization">Organization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#hardware">Hardware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#virtual-channels">Virtual Channels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#measurements">Measurements</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#the-timetagger-class">The TimeTagger class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#methods">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#measurement-classes">Measurement Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#methods-common-to-all-measurements">Methods common to all Measurements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#countrate">Countrate</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#arguments">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id1">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#counter">Counter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id2">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id3">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#countbetweenmarkers">CountBetweenMarkers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id4">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id5">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#timedifferences">TimeDifferences</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id6">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id7">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#correlation">Correlation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id8">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id9">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#flim">FLIM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id10">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id11">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#dump">Dump</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id12">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id13">Methods</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#defining-custom-measurements-by-subclassing-iterator">Defining custom measurements by subclassing Iterator</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -197,7 +119,13 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -210,7 +138,8 @@
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
@@ -218,7 +147,7 @@
 <h2>Windows users<a class="headerlink" href="#windows-users" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Make sure the <em>TimeTagger 20</em> software and a Python distribution are installed and the <em>TimeTagger 20</em> connected to your computer (see previous section).</li>
-<li>Open a command shell and <code class="docutils literal"><span class="pre">cd</span></code> to the <code class="docutils literal"><span class="pre">..\examples\python\quickstart</span></code> folder under your <em>TimeTagger 20</em> installation directory</li>
+<li>Open a command shell and <code class="docutils literal"><span class="pre">cd</span></code> to the <code class="docutils literal"><span class="pre">.\examples\python\quickstart</span></code> folder under your <em>TimeTagger 20</em> installation directory</li>
 <li>Start an <strong>ipython</strong> shell with plotting support by entering <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--pylab</span></code></li>
 <li>Run the <strong>quickstart.py</strong> script by entering <code class="docutils literal"><span class="pre">run</span> <span class="pre">quickstart</span></code></li>
 </ol>
@@ -228,7 +157,7 @@ and runs some example measurements using the built in test signal generator and 
 <p>Among others, the script will...</p>
 <ol class="arabic simple">
 <li>Create an instance called &#8216;tagger&#8217; that represents the device.</li>
-<li>Start the builtin test signal (~0.8 MHz square wave) and apply it to channels 0 a nd 1</li>
+<li>Start the built in test signal (~0.8 MHz square wave) and apply it to channels 0 and 1</li>
 <li>Create a time trace of the click rate on the first two channels, let it run for a while and plot the result.</li>
 <li>Create coarse and fine cross correlation measurements. The coarse measurement shows characteristic peaks at integer multiples of the inverse frequency of the test signal. The fine measurement demonstrates the &lt; 60 ps time resolution.</li>
 <li>Show you how to create virtual channels, use synchronization, event filter and control the input trigger level.</li>
@@ -238,19 +167,51 @@ and runs some example measurements using the built in test signal generator and 
 <p>To learn more about the <em>TimeTagger 20</em> you are encouraged to consult the following resources.</p>
 <ol class="arabic simple">
 <li>If you have not done so already, have a look at the Python script you just run.</li>
-<li>More details about the software interface are covered by the C++ API documentation in the subsequent section</li>
-<li>You are also encouraged to study the C++ source code provided in the <em>TimeTagger 20</em> install directory (released under the GPL)</li>
-<li>Code examples in <code class="docutils literal"><span class="pre">..\examples\python\traits</span></code> show you how to quickly implement an interactive graphical interface in python</li>
+<li>More details about the software interface are covered by the API documentation in the subsequent section</li>
+<li>You are also encouraged to study the C++ source code provided in the <em>TimeTagger 20</em> install directory</li>
+<li>Code examples in <code class="docutils literal"><span class="pre">.\examples\python\traits</span></code> show you how to quickly implement an interactive graphical interface in python</li>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The python GUI examples, additionally require the following python packages installed on your system: <em>traits, traitsui, chaco, pyface enable</em>.</p>
 </div>
 </div>
+<div class="section" id="dll-wrappers-for-net-e-g-matlab-labview">
+<h3>DLL/wrappers for .net (e.g. Matlab, LabView)<a class="headerlink" href="#dll-wrappers-for-net-e-g-matlab-labview" title="Permalink to this headline">¶</a></h3>
+<p>We provide for the TimeTagger a .net class Library (32 and 64 bit) which can be used to access the TimeTagger from high level languages <code class="docutils literal"><span class="pre">.\dotNet\TTCSharpxx.dll</span></code>.</p>
+<p>The following is important to note:</p>
+<ul class="simple">
+<li>Namespace: <code class="docutils literal"><span class="pre">SwabianInstruments.TimeTagger</span></code></li>
+<li>static functions (e.g. to create an instance of a TimeTagger) are accessible via <code class="docutils literal"><span class="pre">SwabianInstruments.TimeTagger.TT</span></code></li>
+</ul>
+</div>
+<div class="section" id="labview">
+<h3>LabView<a class="headerlink" href="#labview" title="Permalink to this headline">¶</a></h3>
+<p>A simple correlation measurement is provided in <code class="docutils literal"><span class="pre">.\examples\LabView\</span></code> for LabView 2014.
+The requirements for Using .NET assemblies in LabVIEW can be found can be found here:
+* Link &lt;<a class="reference external" href="http://zone.ni.com/reference/en-XX/help/371361L-01/lvconcepts/net_defaults/">http://zone.ni.com/reference/en-XX/help/371361L-01/lvconcepts/net_defaults/</a>&gt;</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">LabView most likely is installed as a 32 bit version so include the 32 bit .net library to your project</p>
+</div>
+</div>
+<div class="section" id="matlab">
+<h3>Matlab<a class="headerlink" href="#matlab" title="Permalink to this headline">¶</a></h3>
+<p>Wrapper classes are provided for Matlab so that native Matlab variables can be used.</p>
+<p>The TimeTagger toolbox is automatically installed during the setup. If <code class="docutils literal"><span class="pre">TimeTagger</span></code> is not available in your Matlab environment try to reinstall the toolbox from
+<code class="docutils literal"><span class="pre">.\MatlabWrapper\TimeTagger</span> <span class="pre">Matlab.mltbx</span></code>.</p>
+<p>The following changes in respect to the .net library have been made:</p>
+<ul class="simple">
+<li>static functions are available through the <code class="docutils literal"><span class="pre">TimeTagger</span></code> class</li>
+<li>all classes except for the TimeTagger class itself have a <code class="docutils literal"><span class="pre">TT</span></code> prefix (e.g. <code class="docutils literal"><span class="pre">TTCountrate</span></code>) to not collide with any variables/classes in your Matlab environment</li>
+</ul>
+<p>An example how to use the TimeTagger with Matlab can be found in <code class="docutils literal"><span class="pre">.\examples\MatLab\</span></code>.</p>
+</div>
 </div>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
@@ -268,9 +229,10 @@ and runs some example measurements using the built in test signal generator and 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015, Swabian Instruments.
+        &copy; Copyright 2016, Swabian Instruments.
+
     </p>
-  </div>
+  </div> 
 
 </footer>
 
@@ -288,7 +250,7 @@ and runs some example measurements using the built in test signal generator and 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0',
+            VERSION:'1.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

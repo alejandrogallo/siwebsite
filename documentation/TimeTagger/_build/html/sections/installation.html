@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation instructions &mdash; Time Tagger 1.0 documentation</title>
+  <title>Installation instructions &mdash; Time Tagger 1.0.2 documentation</title>
   
 
   
@@ -30,12 +30,12 @@
   
 
   
-    <link rel="top" title="Time Tagger 1.0 documentation" href="../index.html"/>
+    <link rel="top" title="Time Tagger 1.0.2 documentation" href="../index.html"/>
         <link rel="next" title="Getting Started" href="gettingStarted.html"/>
         <link rel="prev" title="Welcome to Time Tagger’s documentation!" href="../index.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -45,20 +45,30 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-
-        
-          <a href="../index.html" class="icon icon-home"> Time Tagger
-        
-
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
           
-          <img src="../_static/logo_transparent.png" class="logo" />
-        
-        </a>
 
-        
+          
+            <a href="../index.html" class="icon icon-home"> Time Tagger
+          
+
+          
+            
+            <img src="../_static/logo_transparent.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.2
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -67,15 +77,15 @@
   </form>
 </div>
 
-        
-      </div>
+          
+        </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-          
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Installation instructions</a><ul>
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#windows-users">Windows users</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#operating-system">Operating System</a></li>
@@ -85,104 +95,19 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-users">Linux users</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#windows-users">Windows users</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gettingStarted.html#where-to-go-from-here">Where to go from here</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#input-channels">Input channels</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hardware.html#electrical-characteristics">Electrical characteristics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#data-connection">Data connection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#status-leds">Status LEDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#test-signal">Test signal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#virtual-channels">Virtual channels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#synthetic-input-delay">Synthetic input delay</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#synthetic-dead-time">Synthetic dead time</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#event-filter">Event filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#bin-equilibration">Bin equilibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#overflows">Overflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hardware.html#general-purpose-io-available-upon-request">General purpose IO (available upon request)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="software.html#web-application-and-json-rpc-interface">Web application and JSON-RPC interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software.html#precompiled-libraries-and-high-level-language-bindings">Precompiled libraries and high level language bindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="software.html#c-api">C++ API</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#overview">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#api-documentation">API documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#units">Units</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#channel-numbers">Channel Numbers</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#organization">Organization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#hardware">Hardware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#virtual-channels">Virtual Channels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#measurements">Measurements</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#the-timetagger-class">The TimeTagger class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#methods">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#measurement-classes">Measurement Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#methods-common-to-all-measurements">Methods common to all Measurements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#countrate">Countrate</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#arguments">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id1">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#counter">Counter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id2">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id3">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#countbetweenmarkers">CountBetweenMarkers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id4">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id5">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#timedifferences">TimeDifferences</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id6">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id7">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#correlation">Correlation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id8">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id9">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#flim">FLIM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id10">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id11">Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#dump">Dump</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id12">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api.html#id13">Methods</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#defining-custom-measurements-by-subclassing-iterator">Defining custom measurements by subclassing Iterator</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -197,7 +122,13 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -210,7 +141,8 @@
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="installation-instructions">
 <h1>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
@@ -220,32 +152,31 @@
 <h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="operating-system">
 <h4>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this headline">¶</a></h4>
-<p>All 32 and 64 bit windows versions since windows XP are supported.</p>
+<p>The installer provided supports Windows 7 and Windows 10 (32 and 64 bit).</p>
 </div>
 <div class="section" id="python">
 <h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
-<p>If you want to run the <strong>quickstart guide</strong>,
-or the <strong>web application</strong> (currently under development),
-you need the following additional third-party software packages (available for free).</p>
+<p>If you want to run the Python <strong>quickstart guide</strong>, you need the following additional third-party software packages (available for free).</p>
 <ul class="simple">
-<li><strong>python 2.7.x</strong> or <strong>python 3.4.x</strong> installed along with <strong>ipython</strong></li>
-<li>the following python modules: <strong>numpy, matplotlib (pylab), time, cPickle</strong></li>
+<li><strong>Python 2.7.x</strong> or <strong>Python 3.5.x</strong> installed along with <strong>ipython</strong></li>
+<li>the following Python modules: <strong>numpy, matplotlib (pylab), time, cPickle</strong></li>
 </ul>
-<p>On windows it is easiest to install a <strong>python distribution</strong> that contains all required
-packages by default. The <strong>anaconda</strong> or <strong>canopy</strong> python distributions will cover this.
-If you don&#8217;t have python installed, please download and install now either
-of these python distributions. Note that <strong>anaconda</strong> is available as <strong>python 3.4.x</strong>.</p>
+<p>On Windows it is easiest to install a <strong>Python distribution</strong> that contains all required
+packages by default. The <strong>anaconda</strong> or <strong>canopy</strong> Python distributions will cover this.
+If you don&#8217;t have Python installed, please download and install now either
+of these Python distributions. Note that <strong>anaconda</strong> is available as <strong>Python 3.5.x</strong>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you are using a fresh install of the <strong>canopy</strong> distribution, please make sure to run the graphical interface once from the start menu to have your python paths set up corectly.</p>
+<p class="last">If you are using a fresh install of the <strong>canopy</strong> distribution, please make sure to run the graphical interface once from the start menu to have your Python paths set up correctly.</p>
 </div>
 </div>
 <div class="section" id="installation">
 <h4>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you intend to use the <em>TimeTagger 20</em> with the Python programming language, please make sure that you install python first as described above. This ensures that the installer detects your Python installation automatically.</p>
+<p class="last">If you intend to use the <em>TimeTagger 20</em> with the Python programming language, please make sure that you install Python first as described above.</p>
 </div>
+<p>This ensures that the installer detects your Python installation automatically.</p>
 <ol class="arabic simple">
 <li>Download and run the most recent <em>TimeTagger 20</em> windows installer.</li>
 </ol>
@@ -258,9 +189,14 @@ of these python distributions. Note that <strong>anaconda</strong> is available 
 </div>
 </div>
 </div>
+<div class="section" id="linux-users">
+<h2>Linux users<a class="headerlink" href="#linux-users" title="Permalink to this headline">¶</a></h2>
+<p>The TimeTagger can be used under Linux with C++ or Python. There is no installer package yet, so please contact us if you want to use the TimeTagger under Linux.</p>
+</div>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
@@ -278,9 +214,10 @@ of these python distributions. Note that <strong>anaconda</strong> is available 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015, Swabian Instruments.
+        &copy; Copyright 2016, Swabian Instruments.
+
     </p>
-  </div>
+  </div> 
 
 </footer>
 
@@ -298,7 +235,7 @@ of these python distributions. Note that <strong>anaconda</strong> is available 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0',
+            VERSION:'1.0.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

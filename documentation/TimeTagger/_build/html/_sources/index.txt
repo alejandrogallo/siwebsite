@@ -3,10 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-
-
-
-.. image:: images/logo_as_paths.png
+.. comment the images causes two extra pages which is ugly in the pdf
+  image:: images/logo_as_paths.png
 	:width: 90%
 	:align: center
 
@@ -22,18 +20,14 @@ Welcome to Time Tagger's documentation!
    sections/hardware
    sections/software
    sections/api
+   sections/changelog
 
 
 
+.. Indices and tables
+.. ==================
 
-
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
 

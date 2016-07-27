@@ -14,30 +14,29 @@ Requirements
 Operating System
 ^^^^^^^^^^^^^^^^
 
-All 32 and 64 bit windows versions since windows XP are supported.
+The installer provided supports Windows 7 and Windows 10 (32 and 64 bit).
 
 Python
 ^^^^^^
 
-If you want to run the **quickstart guide**,
-or the **web application** (currently under development),
-you need the following additional third-party software packages (available for free).
+If you want to run the Python **quickstart guide**, you need the following additional third-party software packages (available for free).
 
-* **python 2.7.x** or **python 3.4.x** installed along with **ipython**
-* the following python modules: **numpy, matplotlib (pylab), time, cPickle**
+* **Python 2.7.x** or **Python 3.5.x** installed along with **ipython**
+* the following Python modules: **numpy, matplotlib (pylab), time, cPickle**
 
-On windows it is easiest to install a **python distribution** that contains all required
-packages by default. The **anaconda** or **canopy** python distributions will cover this.
-If you don't have python installed, please download and install now either
-of these python distributions. Note that **anaconda** is available as **python 3.4.x**.
+On Windows it is easiest to install a **Python distribution** that contains all required
+packages by default. The **anaconda** or **canopy** Python distributions will cover this.
+If you don't have Python installed, please download and install now either
+of these Python distributions. Note that **anaconda** is available as **Python 3.5.x**.
 
-.. note:: If you are using a fresh install of the **canopy** distribution, please make sure to run the graphical interface once from the start menu to have your python paths set up corectly.
+.. note:: If you are using a fresh install of the **canopy** distribution, please make sure to run the graphical interface once from the start menu to have your Python paths set up correctly.
 
 
 Installation
 ^^^^^^^^^^^^
 
-.. note:: If you intend to use the *TimeTagger 20* with the Python programming language, please make sure that you install python first as described above. This ensures that the installer detects your Python installation automatically.
+.. note:: If you intend to use the *TimeTagger 20* with the Python programming language, please make sure that you install Python first as described above. 
+This ensures that the installer detects your Python installation automatically.
 
 #. Download and run the most recent *TimeTagger 20* windows installer.
 
@@ -46,3 +45,9 @@ Connect the *TimeTagger 20* to your computer with the USB cable.
 .. caution:: Wait until windows has recognized the device and finished installing the driver.
  
 You should now be ready to use your *TimeTagger 20*.
+
+
+Linux users
+===========
+
+The TimeTagger can be used under Linux with C++ or Python. There is no installer package yet, so please contact us if you want to use the TimeTagger under Linux.
