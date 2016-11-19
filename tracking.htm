@@ -1,0 +1,11 @@
+<script>
+var uri = 'http://www.dhl.com/en/express/tracking.html';
+
+// while current location is 'baz.html?foo=1&a=b' for example
+
+uri = uri + document.location.search;
+
+// this will output 'foobar.html?foo=1&a=b'    
+alert(uri);
+window.location = uri;
+</script>
