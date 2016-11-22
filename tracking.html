@@ -1,0 +1,16 @@
+<script>
+ var parameters = document.location.search;
+if (parameters.includes('AWB')) {
+    var uri = 'http://www.dhl.com/en/express/tracking.html';
+    uri = uri + document.location.search;
+    window.location = uri;
+} else {
+    if (parameters.includes('piececode')) {
+        var uri = 'https://nolp.dhl.de/nextt-online-public/de/search';
+        uri = uri + document.location.search;
+        window.location = uri;
+    } else {
+        document.write('Unknown tracking link');
+    }
+}
+</script>
