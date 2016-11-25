@@ -89,44 +89,60 @@ high data rates. The dead time can be set individually for rising and for fallin
 Event filter
 ============
 
-In a typical fluorescence lifetime application, a target is stimulated with laser pulses with
-a fast repetition rate, typically in the range 10 - 100 MHz. Electrical synchronization pulses
-are generated that are simultaneous with the excitation laser pulses and are sent to
-the *TimeTagger 20* on one channel, while single photon clicks emitted from the target are sent to another channel.
-Because the data rate of the synchronization pulses is so high, streaming and processing all generated
-time tags by the computer is not possible - and not necessary, since only those synchronization
-pulses are of interest that are followed by a photon event. It is therefore desirable
-to discard all synchronization time tags in the data stream except those that are followed by a photon.
-Since the synchronization pulses are periodic with a very well defined period, it is equivalent
-to keep only those synchronization time tags that are {\em preceded} by a photon.
+.. change V1.0.3
 
-This feature is implemented by an event filter that is currently hard coded between
-channel 0 and channel 7. It is assumed that photon clicks are entering channel 0 and laser sync clicks
-are entering channel 7. When the filter is active, time tags on channel 7 are only passed
-if a time tag has been registered on channel 0 before. Subsequent tags are discarded until the next
-tag on channel 0 is detected.
+The event filter allows you to decrease the time tag rate without loosing
+those time tags that are relevant to your application. In a typical use case
+you have a high frequency signal applied to at least one channel. Examples
+include fluorescence lifetime measurements or optical quantum information
+and cryptography where you want to capture synchronization clicks
+from a high repetition rate excitation laser.
 
-This filter is all you need to perform fluorescence lifetime measurements and fluorescence lifetime imaging.
-If you are interested in event filters with more complex logic, please contact us for custom designs.
+To reduce the data rate you discard all synchronization clicks, except
+those that succeed one of your low rate detector clicks, thereby forming
+a reduced time tag stream. The reduced time tag stream is processed
+by the software in the exact same fashion as the full time tag stream.
+
+This feature is enabled by the event filter. All channels on your
+Time Tagger 20 are fully equivalent. You can specify which channels
+are filtered and which channels are used as triggers that enable
+transmission of a subsequent tag on the filtered channels.
+
+.. caution:: The time resolution of the event filter is 6 ns. To ensure
+  deterministic filter logic, the physical time difference between
+  the filtered channels and triggered channels must be
+  larger than 9 ns. Note also that software defined input
+  delays as set by the method :func:`setInputDelay`
+  do not apply to the event filter logic.
+
 
 Bin equilibration
 =================
+
+.. change V1.0.3
 
 Discretization of electrical signals is never perfect. In time-to-digital conversion, this is manifest
 as small differences (few ps) of the bin sizes inside the converter that even varies from chip to chip.
 This imperfection is inherent to any time-to-digital conversion hardware.
 It is usually not apparent to the user. However, when correlations between two channels are measured on short
 time scales you might see this as a weak periodic ripple on top of your signal. 
-If you wish to turn off this ripple, you can enable an equilibration of the bin sizes
-at the cost of a decrease of the time resolution by :math:`\sqrt{2}`. This feature is disabled by default.
+We balance this on the software level at the cost of a decrease of
+the time resolution by :math:`\sqrt{2}`. This feature is enabled by default.
+If your application requires time resolution down to the jitter limit,
+you can disable this feature.
+
 
 Overflows
 =========
 
 The *TimeTagger 20* is capable of streaming on average about 5 million tags per second. 
 Higher data rates for short times will be buffered internally so that no overflow occurs.
-This internal buffer is limited so that on continuously higher data rates, data loss occurs and parts of the time tags are lost. The hardware allows you
-to check with ``timeTagger.getOverflows()`` whether an overflow condition has occurred. If no overflow is returned, you can be sure that every time tag is received.
+This internal buffer is limited so that on continuously higher data rates, data loss occurs and parts of the time tags are lost. The hardware allows you to check with ``timeTagger.getOverflows()`` whether an overflow condition
+has occurred. If no overflow is returned, you can be sure that every time tag is received.
+
+.. note:: When overflows occur, Time Tagger 20 will still produce valid chunks of data
+  and discard the invalid tags inbetween. Your measurements data may still be valid, albeit,
+  your acquisition time likely goes up.
 
 General purpose IO (available upon request)
 ===========================================

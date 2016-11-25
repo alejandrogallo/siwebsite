@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Revision History &mdash; Time Tagger 1.0.2 documentation</title>
+  <title>Revision History &mdash; Time Tagger 1.0.4 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="Time Tagger 1.0.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Time Tagger 1.0.4 documentation" href="../index.html"/>
         <link rel="prev" title="Application Programmer’s Interface" href="api.html"/> 
 
   
@@ -62,7 +65,7 @@
             
             
               <div class="version">
-                1.0.2
+                1.0.4
               </div>
             
           
@@ -90,6 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Revision History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v1-0-4-24-11-2016">V1.0.4 - 24.11.2016</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-2-28-07-2016">V1.0.2 - 28.07.2016</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-0">V1.0.0</a></li>
 </ul>
@@ -138,6 +142,26 @@
             
   <div class="section" id="revision-history">
 <span id="changelog"></span><h1>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v1-0-4-24-11-2016">
+<h2>V1.0.4 - 24.11.2016<a class="headerlink" href="#v1-0-4-24-11-2016" title="Permalink to this headline">¶</a></h2>
+<p>Hardware changes</p>
+<ul class="simple">
+<li>extended event filter to multiple condition and filter channels</li>
+<li>improved jitter for channel 0</li>
+<li>channel delays might be different from previous version (&lt; 1 ns)</li>
+</ul>
+<p>API changes</p>
+<ul class="simple">
+<li>new function setConditionalFilter allows for multiple filter and event channels (replaces setFilter)</li>
+<li>Scope class implements functionality to use the time tagger as a 50 GHz digitizer</li>
+<li>Coincidences class now can handle multiple coincidence groups which is much faster than multiple instances of Coincidence</li>
+<li>added examples for C++ and .net</li>
+</ul>
+<p>Software changes
+* improved GUI (Web application)</p>
+<p>Bug fixes
+* Matlab/LabVIEW does not require to have the Visual Studio Redistributable package installed</p>
+</div>
 <div class="section" id="v1-0-2-28-07-2016">
 <h2>V1.0.2 - 28.07.2016<a class="headerlink" href="#v1-0-2-28-07-2016" title="Permalink to this headline">¶</a></h2>
 <p>Major changes:</p>
@@ -199,7 +223,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.2',
+            VERSION:'1.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

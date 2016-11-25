@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Application Programmer’s Interface &mdash; Time Tagger 1.0.2 documentation</title>
+  <title>Application Programmer’s Interface &mdash; Time Tagger 1.0.4 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="Time Tagger 1.0.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Time Tagger 1.0.4 documentation" href="../index.html"/>
         <link rel="next" title="Revision History" href="changelog.html"/>
         <link rel="prev" title="Software Overview" href="software.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.0.2
+                1.0.4
               </div>
             
           
@@ -262,8 +265,10 @@ These <strong>classes</strong> are summarized below.</p>
 <dl class="docutils">
 <dt>Combiner</dt>
 <dd>Combines two channels into one</dd>
-<dt>Coincidences</dt>
+<dt>Coincidence</dt>
 <dd>Detects coincidence clicks on two or more channels within a given window</dd>
+<dt>Coincidences</dt>
+<dd>Detects coincidence clicks on multiple channel groups within a given window</dd>
 </dl>
 </div>
 <div class="section" id="measurements">
@@ -288,6 +293,8 @@ circular buffer output.</dd>
 <dt>Histogram</dt>
 <dd>A simple histogram of time differences. This can be used e.g.
 to measure lifetime.</dd>
+<dt>Scope (experimental)</dt>
+<dd>Detects the rising and falling edges on a channel to visualize the incoming signals similar to an ultrafast digitizer</dd>
 <dt>StartStop</dt>
 <dd>Accumulates a histogram of time difference between
 pairs of tags on two channels. Only the first stop tag after a start tag is
@@ -336,14 +343,32 @@ a single TimeTagger, open it and use the &#8216;getSerial&#8217; function descri
 <dt>long long getInputDelay(unsigned int channel)</dt>
 <dd>return the input delay of a channel in picoseconds</dd>
 <dt>setFilter(bool state)</dt>
-<dd>enable or disable the event filter on the FPGA board. If the filter
+<dd><div class="first deprecated">
+<p><span class="versionmodified">Deprecated since version V1.0.3: </span>use <code class="xref py py-func docutils literal"><span class="pre">setConditionalFilter()</span></code> instead.</p>
+</div>
+<p class="last">enable or disable the event filter on the FPGA board. If the filter
 is active, tags on channel 7 are only transmitted if they were
-immediately preceded by a tag on channel 0.</dd>
+immediately preceded by a tag on channel 0.</p>
+</dd>
 <dt>bool getFilter()</dt>
-<dd>returns true if the event filter on the FPGA board is enabled</dd>
+<dd><div class="first deprecated">
+<p><span class="versionmodified">Deprecated since version V1.0.3: </span>use <code class="xref py py-func docutils literal"><span class="pre">getConditionalFilter()</span></code> instead.</p>
+</div>
+<p class="last">returns true if the event filter on the FPGA board is enabled</p>
+</dd>
+<dt>setConditionalFilter(&lt;vector int&gt; trigger, &lt;vector int&gt; filter)</dt>
+<dd><div class="first versionadded">
+<p><span class="versionmodified">New in version V1.0.3: </span>activates or deactivates the event filter.</p>
+</div>
+<p class="last">Time tags on the filter channels are discarded unless they were
+preceeded by a time tag on one of the trigger channels.</p>
+</dd>
 <dt>setNormalization(bool state)</dt>
-<dd>enables or disable Gaussian normalization of the
-detection jitter. Enabled by default.</dd>
+<dd><div class="first versionadded">
+<p><span class="versionmodified">New in version V1.0.3: </span>enables or disable Gaussian normalization of the</p>
+</div>
+<p class="last">detection jitter. Enabled by default.</p>
+</dd>
 <dt>bool getNormalization()</dt>
 <dd>returns true if Gaussian normalization is enabled.</dd>
 <dt>long long setDeadTime(unsigned int channel, long long deadtime)</dt>
@@ -823,7 +848,7 @@ two-dimensional measurement, it will measure until every histogram has a seen th
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0.2',
+            VERSION:'1.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

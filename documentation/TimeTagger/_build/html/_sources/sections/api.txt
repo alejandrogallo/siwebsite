@@ -73,8 +73,10 @@ Virtual Channels
 ----------------
 Combiner
   Combines two channels into one
-Coincidences
+Coincidence
   Detects coincidence clicks on two or more channels within a given window
+Coincidences
+  Detects coincidence clicks on multiple channel groups within a given window
 
 Measurements
 ------------
@@ -97,6 +99,8 @@ Iterator
 Histogram
   A simple histogram of time differences. This can be used e.g.
   to measure lifetime.
+Scope (experimental)
+  Detects the rising and falling edges on a channel to visualize the incoming signals similar to an ultrafast digitizer
 StartStop 
   Accumulates a histogram of time difference between
   pairs of tags on two channels. Only the first stop tag after a start tag is
@@ -149,13 +153,19 @@ setInputDelay(unsigned int channel, long long delay)
 long long getInputDelay(unsigned int channel)
   return the input delay of a channel in picoseconds
 setFilter(bool state)
+  .. deprecated:: V1.0.3 use :func:`setConditionalFilter` instead.
   enable or disable the event filter on the FPGA board. If the filter
   is active, tags on channel 7 are only transmitted if they were
   immediately preceded by a tag on channel 0.
 bool getFilter()
+  .. deprecated:: V1.0.3 use :func:`getConditionalFilter` instead.
   returns true if the event filter on the FPGA board is enabled
+setConditionalFilter(<vector int> trigger, <vector int> filter)
+  .. versionadded:: V1.0.3 activates or deactivates the event filter.
+  Time tags on the filter channels are discarded unless they were
+  preceeded by a time tag on one of the trigger channels.
 setNormalization(bool state)
-  enables or disable Gaussian normalization of the
+  .. versionadded:: V1.0.3 enables or disable Gaussian normalization of the
   detection jitter. Enabled by default.
 bool getNormalization()
   returns true if Gaussian normalization is enabled.
