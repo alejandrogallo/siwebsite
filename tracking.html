@@ -10,7 +10,12 @@ if (parameters.includes('AWB')) {
         uri = uri + document.location.search;
         window.location = uri;
     } else {
-        document.write('Unknown tracking link');
+        if (parameters.includes('tracknum')) {
+            var uri = 'https://wwwapps.ups.com/tracking/tracking.cgi';
+            uri = uri + document.location.search;
+            window.location = uri;
+        } else {
+            document.write('Unknown tracking link');
     }
 }
 </script>
