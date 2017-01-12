@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; Time Tagger 1.0.4 documentation</title>
+  <title>Getting Started &mdash; Time Tagger User Manual 1.0.4 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Time Tagger 1.0.4 documentation" href="../index.html"/>
-        <link rel="next" title="Hardware" href="hardware.html"/>
-        <link rel="prev" title="Installation instructions" href="installation.html"/> 
+    <link rel="top" title="Time Tagger User Manual 1.0.4 documentation" href="../index.html"/>
+        <link rel="next" title="Installation instructions" href="installation.html"/>
+        <link rel="prev" title="Welcome to Time Tagger’s user manual!" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -53,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Time Tagger
+            <a href="../index.html" class="icon icon-home"> Time Tagger User Manual
           
 
           
@@ -88,10 +88,10 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#windows-users">Windows users</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#where-to-go-from-here">Where to go from here</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#web-application">Web Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python">Python</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dll-wrappers-for-net-e-g-matlab-labview">DLL/wrappers for .net (e.g. Matlab, LabView)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#labview">LabView</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#matlab">Matlab</a></li>
@@ -99,6 +99,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="software.html">Software Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Application Programmer&#8217;s Interface</a></li>
@@ -116,7 +117,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Time Tagger</a>
+        <a href="../index.html">Time Tagger User Manual</a>
       </nav>
 
 
@@ -149,8 +150,44 @@
 <span id="quickstart"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="windows-users">
 <h2>Windows users<a class="headerlink" href="#windows-users" title="Permalink to this headline">¶</a></h2>
+<p>The following section describes how to get started with your Time Tagger using its web application. You are encouraged to read the sections below to get started with the Time Tagger programming libraries in Python, .Net, Labview, Matlab, etc..</p>
+<div class="section" id="web-application">
+<h3>Web Application<a class="headerlink" href="#web-application" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Make sure the <em>TimeTagger 20</em> software and a Python distribution are installed and the <em>TimeTagger 20</em> connected to your computer (see previous section).</li>
+<li>Download and install the most recent <a class="reference external" href="http://swabianinstruments.com/downloads/TimeTagger-1.0.4.exe">Time Tagger software</a> from our downloads site</li>
+<li>Start the <code class="docutils literal"><span class="pre">Time</span> <span class="pre">Tagger</span> <span class="pre">Application</span></code> from the windows start menu</li>
+<li>click <code class="docutils literal"><span class="pre">start</span> <span class="pre">server</span></code> (leave the port to the default 9000)</li>
+<li>open a browser and enter <code class="docutils literal"><span class="pre">localhost:9000</span></code> in the address bar</li>
+<li>the web application should show up in your browser</li>
+</ol>
+<p>The web application allows you to work with your <em>Time Tagger</em> interactively. We will now use the Time Tagger&#8217;s internal test signal to measure a cross correlation between two channels.</p>
+<ol class="arabic simple">
+<li>click <code class="docutils literal"><span class="pre">Add</span> <span class="pre">TimeTagger</span></code>, click <code class="docutils literal"><span class="pre">create</span></code></li>
+<li>click <code class="docutils literal"><span class="pre">Add</span> <span class="pre">measurement</span></code>, look for <code class="docutils literal"><span class="pre">Correlation</span></code> and click <code class="docutils literal"><span class="pre">Add</span></code> next to it</li>
+<li>select <code class="docutils literal"><span class="pre">Rising</span> <span class="pre">edge</span> <span class="pre">0</span></code> for Channel 1 and <code class="docutils literal"><span class="pre">Rising</span> <span class="pre">edge</span> <span class="pre">1</span></code> for Channel 2</li>
+<li>set <code class="docutils literal"><span class="pre">binwidth</span></code> to 10 ps and leave <code class="docutils literal"><span class="pre">n_bins</span></code> at 1000, click <code class="docutils literal"><span class="pre">initialize</span></code></li>
+</ol>
+<p>The Time Tagger is now already acquiring data but it does not have a signal yet. We will now enable its internal test signal.</p>
+<ol class="arabic simple">
+<li>click on the settings wheel next to the tab label <code class="docutils literal"><span class="pre">Time</span> <span class="pre">Tagger</span> <span class="pre">1</span></code></li>
+<li>On the far right, check <code class="docutils literal"><span class="pre">Test</span> <span class="pre">signal</span></code> for channels <code class="docutils literal"><span class="pre">0</span></code> and <code class="docutils literal"><span class="pre">1</span></code>, click <code class="docutils literal"><span class="pre">Ok</span></code></li>
+<li>A gaussian peak should show up. You can zoom in using the controls on the plot</li>
+<li>The FWHM of the gaussian peak is 2.35 times its standard deviation</li>
+<li>The detection jitter of a single channel is sqrt(2) times the standard deviation of this two-channel measurement</li>
+</ol>
+<p>You have just verified the time resolution (detection jitter) of your Time Tagger.</p>
+<p>Where to go from here...</p>
+<p>To learn more about the <em>Time Tagger</em> web application you are encouraged to consult the following resources.</p>
+<ol class="arabic simple">
+<li>Check out the API documentation in the subsequent chapter.</li>
+<li>Check out the following sections to get started using the <em>Time Tagger</em> software library in the programming language of your choice.</li>
+<li>Study the code examples in the <code class="docutils literal"><span class="pre">API\&lt;language&gt;\examples</span></code> folders of your Time Tagger installation.</li>
+</ol>
+</div>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Make sure the <em>Time Tagger</em> software and a Python distribution are installed and your <em>Time Tagger</em> device is connected to your computer.</li>
 <li>Open a command shell and <code class="docutils literal"><span class="pre">cd</span></code> to the <code class="docutils literal"><span class="pre">.\examples\python\quickstart</span></code> folder under your <em>TimeTagger 20</em> installation directory</li>
 <li>Start an <strong>ipython</strong> shell with plotting support by entering <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--pylab</span></code></li>
 <li>Run the <strong>quickstart.py</strong> script by entering <code class="docutils literal"><span class="pre">run</span> <span class="pre">quickstart</span></code></li>
@@ -166,8 +203,7 @@ and runs some example measurements using the built in test signal generator and 
 <li>Create coarse and fine cross correlation measurements. The coarse measurement shows characteristic peaks at integer multiples of the inverse frequency of the test signal. The fine measurement demonstrates the &lt; 60 ps time resolution.</li>
 <li>Show you how to create virtual channels, use synchronization, event filter and control the input trigger level.</li>
 </ol>
-<div class="section" id="where-to-go-from-here">
-<h3>Where to go from here<a class="headerlink" href="#where-to-go-from-here" title="Permalink to this headline">¶</a></h3>
+<p>Where to go from here...</p>
 <p>To learn more about the <em>TimeTagger 20</em> you are encouraged to consult the following resources.</p>
 <ol class="arabic simple">
 <li>If you have not done so already, have a look at the Python script you just run.</li>
@@ -221,10 +257,10 @@ The requirements for Using .NET assemblies in LabVIEW can be found can be found 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="hardware.html" class="btn btn-neutral float-right" title="Hardware" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation instructions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation instructions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral" title="Welcome to Time Tagger’s user manual!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -233,7 +269,7 @@ The requirements for Using .NET assemblies in LabVIEW can be found can be found 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Swabian Instruments.
+        &copy; Copyright 2015-2017, Swabian Instruments.
 
     </p>
   </div> 
